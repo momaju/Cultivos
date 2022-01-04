@@ -1,0 +1,163 @@
+---
+title: "Cultivos até 2020-Mar"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+Análise dos cultivos de camarão da Azul Marinho, despescados até março de 2020. O dataset é a gsheet Cultivo, na pasta My Drive/Azul/Arquivo.
+
+## Carregando os Dados
+
+```{r}
+library(googlesheets4)
+library(tidyverse)
+
+# Para ler a planilha diretamente do Google Drive
+# 
+
+Cultivo <- "https://docs.google.com/spreadsheets/d/1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU/edit#gid=898648209"
+Biom <-read_sheet(Cultivo, sheet = 2)
+
+```
+
+Filtrar para os ciclos com produtividade superior a 1,000kg/ha e ordena por produtividade.
+
+```{r}
+biom.1000 <- Biom %>% 
+  filter(produtividade >= 1000) %>%
+  group_by(viveiro, ciclo) %>% # agrupa os dados 
+  summarize(densidade = round(mean(densidade), 2), gramatura = mean(g.final), 
+            produção = sum(biom.real), produtividade = mean(produtividade), 
+            sobrev = mean(sobrevive)) %>%
+  arrange(desc(produtividade))
+biom.1000
+```
+
+Cria um barplot mostrando a produtividade por cilo, usando o objeto biom que foi criado com o código anterior.
+
+```{r}
+biom.ciclo <- Biom %>% 
+    #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera antes de summarize e não é o desejado
+    group_by(ciclo) %>% # agrupa os dados 
+    summarize(densidade = round(mean(densidade), 2), gramatura = mean(g.final), 
+              produção = sum(biom.real), produtividade = mean(produtividade), 
+              sobrevive = round(mean(sobrevive),2)) %>%
+    #filter(densidade >= 5 & sobrevive >= 50) %>% # filter após summarize,
+    # sai como quqero. Emitindo esta linha, pega totos os ciclos.
+    arrange(desc(sobrevive))
+
+biom.ciclo %>% ggplot(aes(ciclo, produtividade)) + # Cria um ggplot object
+    geom_bar(stat = "identity", fill = "steelblue") +  # Defines the geometry
+    geom_hline(yintercept = 1000, linetype="dashed", color = "red") +  
+    geom_text(aes(label = sobrevive), vjust = -1, color = "tomato", size = 4) +
+    labs(title = "Produtividade por Ciclo",
+         subtitle = "Destacando a Sobrevivência Média")
+
+
+```
+
+Gráfico de linhas e pontos da produtividade por ciclo
+
+```{r}
+library(ggthemes)
+
+ Biom_sep_ano <- Biom %>%
+   ## separa a data.desp em ano, mês e dia
+    separate(data.desp, c("aaaa", "mm", "dd"), sep = "-") %>%
+   ## Cria a variável ano a partir da separação feita na linha anterior
+    mutate(ano = aaaa) %>%
+    group_by(ano,ciclo) %>% # agrupa os dados 
+    summarize(densidade = round(mean(densidade), 2), gramatura = mean(g.final), 
+              produção = sum(biom.real), produtividade = mean(produtividade),
+              sobrev = mean(sobrevive))
+    ggplot(Biom_sep_ano,aes(ciclo, produtividade)) +
+    geom_point(aes(color = ano),size = 4) + # a legenda não ficou boa.
+    geom_line() + # adiciona uma linha ao gráfico
+    scale_color_discrete(name = "Year") + # Esta linha corrige a legenda.
+    xlab("Grow out Cycle") + 
+    ylab("Productiviy in kg/ka") +
+    ggtitle("Productivity for Semi-intensive Shrimp Farming") +
+    labs(caption =  "Source: Mozart Marinho-Jr, 2020") +
+    theme_economist()
+```
+
+A mesma análise acima, agora, agrupada por viveiros.
+
+```{r}
+biom.viveiro <- Biom %>% 
+    #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera
+    #antes de summarize e não é o desejado
+    group_by(viveiro) %>% # agrupa os dados 
+    summarize(densidade = round(mean(densidade), 2), gramatura = mean(g.final), 
+              produção = sum(biom.real), produtividade = mean(produtividade), 
+              sobrevive = round(mean(sobrevive),2))
+    #filter(densidade >= 5 & sobrevive >= 50) %>% # filter após summarize,
+    # sai como quqero. Emitindo esta linha, pega totos os ciclos.
+    #arrange(sobrevive)
+    
+biom.viveiro %>% ggplot(aes(viveiro, produtividade)) + # Cria um ggplot object
+    geom_bar(stat = "identity", fill = "bisque3") +  # Defines the geometry
+    geom_hline(yintercept = 850, linetype="dashed", color = "red") +  
+    geom_text(aes(label = sobrevive), vjust = -1, color = "tomato", size = 4)+
+    xlab("Viveiro") + 
+    ylab("TProdutivide em kg/ha") +
+    ggtitle("Produtividade Média Por Viveiro") +
+    labs(subtitle = "2015 a 2020\nSobrevivência") +
+    labs(caption =  "Fonte: Mozart Marinho-Jr, 2020")
+```
+
+Maior produtividade (kg/ha) durante o ano 
+
+```{r}
+maior_produtividade <- Biom %>%
+  separate(data.desp, c("aaaa", "mm", "dd"), sep = "-") %>%
+  mutate(ano = aaaa) %>%
+  group_by(ano) %>%
+  #select(viveiro) %>%
+  summarize(maior = max(produtividade))
+  
+maior_produtividade
+```
+
+### Ordenar as variáveis por ordem alfabética
+
+```{r}
+Biom_alphabetical <- Biom %>%
+  select(sort(colnames(Biom)))
+```
+
+### Outra dica Só de exemplo: filtra uma variável por uma string
+
+```{r}
+launches %>% filter(str_detect(mission, "Apollo"))
+```
+
+
+```{r}
+# Em média, qual o melhor dia para despescar? 
+
+dia_de_despesca <- Biom %>%
+  mutate(dow = lubridate ::wday(data.desp, label = TRUE)) %>%
+  select(dow, biom.real) %>%
+  #filter(biom.real >0) %>% #no caso, este filtro não é necessário
+  group_by(dow) %>%
+  summarize(avg_biom = mean(biom.real))
+
+dia_de_despesca %>%
+  ggplot(aes(dow, avg_biom, fill = dow)) +
+  geom_bar(stat = "identity") +
+  #theme_bw() + #em caso de usar o tema, não usar scale abaixo, nem fill.
+  scale_color_brewer(palette = "Set1") +
+  labs(
+    title = "Melhor Dia Para Despescar?",
+    y = "kg Despescados (média)",
+    x = "",
+    fill = "Dia da\nSemana"
+  )
+
+```
+
+
+

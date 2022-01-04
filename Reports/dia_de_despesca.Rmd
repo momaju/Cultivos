@@ -1,0 +1,104 @@
+---
+title: "Dia de Despesca"
+author: "Mozart Marinho-Jr."
+date: "2020-07-23"
+output:
+  html_document: 
+    fig_width: 6
+    fig_height: 4.5
+  pdf_document: default
+  word_document: default
+always_allow_html: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+At the end of a production cycle you have to decide the best day to harvest your crop. This cannot be considered without taking into account factors such as: average body weight, prices, condition of the shrimp (molt stage, color, texture), cash flow, etc.
+Small farmers, like me, do not utilize any formal management tools for determining the optimal harvesting schedules for a shrimp pond. So, the decision has to take a more subjective approach.
+After you follow your decision process and conclude to harvest, it has to occur during some day of the week. This led me, out of curiosity, to the following question:  “In what day of the week did most harvests occur?” I got the answer digging through one of my harvest datasets, spanning more than 5 years. Except for the weekends, I did not expect the frequencies present much difference. Results are shown on the graph above. It is easy to spot that most of the harvests turned out to happen from wednesday through friday, peaking on friday, with over 31% of the events. 
+
+
+
+
+```{r dados, include = FALSE}
+
+## Outra alternativa para ler a aba Biomassa da planilha cultivos:
+##Neste caso, já é lida como tibble, e não é necessário utilizar 
+## Biom <- as_tibble(Biomassa) # transforma o data frame na tibble Biom.
+
+
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+library(knitr)
+library(kableExtra)
+
+Cultivo <- "https://docs.google.com/spreadsheets/d/1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU/edit#gid=898648209"
+Biom <-read_sheet(Cultivo, sheet = 2)
+
+
+```
+## Harvests by day of the week
+
+```{r, dow, include=FALSE}
+
+despesca_semana <- Biom %>%
+  mutate(dow = lubridate ::wday(data_desp, label = TRUE, locale = "English_United States.1252")) %>%
+  # locale coloca os dias da semana em inglês
+  select(dow, biom_real) %>%
+  group_by(dow) %>%
+  summarize(harvests = n())
+```
+
+```{r, graph, echo=FALSE}
+despesca_semana %>%
+  ggplot(aes(dow, harvests)) +
+  geom_bar(stat = "identity",fill = "antiquewhite4", color = "darkgoldenrod4") +
+  #scale_y_continuous(expand = c(0, 0)) +
+  theme_bw() + #em caso de usar o tema, não usar scale abaixo, nem fill.
+  #scale_fill_brewer(palette = "Set1") +
+  #scale_color_uchicago() +
+  theme(plot.caption = element_text(color = "darkgoldenrod4", face = "italic", hjust = 0),
+        plot.title = element_text(color = "darkgoldenrod4", size = 18, face = "bold"),
+        axis.text =  element_text(colour = "darkgoldenrod4", size = 10),
+        axis.ticks = element_line(size = 2),
+        axis.title.y=element_text(colour="darkgoldenrod4", size = 15),
+        panel.grid.minor = element_line(colour = "darkgoldenrod3", 
+                                        size = 0.25, linetype = 'dotdash'),
+        panel.background = element_rect(fill = "antiquewhite")) + 
+  labs(
+    title = "Shrimp Friday",
+    y = "# of Harvests",
+    x = "",
+    caption = "Data: Azul Marinho Aquicultura (2020)"
+  ) + 
+  
+  ## you can limit the axis range with either of the following lines
+  #ylim(c(0,30)) +
+  coord_cartesian(ylim = c(0, 30))
+  
+```
+
+## Percentual por Dia da Semana
+
+
+
+
+
+
+```{r, echo=FALSE}
+pct_despescas <- despesca_semana %>%
+  count(dow,harvests) %>%
+  mutate(percent = (harvests /sum(harvests) * 100))
+
+knitr::kable(
+  pct_despescas[1:7, c(1,2,4) ], 
+  caption = "Percentual por Dia da Semana."
+  ) %>% 
+  kable_styling(bootstrap_options = c("striped", full_width = TRUE, position = "left"))
+```
+
+despesca_semana <- Biom %>%
+  mutate(dow = lubridate ::wday(data_desp, label = TRUE, locale = "English_United States.1252"))

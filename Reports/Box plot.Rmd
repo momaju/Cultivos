@@ -1,0 +1,164 @@
+---
+title: "Box plot"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+Esta análise é feita spbre os dados da Azul Marinho, constantes da planilha "Cultivo.gsheet", contidos na aba Biomassa. Os dados foram exportados como Cultivo - Biomassa.csv
+
+###Preparando os dados
+
+```{r}
+Biomassa <- read.csv(file = "Cultivo - Biomassa.csv", header = T)
+
+# transformando algumas variáveis em fatores
+Biomassa$viveiro = factor(Biomassa$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
+
+Biomassa$ciclo = factor(Biomassa$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10"))
+
+Biomassa$ano = factor(Biomassa$ano)
+Biomassa$bionutri = factor(Biomassa$bionutri)
+
+str(Biomassa)
+```
+
+```{r}
+library(ggplot2)
+
+# Basic plot (sobrevivência vs bionutri)
+
+p <- ggplot(Biomassa, aes(x = bionutri, y = sobrevivência)) +
+  geom_boxplot()
+p
+```
+
+```{r}
+# Notched box plot
+ggplot(Biomassa, aes(x = bionutri, y = sobrevivência)) +
+  geom_boxplot(notch = TRUE)
+```
+
+###The function stat_summary() can be used to add mean points to a box plot :
+
+```{r}
+# Box plot with mean points
+p + stat_summary(fun.y = mean, geom = "point", size = 2, col = "red")
+```
+
+## Box plot with dots
+Dots (or points) can be added to a box plot using the functions geom_dotplot() or geom_jitter() :
+
+```{r}
+# Box plot with dot plot
+p + geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 1)
+# Outra alternativa
+p + geom_point()
+
+# Box plot with jittered points
+# 0.2 : degree of jitter in x direction
+p + geom_jitter(shape = 16, position = position_jitter(0.2))
+
+# Outra alternativa  if you want to mess with tranparency.
+p + geom_jitter() + geom_boxplot(alpha = 0.7) 
+```
+
+##Change box plot colors by groups
+###Change box plot line colors
+
+```{r}
+# change box plot lines colors by gorup
+p <- ggplot(Biomassa, aes(x = bionutri, y = sobrevivência, color = bionutri)) +
+  geom_boxplot() + geom_jitter()
+p
+```
+It is also possible to change manually box plot line colors using the functions :
+
+scale_color_manual() : to use custom colors
+scale_color_brewer() : to use color palettes from RColorBrewer package
+scale_color_grey() : to use grey color palettes
+
+```{r}
+# Use custom color pallets
+p+scale_color_manual(values=c("#999999", "#E69F00"))
+# Use brewer color palettes
+p+scale_color_brewer(palette="Dark2")
+# Use grey scale
+p + scale_color_grey() + theme_classic()
+```
+
+###Change box plot fill colors
+In the R code below, box plot fill colors are automatically controlled by the levels of bionutri:
+
+```{r}
+# Use single color
+ggplot(Biomassa, aes(x = bionutri, y = sobrevivência,)) +
+  geom_boxplot(fill = '#A4A4A4', color = "black") +
+  theme_classic()
+
+# Change box plot colors by groups
+ggplot(Biomassa, aes(x = bionutri, y = sobrevivência, fill = bionutri)) + geom_boxplot()
+```
+
+It is also possible to change manually box plot fill colors using the functions :
+
+scale_fill_manual() : to use custom colors
+scale_fill_brewer() : to use color palettes from RColorBrewer package
+scale_fill_grey() : to use grey color palettes
+
+```{r}
+# Use custom color palettes
+p+scale_fill_manual(values=c("#999999", "#E69F00"))
+# use brewer color palettes
+p+scale_fill_brewer(palette="Dark2")
+# Use grey scale
+p + scale_fill_grey() + theme_classic()
+```
+
+###Change the legend position
+
+```{r}
+p + theme(legend.position = "top")
+p + theme(legend.position = "bottom")
+p + theme(legend.position = "none") # Remove legend
+```
+
+###Box plot with multiple groups
+####Por viveiro (neste exemplo)
+
+```{r}
+# Change box plot colors by groups
+ggplot(Biomassa, aes(x = bionutri, y = sobrevivência, fill = viveiro)) +
+  geom_boxplot()
+# Change the position
+p <- ggplot(Biomassa, aes(x = bionutri, y = sobrevivência, fill = viveiro)) + geom_boxplot(position = position_dodge(1))
+
+p
+```
+
+###Customized box plots
+
+```{r}
+# Basic box plot
+ggplot(Biomassa, aes(x = bionutri, y = sobrevivência,)) +
+  geom_boxplot(fill = "gray") +
+  labs(title = "Sobrevivência por Probióticos", x = "Probiótico", y = "Sobrevivência (%)") + theme_classic()
+
+# Change  automatically color by groups
+
+bp <- ggplot(Biomassa, aes(x = bionutri, y = sobrevivência, fill = bionutri)) + geom_boxplot() +
+  labs(title = "Sobrevivência por Probióticos", x = "Probiótico", y = "Sobrevivência (%)", caption = "Azul Marinho")
+bp + theme_classic()
+bp + labs(fill = "Probiótico") # Muda o título da legenda
+```
+
+##Gráfico Final
+
+```{r}
+library(ggthemes)
+bp <- ggplot(Biomassa, aes(x = bionutri, y = sobrevivência, color = bionutri)) + geom_boxplot() + geom_jitter(position = position_jitter(0.2)) +
+  labs(title = "Sobrevivência por Probióticos\n2015-2017", x = "Probiótico", y = "Sobrevivência (%)", caption = "Azul Marinho")
+bp + theme_classic()
+bp + labs(color = "Probiótico") # Muda o título da legenda para Probiótico
+```
+

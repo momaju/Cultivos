@@ -1,0 +1,56 @@
+---
+title: "Sobrevivência/milheiro"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+ 
+Gráfico de regressão linear, correlacionando a sobrevivência (%), em função do número total de camarões mortos recolhidos das bandejas de alimentação durante todo o cultivo. São utilizados os dados constantes da aba Biomassa, arquivada na planilha Cultivo da Azul Marinho.
+
+##Importandos os dados:
+
+```{r}
+Biomassa <- read.csv(file = "Cultivo - Biomassa.csv", header = T)
+Biomassa$viveiro = factor(Biomassa$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
+
+Biomassa$ciclo = factor(Biomassa$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10", "C11"))
+
+Biomassa$ano = factor(Biomassa$ano)
+Biomassa$bionutri = factor(Biomassa$bionutri)
+```
+
+##Gráficos
+
+```{r}
+library(ggplot2)
+```
+
+###Sobrevivência x Mortalidade
+
+```{r}
+sp <- ggplot(Biomassa, aes(x = baixa.mil, y = sobrevivência)) +
+  geom_point(aes(shape=viveiro, color=viveiro), size = 3) + 
+  geom_smooth(method = lm, se = FALSE) +
+  labs(title = "Sobrevivência por ind.mortos/mil povoado", x = "Ind./milheiro", y = "Sobrevivência (%)", caption = "Azul Marinho") +
+  theme_classic()
+sp
+```
+
+###Fit regression line
+
+```{r}
+reg<-lm(sobrevivência ~ baixa.mil, data = Biomassa)
+reg
+summary(reg)
+
+coeff = coefficients(reg)
+```
+
+###Equation of the line:
+
+```{r}
+eq = paste0("y = ", round(coeff[2],1), "x + ", round(coeff[1],1))
+
+ sp + geom_text(x=0.8, y=95, label=eq, color = "navy blue", cex = 5)
+```
+

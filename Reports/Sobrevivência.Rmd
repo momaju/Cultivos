@@ -1,0 +1,62 @@
+---
+title: "Azul Marinho Sobrevivência"
+output:
+  html_notebook: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+###Introdução
+
+Este estudo mostra a correlação entre o número total de indivíduos mortos detectados nas bandejas de alimentação durante todo o cultivo de cada viveiro. Este total está indexado ao número inicial de camarões povoados, expresso em milheiros.
+Representam 12 ciclos completos de cultivo dos 4 viveiros, encerrados entre abril de 2015 e maio de 2018.
+
+### Onde estão os dados originais?
+
+Na planilha: Cultivo.gsheet, na aba "Biomassa". Cujo caminho completo é o seguinte:
+
+/Users/mozartmarinho/Google Drive/Azul/Arquivo
+
+Esta aba foi exportada como: Cultivo-Biomassa.csv
+
+###Importando e transformando algumas variáveis:
+```{r}
+Biomassa <- read.csv(file = "Cultivo - Biomassa.csv", header = T)
+Biomassa$viveiro = factor(Biomassa$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
+Biomassa$ciclo = factor(Biomassa$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10,11,12), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10", "C11","C12"))
+Biomassa$ano = factor(Biomassa$ano)
+```
+
+###Plotando o gráfico
+```{r}
+plot(Biomassa$baixa.mil, Biomassa$sobrevivência, col="blue", main="Sobrevivência", xlab = "Mortalidade/milheiro", ylab = "Sobrevivˆncia (%)", pch = 16)
+
+grid(nx = 12, ny = 12, col = "gray", lty = "dotted", lwd = par("lwd"), equilogs = TRUE)
+
+my_model <- lm(Biomassa$sobrevivência ~ Biomassa$baixa.mil)
+
+abline(my_model,col="red", lty = 5, lwd = 2)
+
+m1 <-summary(my_model)
+
+mtext(paste0("R squared: ",round(m1$r.squared,2)),adj = 0)
+
+mtext(paste0("y =",round(m1$coefficients[1],2)," + ","(", round(m1$coefficients[2],2),")","x"), adj = 1)
+```
+
+O texto da equação de o valor de R squared, podem ser colocados, também no corpo do gráfico:
+```{r}
+plot(Biomassa$baixa.mil, Biomassa$sobrevivência, col="blue", main="Sobrevivência", xlab = "Mortalidade/milheiro", ylab = "Sobrevivˆncia (%)", pch = 16)
+
+grid(nx = 12, ny = 12, col = "gray", lty = "dotted", lwd = par("lwd"), equilogs = TRUE)
+
+my_model <- lm(Biomassa$sobrevivência ~ Biomassa$baixa.mil)
+
+abline(my_model,col="red", lty = 5, lwd = 2)
+
+text(1.25,80, paste0("R squared: ",round(m1$r.squared,2)))
+
+text(1.25,85,paste0("y =",round(m1$coefficients[1],2)," + ","(", round(m1$coefficients[2],2),")","x"))
+```
+

@@ -1,0 +1,84 @@
+---
+title: "Mortalidade Semanal"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+Esta é uma análise da mortalida semanal dos viveiros de camarão da Azul Marinho. Toda quinta feira, dia de biometria é feito um levantamento da quantidade de camarões mortos encontraodos nas bandejas de alimentação de cada viveiro. São uma média de 20 bandejas por hectare. Os dados estão no arquivo Cultivo - Mortalidade.csv e referem-se a 10 ciclos de cultivo.
+
+
+```{r}
+Mortalidade = read.csv(file = "Cultivo - Mortalidade.csv", header =T)
+head(Mortalidade)
+tail(Mortalidade)
+str(Mortalidade)
+summary(Mortalidade)
+```
+
+Transformando algumas variáveis em fatores
+
+```{r}
+Mortalidade$viveiro = factor(Mortalidade$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
+
+Mortalidade$ciclo = factor(Mortalidade$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10"))
+```
+
+Para os próximos passos, transformar a variável semana em integer.
+
+```{r}
+Mortalidade$semana = as.integer(Mortalidade$semana)
+```
+
+Para verificar se deu certo.
+
+```{r}
+str(Mortalidade)
+```
+
+Gráficos com ggplot (Carregando a biblioteca ggplot2)
+
+```{r}
+library(ggplot2)
+```
+
+Mortalidade semanal por viveiro.
+
+```{r}
+m <- ggplot(data = Mortalidade, aes(x = semana, y = baixa.mil, color = viveiro)) +
+  geom_point() + geom_smooth(fill = NA) 
+m
+```
+
+Mortalidade semanal por ciclo.
+
+```{r}
+n <- ggplot(data = Mortalidade, aes(x = ciclo, y = baixa.mil, color = viveiro)) +
+  geom_point() + geom_smooth(fill = NA)
+
+n
+```
+
+
+Linear regression
+
+```{r}
+fit <- lm(baixa.mil ~ semana, data = Mortalidade)
+summary(fit)
+
+d <- ggplot(data = Mortalidade, aes(x = semana, y = baixa.mil)) +
+  geom_point(shape = 1) + geom_smooth(method = lm, se = FALSE) 
+d
+```
+
+
+Nomeando os eixos
+
+```{r}
+d <- d +
+  xlab("Semana") + #x axis title
+  ylab("Mortalidade/Milheiro") + #y axis title
+  ggtitle("Azul Marinho\nMortalidade Semanal") #plot title
+d
+```
+

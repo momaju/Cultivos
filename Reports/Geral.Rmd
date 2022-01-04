@@ -1,0 +1,123 @@
+---
+title: "Relatório Geral"
+author: "Mozart Marinho-Jr."
+date: "22/03/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Carregando os pacotes
+
+```{r}
+
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+
+```
+
+### Lendo a planilha de dados
+
+A planilha está no formato google sheets, denomina-se Biomassa e a leitura é feita utilizando-se o pacote googlesheest4, fornecendo o ID da planilha. Este pode ser obtido diretamente do URL da planilha. Veja instuções no Onenote. A "sheet"Biomassa, é a segunda da planilha. O sistema pede autenticação do usuário.
+
+```{r}
+Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+```
+
+## Produtividade
+
+Veremos agora, como tem se comportado a produtivade, ao longo dos anos,por ciclo de cultivo. Define-se a produtividade em kg/ha despescados em cada viveiro. E ciclo é uma rodada completa de despesca dos quatro viveiros da fazenda.
+
+```{r}
+Produtividade_ciclo <- Biom %>% 
+    group_by(ciclo) %>%# agrupa os dados por ciclo
+    mutate(ciclo = factor(ciclo)) %>%
+    summarize(densidade = round(mean(densidade), 2), gramatura = mean(g_final), 
+              produção = sum(biom_real), produtividade = round(mean(produtividade),2), 
+              sobrevive = round(mean(sobrevive),2)) %>%
+    #filter(densidade >= 5 & sobrevive >= 50) %>% # filter após summarize,
+    # sai como quqero. Omitindo  esta linha, pega totos os ciclos.
+    arrange(sobrevive)
+
+Produtividade_ciclo
+
+
+
+```
+
+O gráfico abaixo, mostra a produtividade média por ciclo de cultivo, destacando-se a sobrevivência média obtida ao final da despesca, bem como a linha de corte de 1.000 kg/ha.
+
+```{r}
+Produtividade_ciclo %>% 
+  ggplot(aes(ciclo, produtividade)) + # Cria um ggplot object
+  geom_bar(stat = "identity", fill = "royalblue2") +  # Defines the geometry
+  geom_hline(yintercept = 1000, linetype="dashed", color = "black") +  
+  geom_text(aes(label = sobrevive), vjust = -1, color = "black", size = 3) +
+  labs(title = "Produtividade por Ciclo",
+         #subtitle = "Destacando a Sobrevivência Média",
+         caption = "Fonte: Azul Marinho Aquicultura",
+         x = "Ciclo de Cultivo",
+         y = "Produtividade (kg/ha)")
+```
+
+Em média, temos obtido uma produtividade, por ciclo, de 930,30 kg/ha. No terceiro ciclo, obtivemos um máximo de 1.454,10 kg/ha. Já no ciclo de número 12, atingimos o mínimo de 315,40 kh/ha devido a ocorrência do vírus da mancha branca. Estabelecemos como valor de corte, 1.000 kh/ha, que nem sempre foi alcançado devido à variáveis como densidade de estocagem, mortalidade, tempo de cultivo e peso médio do camarão despescado.
+
+### Produtividade por Viveiro
+Em méida, os viveiros povoados com 14 $camarões/m^{2}$ superam a produtividade de 1000 kh/ha. Nestes o período médio de cultivo é de 80 dias para camarões de 9,23g.
+
+Quando os números de produtividade são mostrados separados para cada um dos quatro viveiros, observamos que a distribuição, em geral, segue o mesmo padrão. As produtividades maiores estão nos primeiros e nos últimos ciclos. Nos primeiros, trabalhamos com densidades maiores, e a queda, em seguida, foi resultante de uma diminuição das desnsidades e da incidência da mancha branca. Já nos últios ciclos, procuramos trabalhar com densidades mais elevadas. Houve diminuição apenas no primeiro semestre de 2020, nos primeiros meses da pandemia de Covid-19.
+
+```{r}
+
+
+
+Biom %>% 
+  ggplot(aes(ciclo, produtividade, fill = factor(viveiro))) + # Cria um ggplot object
+  geom_col() +  # Defines the geometry
+  geom_hline(yintercept = 1000, linetype="dashed", color = "black")+
+  geom_text(aes(label = densidade),
+            color = "black", 
+            size = 3, 
+            angle = 60, 
+            vjust = 0) +  
+  #geom_text(aes(label = sobrevive),
+   #         vjust = -0.25,
+   #         color = "black", size = 3,
+   #          position = position_dodge(width = 0.9),
+   #          check_overlap = TRUE) +
+  facet_wrap(~ viveiro, scales = "free_x") +
+  theme(axis.text = element_text(size = 6), legend.position = "none")+ # diminui a fonte para melhor visualização no pdf.
+  labs(title = "Produtividade por Viveiro, por Ciclo",
+       #subtitle = "Destacando a Sobrevivência Média",
+       caption = "Fonte: Azul Marinho Aquicultura",
+       x = "Ciclo de Cultivo",
+       y = "Produtividade (kg/ha)")
+
+```
+
+
+```{r}
+Produtividade_mil <- Biom %>% 
+  #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera
+  #antes de summarize e não é o desejado
+  filter(produtividade >= 1000) %>% 
+group_by(viveiro, ciclo) %>%# agrupa os dados
+  mutate(ciclo = factor(ciclo), viveiro = factor(viveiro)) %>%
+  summarize(densidade = round(mean(densidade), 2), gramatura = mean(g_final), 
+            produção = sum(biom_real), produtividade = round(mean(produtividade),2), 
+            sobrevive = round(mean(sobrevive),2), ddc = mean(ddc)) %>%
+  #filter(densidade >= 5 & sobrevive >= 50) %>% # filter após summarize,
+  # sai como quqero. Omitindo  esta linha, pega totos os ciclos.
+  arrange(sobrevive)
+
+Produtividade_mil %>% 
+  select(produtividade, densidade) %>% 
+  summarise(densidade)
+
+summary(Produtividade_mil)
+```
+
+

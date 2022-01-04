@@ -1,0 +1,80 @@
+---
+title: "Ciclos"
+output: html_notebook
+---
+##Importandos os dados:
+
+```{r}
+Biomassa <- read.csv(file = "Cultivo - Biomassa.csv", header = T)
+head(Biomassa)
+```
+
+##transformando algumas variáveis em fatores
+
+```{r}
+Biomassa$viveiro = factor(Biomassa$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
+
+Biomassa$ciclo = factor(Biomassa$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11"))
+
+Biomassa$ano = factor(Biomassa$ano)
+Biomassa$bionutri = factor(Biomassa$bionutri)
+
+str(Biomassa)
+```
+
+##Gráficos
+
+```{r}
+library(ggplot2)
+```
+
+###Produtividade por ciclo de cultivo
+
+```{r}
+p <- ggplot(data = Biomassa, aes(x = ciclo, y = produtividade, group = viveiro)) +
+  geom_line(aes(color = viveiro))+
+  geom_point(aes(color = viveiro, shape = viveiro), size =2) +
+  theme_classic()
+p
+```
+
+####Títulos
+
+```{r}
+p +labs(title="Produtividade por ciclo \n por viveiro",
+        x ="Ciclco", y = "Produtividade (kg/ha)", caption = "Azul Marinho")
+```
+
+####Mudando o tema
+Para obter mais opções de temas, carregar a library ggthemes.
+
+```{r}
+library(ggthemes)
+p + theme_calc() + labs(title="Produtividade por ciclo \n por viveiro",
+        x ="Ciclco", y = "Produtividade (kg/ha)", caption = "Azul Marinho")
+```
+
+###Mortalidade por milheiro povoado por ciclo de cultivo
+
+```{r}
+m <- ggplot(data = Biomassa, aes(x = ciclo, y = baixa.mil, group = viveiro)) +
+  geom_line(aes(color = viveiro))+
+  geom_point(aes(color = viveiro, shape = viveiro), size =2) +
+  theme_classic()
+m
+```
+
+####Títulos
+
+```{r}
+m + labs(title="Mortalidade por milheiro povoado \n por viveiro",
+        x ="Ciclco", y = "Mortalidade (ind./mil)", caption = "Azul Marinho")
+```
+
+####Mudando o tema
+
+```{r}
+m + theme_calc() + labs(title="Mortalidade por milheiro povoado \n por viveiro",
+        x ="Ciclco", y = "Mortalidade (ind./mil)", caption = "Azul Marinho")
+```
+

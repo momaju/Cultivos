@@ -1,0 +1,239 @@
+---
+title: "Fail V1and V2"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problemas com V1 e V2 no Ciclo 26
+
+Estes dois viveiros foram povaodos com um lote de Pls adquiridos da Aquacrusta em 2021-06-12. O total do lote era de 630.000 Pls, sendo 170 mil para o V1 e 460 mil para o V2.
+
+Os viveiros foram despescados nas seguintes datas:
+
+V1: 2021-09-01 com 81 ddc e peso de 6,05g. Total de 1.505kg.
+V2: 2021-08-25 com 74 dde e peso de 7,20g. Total de 3.615kg.
+Total despescado: 5.120kg.
+
+### Tempo de cultivo e peso final.
+
+Para este tempo de cultivo, o peso médio final deveria ter sido de: 
+
+V1: 9,78g
+V2: 9,29g
+
+
+
+
+```{r}
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+library(lubridate)
+
+
+Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+```
+
+
+
+```{r V1}
+V1 <- Biom %>%
+  filter(viveiro == 1) %>% 
+  mutate(ciclo = factor(ciclo)) %>% 
+  select(ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
+  
+
+
+v <- ggplot(V1,aes(ddc, g_final)) +
+  #geom_point(aes(shape = factor(viveiro)), size = 2.5) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point(aes(color = ciclo), size = 3)+
+  labs(title = "V1-Peso Médio Final (g)\nPor Dias de Cultivo",
+       y = "Peso final (g)",
+       x = "Dias de Cultivo",
+       caption = "Fonte: Azul Marinho Aquicultura") +
+  theme_minimal() +
+  theme(plot.caption = element_text(size = 7, color = "grey60"))
+
+v
+
+fit_V1 <- lm(g_final ~ ddc, data = V1)
+summary(fit_V1)
+
+lm_eqn <- function(fit_V1){
+  fit <- lm(g_final ~ ddc, data = V1);
+  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
+                   list(a = format(unname(coef(fit_V1)[1]), digits = 3),
+                        b = format(unname(coef(fit_V1)[2]), digits = 3),
+                        r2 = format(summary(fit_V1)$r.squared, digits = 3)))
+  as.character(as.expression(eq));
+}
+
+v + geom_label(x = 60, y = 14, label = lm_eqn(fit_V1), color="#654CFF", size = 6, parse = TRUE) +
+  
+  geom_text(aes(label = ciclo ), vjust = -0.5, color="#654CFF", size = 4.0) +
+  theme(legend.position = "none")
+
+```
+
+```{r}
+V2 <- Biom %>%
+  filter(viveiro == 2) %>% 
+  mutate(ciclo = factor(ciclo)) %>% 
+  select(ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
+
+
+
+v <- ggplot(V2 ,aes(ddc, g_final)) +
+  #geom_point(aes(shape = factor(viveiro)), size = 2.5) +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_point(aes(color = ciclo), size = 3)+
+  labs(title = "V2-Peso Médio Final (g)\nPor Dias de Cultivo",
+       y = "Peso final (g)",
+       x = "Dias de Cultivo",
+       caption = "Fonte: Azul Marinho Aquicultura") +
+  theme_minimal() +
+  theme(plot.caption = element_text(size = 7, color = "grey60"),
+        legend.position = "none") +
+  geom_text(aes(label = ciclo ), vjust = -0.5, color="#654CFF", size = 4.0) 
+
+v
+
+fit_V2 <- lm(g_final ~ ddc, data = V2)
+summary(fit_V2)
+
+lm_eqn <- function(fit_V2){
+  fit <- lm(g_final ~ ddc, data = V2);
+  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
+                   list(a = format(unname(coef(fit_V2)[1]), digits = 3),
+                        b = format(unname(coef(fit_V2)[2]), digits = 3),
+                        r2 = format(summary(fit_V2)$r.squared, digits = 3)))
+  as.character(as.expression(eq));
+}
+
+v + geom_label(x = 60, y = 12, label = lm_eqn(fit_V2), color="#654CFF", size = 6, parse = TRUE) 
+  
+```
+
+### Crescimento Semanal
+Para estes dois viveiros o crescimento histórico é de:
+
+```{r}
+V1_V2_crescimento <- Biom %>%
+  filter(viveiro %in% c(1,2)) %>% 
+  mutate(ciclo = factor(ciclo)) %>% 
+  select(viveiro,ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
+
+V1_V2_crescimento %>%
+  group_by(viveiro) %>% 
+  summarize(crescimento = mean(g_semana, na.rm = TRUE))
+
+```
+
+### Perda de Receita
+
+A tabela vigente, para o camarão de 10g, na época desta despesca era de R$20,00/kg.
+Para o total despescaso de 5.120kg, estimo que a queda na receita foi de R$2,60/kg. 
+O que nos dá um total de R$13.312,00 
+
+
+### Viveiros despescados em um mês específico
+
+```{r}
+despesca_set <- Biom %>% 
+  mutate(mes_despesca = month(data_desp))
+
+despesca_set %>% 
+  filter(viveiro == 1 & mes_despesca == 9) %>% 
+  summarise(crescimento = mean(g_semana, na.rm = TRUE), 
+            dias = mean(ddc, na.rm = TRUE),
+            peso_g = mean(g_final, na.rm =TRUE))
+
+despesca_set %>% 
+  filter(viveiro == 2 & mes_despesca == 9) %>% 
+  summarise(crescimento = mean(g_semana, na.rm = TRUE), 
+            dias = mean(ddc, na.rm = TRUE),
+            peso_g = mean(g_final, na.rm =TRUE))
+
+# agrupando os dois viveiros
+
+despesca_set %>% 
+  filter(viveiro %in% c(1, 2) & mes_despesca == 9) %>% 
+  group_by(viveiro) %>% 
+  summarise(cultivos = n(),
+            crescimento = mean(g_semana, na.rm = TRUE), 
+            dias = mean(ddc, na.rm = TRUE),
+            peso_g = mean(g_final, na.rm =TRUE),
+            densidade = mean(densidade, na.rm = TRUE),
+            sobreviv = mean(sobrevive, na.rm = TRUE))
+
+```
+
+### Despescas em agosto & setembro
+
+```{r}
+library(knitr)
+library(kableExtra)
+
+despesca_ago_set <- Biom %>% 
+  mutate(mes_despesca = month(data_desp)) %>%
+  filter(mes_despesca %in% c(8, 9))
+
+
+#despesca_ago_set %>% 
+#  filter(viveiro == 1) %>% 
+#  summarise(crescimento = mean(g_semana, na.rm = TRUE), 
+#            dias = mean(ddc, na.rm = TRUE),
+#            peso = mean(g_final, na.rm =TRUE))
+
+#despesca_ago_set %>% 
+#  filter(viveiro == 2) %>% 
+#  summarise(crescimento = mean(g_semana, na.rm = TRUE), 
+#            dias = mean(ddc, na.rm = TRUE),
+#            peso = mean(g_final, na.rm =TRUE))
+
+
+ despesca_ago_set %>% 
+  filter(viveiro %in% c(1, 2) & mes_despesca %in% c(8,9)) %>% 
+  group_by(viveiro, mes_despesca) %>% 
+  summarise(cultivos = n(),
+            crescimento = mean(g_semana, na.rm = TRUE), 
+            dias = mean(ddc, na.rm = TRUE),
+            peso_g = mean(g_final, na.rm =TRUE),
+            densidade = mean(densidade, na.rm = TRUE),
+            sobreviv = mean(sobrevive, na.rm = TRUE)) %>% 
+  kable(digits = 2, 
+        format.args = list(decimal.mark = ',', big.mark = ".")) %>% 
+  kable_styling(latex_options = "striped") %>% 
+   add_footnote(notation = "none", "Fonte: Azul Marinho Aquicultura")
+            
+  
+```
+
+
+
+```{r}
+despesca_mes <- Biom %>% 
+  mutate(mes_despesca = factor(month(data_desp, label = TRUE)))
+
+despesca_mes %>% 
+  ggplot(aes(mes_despesca, fill = mes_despesca)) +
+  geom_bar()+
+  geom_text(aes(label = ..count..), stat = "count", 
+            vjust = -0.5, colour = "#004586") +
+  scale_fill_viridis_d(option = "turbo") +
+  labs(title = "Número de Despescas por Meses do Ano",
+       y = "Despescas",
+       x = "Meses",
+       caption = "Azul Marinho Aquicultura") +
+  theme(legend.position = "none",
+        plot.caption = element_text(size = 8, color = "grey60", hjust = 1))
+  
+```
+
+
