@@ -563,8 +563,9 @@ V1 <- Biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
-V1 %>% summarise(median_b1 = median(biometria_1), median_db1 = median(dbiometria_1))
+V1 %>% summarise(median_b1 = median(biometria_1), median_db1 = median(dbiometria_1))V
 
+#V1
 
 
 
