@@ -167,12 +167,13 @@ m1 <- V1 %>%
   geom_boxplot(aes(color = ano_desp)) + 
   geom_point() +
   labs(title = "V1: Mortalidade Acumulada",
-       y = "Mortalidae\nAcumuladas",
+       y = "Mortalidade\nAcumulada",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura")+
   theme_minimal() +
   theme(plot.caption = element_text(size = 8, color = "grey60"),
-        legend.position = "none")
+        legend.position = "none") +
+  coord_flip()
   
 m1
 
