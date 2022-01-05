@@ -43,8 +43,8 @@ p <- ggplot(energy_costs_long) +
   
   
   ## use similar colours to the original
-  scale_fill_manual(values = c(2020 = "#088158", 2021 = "#BA2F2A")) +
-  scale_color_manual(values = c(2020 = "#088158", 2021 = "#BA2F2A")) + 
+  scale_fill_manual(values = c('2020' = "#088158", '2021' = "#BA2F2A")) +
+  scale_color_manual(values = c('2020' = "#088158", '2021' = "#BA2F2A")) + 
   
   
   ## hide the fill legend and make the color legend horizontal
@@ -64,8 +64,6 @@ p <- ggplot(energy_costs_long) +
         legend.title = element_blank(),
         legend.text= element_text(size = 12),
         panel.grid = element_blank(),
-        
-        
         ## move the color legend to an inset 
         legend.position = c(0.9, 0.9)) 
 p
