@@ -14,9 +14,9 @@ energy_costs <- read_csv("mes,2020,2021
                          jul,3101.30,7227.92
                          ago,2425.64,3960.34
                          set,0.00,2938.15
-                         out,2203.39,0.00
-                         nov,4960.46,0.00
-                         dez,1271.31,0.00")
+                         out,2203.39,3319.91
+                         nov,4960.46,1473.22
+                         dez,1271.31,3322.52")
 
 
 energy_costs_long <- tidyr::pivot_longer(energy_costs, 
