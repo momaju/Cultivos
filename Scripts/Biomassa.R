@@ -42,6 +42,8 @@ d <- Biom %>%
   
 d
 
+
+
 # Regressão-----
 
 Biom %>% 
@@ -116,7 +118,7 @@ s + theme_economist()
 # Gáfico de barras de densidade média por ano:-----
 
 Biom %>% 
-  mutate(ano_desp = factor(year(data_desp))) %>%#extrai o ano da data de despesca
+  mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
   group_by(ano_desp) %>%
   summarize(densidade_media = round(mean(densidade),2)) %>% 
   ggplot(aes(x=ano_desp, y=densidade_media, fill = ano_desp)) +
