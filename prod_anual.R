@@ -10,6 +10,7 @@ library(scales)
 Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
+
 Biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
   group_by(ano_desp) %>%
