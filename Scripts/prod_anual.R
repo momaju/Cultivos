@@ -9,12 +9,6 @@ library(scales)
 Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-
-
-
-
-
-
 Biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
   group_by(ano_desp) %>%
@@ -30,7 +24,7 @@ Biom %>%
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust=1.6, color="white", size=4.0)
 
 
-# Trocando a a pllete de cores 
+# Trocando a a pllete de cores (Viridis)
 
 Biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
@@ -45,6 +39,6 @@ Biom %>%
   expand_limits(y = 60000) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, color = "grey60")) +
-  geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust= -0.5, color="black", size=4.0) +
+  geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust= -0.5, color="red", size=4.0) +
   scale_fill_viridis_d(option = "viridis")
 
