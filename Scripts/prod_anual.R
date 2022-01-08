@@ -39,6 +39,7 @@ Biom %>%
        y = "Kg Produzidos",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura")+
+  expand_limits(y = 60000) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, color = "grey60")) +
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust= -0.5, color="black", size=4.0) +
