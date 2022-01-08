@@ -41,6 +41,6 @@ Biom %>%
        caption = "Fonte: Azul Marinho Aquicultura")+
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, color = "grey60")) +
-  geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust=1.6, color="black", size=4.0) +
+  geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust= -0.5, color="black", size=4.0) +
   scale_fill_viridis_d(option = "viridis")
 
