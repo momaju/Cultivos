@@ -24,7 +24,7 @@ Biom %>%
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust=1.6, color="white", size=4.0)
 
 
-# Trocando a a pllete de cores (Viridis)
+# Trocando a a pllete de cores (Viridis) test
 
 Biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
