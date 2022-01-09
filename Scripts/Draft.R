@@ -1,37 +1,14 @@
 
-## Primeiro passo: Abrir o arquivo 2019_Biomassa.csv em C:\Users\momaj\Google Drive\RWork\Azul Marinho, 
-## Passar a informação para um data frame Biomassa.
-
-Biomassa <- read.csv(file.choose(), header = T)
-head(Biomassa)  # confirma que os dados foram corretamente carregados.
-
-
-## Outra alternativa para ler a aba Biomassa da planilha cultivos:
-## 
-##Neste caso, já é lida como tibble, e não é necessário utilizar 
-## Biom <- as_tibble(Biomassa) # transforma o data frame na tibble Biom
-
-
-# Carregando as bibliotecas -----------------------------------------------
-
-
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
-
-
-
-
-
-# Lendo a planinha Biomassa utilizando  o pacote googlesheets4 ------------
+library(lubridate)
+library(ggrepel)
+library(scales)
 
 
 Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
-
-
-
-  
 ## Cria um barplot mostrando a produtividade por cilo, usando o objeto Biom que foi criado
 ## com o código anterior.
 
