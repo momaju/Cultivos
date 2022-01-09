@@ -1,9 +1,13 @@
 
-## Primeiro passo: Abrir o arquivo 2019_Biomassa.csv em C:\Users\momaj\Google Drive\RWork\Azul Marinho, 
-## Passar a informação para um data frame Biomassa.
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+library(lubridate)
+library(ggrepel)
+library(scales)
 
-Biomassa <- read.csv(file.choose(), header = T)
-head(Biomassa)  # confirma que os dados foram corretamente carregados.
+
+Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
 ## Outra alternativa para ler a aba Biomassa da planilha cultivos:
