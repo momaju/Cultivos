@@ -6,6 +6,7 @@ library(ggthemes)
 library(lubridate)
 library(ggrepel)
 library(scales)
+library(corrplot)
 
 
 Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
@@ -650,3 +651,22 @@ tab_options(
   summary_row.border.color = "#989898",
   table.width = "60%"
 )
+
+
+
+
+# Correlation -------------------------------------------------------------
+
+Biom_numeric <- Biom %>% 
+  na.omit() %>% 
+  select_if(is.numeric)
+
+cor(Biom_numeric[, 3:20]) %>%
+  corrplot()
+
+cor_matrix <- Biom %>% 
+  na.omit() %>% 
+  select_if(is.numeric) %>% 
+  cor()
+
+cor_matrix
