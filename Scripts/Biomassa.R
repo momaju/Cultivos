@@ -62,7 +62,9 @@ lm_eqn <- function(fit_Biom){
 
 d + geom_text(x = 1500.00, y = 4500.00, label = lm_eqn(fit_Biom), parse = TRUE)
 
+biom_mod <- lm(biom_real ~ biom_calc, data = Biom)
 
+summary(biom_mod)
 
 # O mesmo cálculo para um único viveiro.
 
@@ -670,3 +672,5 @@ cor_matrix <- Biom %>%
   cor()
 
 cor_matrix
+
+cor.test(Biom$biom_calc, Biom$biom_real, method = "pearson", use = "complete.obs")
