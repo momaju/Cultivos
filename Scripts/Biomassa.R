@@ -663,7 +663,7 @@ Biom_numeric <- Biom %>%
   na.omit() %>% 
   select_if(is.numeric)
 
-cor(Biom_numeric[, 3:20]) %>%
+cor(Biom_numeric[, 3:19]) %>%
   corrplot()
 
 cor_matrix <- Biom %>% 
@@ -674,3 +674,25 @@ cor_matrix <- Biom %>%
 cor_matrix
 
 cor.test(Biom$biom_calc, Biom$biom_real, method = "pearson", use = "complete.obs")
+
+cor.test(Biom$produtividade, Biom$sobrevive, method = "pearson", use = "complete.obs")
+
+ 
+
+# Estimativa de biomassa real ---------------------------------------------
+
+## Cálculo para toda a fazenda. Melhor usar este e acrecenta mais 15% ao resultado.
+
+fit_Biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = Biom)
+summary(fit_Biom)
+
+Biom_V2 <- Biom %>% 
+  filter(viveiro == 2)
+
+## Mesmo cálculo para o viveiro 2
+
+fit_Biom_V2 <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = Biom_V2)
+summary(fit_Biom_V2)
+
+
+
