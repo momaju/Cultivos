@@ -1,0 +1,62 @@
+---
+title: "Correlation Matrix"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+library(lubridate)
+library(ggrepel)
+library(scales)
+library(corrplot)
+
+
+Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+
+```
+## Correlation
+
+```{r}
+Biom$viveiro = factor(Biom$viveiro)
+Biom$viveiro = factor(Biom$ciclo)
+
+
+Biom_numeric <- Biom %>% 
+  rename(population="pop", harverst_kg = "biom_real", survival = "sobrevive", ind_per_sqm = "densidade",
+         kg_per_ha = "produtividade", mortality_per_K = "baixa_mil") %>% 
+  na.omit() %>% 
+  select(population, harverst_kg, survival, ind_per_sqm, kg_per_ha, mortality_per_K)
+ 
+
+Biom_numeric
+
+cor(Biom_numeric[, 1:6]) %>%
+  corrplot(method = "shade",
+           type = "lower",
+           order = "alphabet",
+           diag = FALSE,
+           addCoef.col = 'salmon',
+           tl.col = "blue",
+           title = "Matrix de Correlação \nde Produção",
+           #col = COL2('PiYG')),
+           #col = COL2('PuOr', 10)),
+           col = COL1('YlGn'))
+
+
+cor_matrix <- Biom_numeric %>% 
+  na.omit() %>% 
+  select(population, harverst_kg, survival, ind_per_sqm, kg_per_ha, mortality_per_K) %>% 
+  cor()
+
+cor_matrix
+```
+
