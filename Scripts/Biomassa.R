@@ -659,6 +659,8 @@ tab_options(
 
 # Correlation -------------------------------------------------------------
 
+library(RColorBrewer)
+
 Biom_numeric <- Biom %>% 
   na.omit() %>% 
   select_if(is.numeric)
@@ -678,6 +680,27 @@ cor.test(Biom$biom_calc, Biom$biom_real, method = "pearson", use = "complete.obs
 cor.test(Biom$produtividade, Biom$sobrevive, method = "pearson", use = "complete.obs")
 
  
+cor(Biom_numeric[, 1:9]) %>%
+  corrplot(method = "color",
+           type = "lower",
+           order = "alphabet",
+           diag = FALSE,
+           addCoef.col = 'black',
+           tl.col = "blue",
+           tl.srt = 45,
+           number.cex = 0.9,
+           addgrid.col = "black",
+           title = "Matrix de Correlação \nde Produção de Camarão Marinho",
+           mar=c(0,0,5,0),
+           #col = COL2('PiYG')),
+           #col = COL2('PuOr', 10)),
+           #col = COL1('YlGn'),
+           #col = brewer.pal(n=8, name="Paired"),
+           col = brewer.pal(n=8, name="RdYlBu"))
+
+
+
+
 
 # Estimativa de biomassa real ---------------------------------------------
 
@@ -687,6 +710,7 @@ fit_Biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data =
 summary(fit_Biom)
 
 Biom_V2 <- Biom %>% 
+  na.omit() %>% 
   filter(viveiro == 2)
 
 ## Mesmo cálculo para o viveiro 2
