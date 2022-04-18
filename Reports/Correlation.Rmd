@@ -13,9 +13,7 @@ knitr::opts_chunk$set(
   )
 ```
 
-
-
-```{r, include=FALSE}
+```{r, libraries, include=FALSE}
 
 library(tidyverse)
 library(googlesheets4)
@@ -25,6 +23,7 @@ library(ggrepel)
 library(scales)
 library(corrplot)
 library(RColorBrewer)
+library(kableExtra)
 
 
 
@@ -32,10 +31,9 @@ Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 ```
 
-```{r, include=FALSE}
+```{r, numericas, include=FALSE}
 Biom$viveiro = factor(Biom$viveiro)
 Biom$viveiro = factor(Biom$ciclo)
-library(RColorBrewer)
 
 
 Biom_numeric <- Biom %>%
@@ -53,36 +51,63 @@ Biom_numeric
 
 ```
 
+Inúmeras variáveis estão presentes em sistemas aquáticos, e viveiros para produção aquícola não fogem à esta regra. No nosso caso trataremos de produção de camarão marinho. Selecionamos algumas variáveis com maior impacto sobre a rentabilidade do cultivo e apresentamos o grau de correlação entre elas.
 
-Inúmeras variáveis estão presentes em sistemas aquáticos, e viveiros para produção aquícola não fogem à esta regra. No nosso caso trataremos de produção de camarão marinho. Selecionamos algumas variáveis com maior impacto sobre a rentabilidade do cultivo e apresentamos o grau de  correlação entre elas. O objetivo é de determinar seu grau de associação (negativa, positiva ou mesmo nenhuma), implicando ou não em casualidade entre elas. A idéia é encorajar análises e decisões com base em dados que devem estar disponíves em um empreendimento minimamente organizado. 
+O objetivo é de determinar seu grau de associação (negativa, positiva ou mesmo nenhuma), implicando ou não em casualidade entre elas. A idéia é encorajar análises e decisões com base em dados que devem estar disponíves em um empreendimento minimamente organizado.
 
-Sabemos que nem sempre correlação implica em uma relação causa-efeito. Significância estatística e a importância prática do que occorre no dia a dia são coisas diferentes. Na ausência de um tratamento estatístico mais rigoroso, fica por conta da experiência e do bom senso do produtor estabelecer uma diferença mais clara quando há, simplesmente, uma correlação e quando ocorre, de fato, causa e efeito. Poderemos assim assegurar tomadas de decisões mais acertadas. 
+Sabemos que nem sempre correlação implica em uma relação causa-efeito. Significância estatística e a importância prática do que occorre no dia a dia são coisas diferentes. Na ausência de um tratamento estatístico mais rigoroso, fica por conta da experiência e do bom senso do produtor estabelecer uma diferença mais clara quando há, simplesmente, uma correlação e quando ocorre, de fato, causa e efeito. Poderemos assim assegurar tomadas de decisões mais acertadas.
 
 Pode ocorrer que haja significância estatística para um coeficiente de correlação, quando, em realidade, esta correlação nem exista. São as chamadas correlações espúrias, ou seja a correlação ocorre devido a uma terceira variável que não foi levada em conta. Pode haver correlação sem qua haja causa. A correlação é apaenas uma indicação que as variáveis andam juntas de um certo modo.
 
-Os coeficientes apresentados apenas mostram a proximidade dos pontos a uma linha reta, sem contudo defininir a inclinação desta linha. A utilidade das correlações está no fato de que é possível prever o valor de uma variável através da observação ou  modificação de outra.
+Os coeficientes apresentados apenas mostram a proximidade dos pontos a uma linha reta, sem contudo defininir a inclinação desta linha. A utilidade das correlações está no fato de que é possível prever o valor de uma variável através da observação ou modificação de outra.
 
 Os dados apresentados são resultado de 107 cultivos em diversos viveiros, realizados entre os anos de 2015 e 2021. Os viveiros foram povoados, em sua maioria, com 12 camarões/m^2^, possuem área máxima de 4,00 ha e não houve utilização de aeração suplementar.
 
-Para obtenção da matriz de correlação, separamos as seguintes variáveis:
+Para obtenção da matriz de correlação, selecionamos as seguintes variáveis:
 
-|Variável|Definição|
-|:------   |:--------|
-|end_g    |Peso final na despesca (g)|
-|fcr    |Taxa de conversão alimentar|
-|g_wk|Crescimento semanal (g)|
-|harverst_kg    |Total produzido (kg)|
-|ind_per_sqm    |Camarões/m^2^|
-|population   |Camarões povoados (número)|
-|start_g    |Peso na primeira biometria (g)
-|survival   |Sobrevivência (%)|
-|doc    |Dias de cultivo|
+| Variável    | Definição                      |
+|:------------|:-------------------------------|
+| end_g       | Peso final na despesca (g)     |
+| fcr         | Taxa de conversão alimentar    |
+| g_wk        | Crescimento semanal (g)        |
+| harverst_kg | Total produzido (kg)           |
+| ind_per_sqm | Camarões/m^2^                  |
+| population  | Camarões povoados (número)     |
+| start_g     | Peso na primeira biometria (g) |
+| survival    | Sobrevivência (%)              |
+| doc         | Tempo de cultivo (dias)        |
 
-O correlograma abaixo mostra de forma gráfica a matriz de correlção entre estas variáveis. Além de exibir os coeficientes de correlação o tamanho dos círculos reprentam a grandeza destes e os codifica em uma gradação de cores os mais negativos em vermelho e os mais positivos em azul.
+```{r, slected, echo=TRUE}
 
-```{r}
+
+select_var <- tibble(
+ Variável = c("end_g", "fcr", "g_wk", "harverst_kg", "ind_per_sqm","population", "start_g", "survival", "doc"),
+ 
+ Definição = c("Peso final na despesca (g)", "Taxa de conversão alimentar", "Crescimento semanal (g)", "Total produzido (kg)", "Camarões/$m^2$", "Camarões povoados (número)", "Peso na primeira biometria (g)", "Sobrevivência (%)", "Tempo de cultivo (dias)")
+)
+
+select_var
+
+```
+
+```{r, table, echo=FALSE, results='markup'}
+select_var %>% 
+  kbl() %>% 
+  kable_classic(
+                  bootstrap_options = "striped",
+                  latex_options = "striped",
+                  position = "center",
+                  full_width = F,
+                  stripe_color = NULL,
+                  font_size = NULL) 
+```
+
+O correlograma abaixo mostra de forma gráfica a matriz de correlção entre estas variáveis. Além de exibir os coeficientes de correlação o tamanho dos círculos reprentam a grandeza destes e os codifica em uma gradação de cores com os mais negativos em vermelho e os mais positivos em azul.
+
+```{r, correlation}
 cor(Biom_numeric[, 1:10]) %>%
   corrplot(method = "circle",
+           bg = "#fefefe",
            type = "lower",
            order = "alphabet",
            diag = FALSE,
@@ -100,30 +125,24 @@ cor(Biom_numeric[, 1:10]) %>%
            #col = brewer.pal(n=8, name="Paired"),
            col = brewer.pal(n=8, name="RdYlBu"))
 ```
-É possível observar que as correlações ocorrem de acordo com o que se esperaria delas. Evidente que não é possivel um generalizar para cultivos que sigam diferentes protocolos de operação. Valeria a pena avaliar fazendas com diferentes tamanhos de vivieiros, utilização de aeração e probióticos, bem como com densidades de estocagem mais elevadas. 
 
-As correlações positivas mais fortes foram entre: 
+É possível observar que as correlações ocorrem de acordo com o que se esperaria delas. Evidente que não é possivel um generalizar para cultivos que sigam diferentes protocolos de operação. Valeria a pena avaliar fazendas com diferentes tamanhos de vivieiros, utilização de aeração e probióticos, bem como com densidades de estocagem mais elevadas.
 
-  - nível de povoamento e kg produzidos.
-  - produção e produtividade.
-  - densidade de estocagem e produtividade.
-  - tempo de cultivo e produtividade.
-  - sobrevivência e produtividade.
-  
-  Já as correlações  mais negativas foram menos intensas:
+As correlações positivas mais fortes foram entre:
 
-  - sobrevivência e taxa de conversão alimentar. 
-  - crescimento semanal e densidade de estocagem, 
-  - sobrevivência e crescimento semanal.
+-   nível de povoamento e kg produzidos.
+-   produção e produtividade.
+-   densidade de estocagem e produtividade.
+-   tempo de cultivo e produtividade.
+-   sobrevivência e produtividade.
 
-As correlações mais próximas a zero, ou seja, sem correlação foram entre taxa de converão e peso final (g) e nível de povoamento e sobrevivência. As demais, podem ser aferidas diretamente da figura acima.
+Já as correlações mais negativas foram menos intensas:
 
+-   sobrevivência e taxa de conversão alimentar.
+-   crescimento semanal e densidade de estocagem,
+-   sobrevivência e crescimento semanal.
 
-
-
-
-
-
+As correlações mais próximas a zero, ou seja, sem correlação foram entre taxa de converão e peso final (g) e nível de povoamento e sobrevivência. As demais, podem ser aferidas diretamente do gráfico.
 
 ```{r, include=FALSE}
 
@@ -135,7 +154,7 @@ cor(Biom_numeric[, 1:9]) %>%
            order = "alphabet",
            diag = FALSE,
            addCoef.col = 'black',
-           tl.col = "blue",
+           tl.col = "black",
            tl.cex = 0.9,
            tl.srt = 45,
            number.cex = 0.9,
@@ -192,8 +211,7 @@ cor(Biom_numeric[, 1:9]) %>%
 
 ```
 
-
-```{r, include=FALSE}
+```{r, cor_matrix, include=FALSE}
 library(knitr)
 
 ## Matiz de correlação
@@ -210,17 +228,11 @@ kable(cor_matrix,
       format.args = list(decimal.mark = ","))
 ```
 
-
-
-
-
-```{r, include=FALSE}
+```{r, regression, include=FALSE}
 ## Regressão
 
 fit_Biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = Biom)
 summary(fit_Biom)
 ```
 
-
-![Principais Correlações](Correl.png)
-
+![Principais Correlações](correl.png)
