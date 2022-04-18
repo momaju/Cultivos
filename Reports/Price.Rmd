@@ -1,0 +1,57 @@
+---
+title: "Price"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(googlesheets4)
+library(ggthemes)
+```
+
+```{r}
+price <- read_sheet("https://docs.google.com/spreadsheets/d/1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU/edit#gid=1319412488",
+                    sheet = 6)
+
+price_selected <- price %>% 
+  rename(corrigido ='C10G_Fev_2022') %>% 
+  select(Data, corrigido) %>% 
+  mutate(ano = year(Data),
+         mês = month(Data),
+         dia = day(Data))
+```
+
+
+```{r}
+price_selected %>% 
+  group_by(ano) %>% 
+  summarise(corrigido = mean(corrigido)) %>% 
+  ggplot(aes(ano, corrigido)) +
+  geom_point(size = 4, color = "#EE0000") +
+  #geom_line(size = 1)+
+  geom_smooth(se = FALSE, color = "#EE0000") +
+  scale_color_brewer(palette = "Set1") +
+  #scale_color_manual(values = c("#E7B800","#FC4E07")) +
+  #theme_fivethirtyeight()
+  theme_tufte() +
+  #theme_classic()
+  labs(title = "Preços Médios Anuais Ofertados ao Produtor Para Camarão de 10g",
+       subtitle = "Valores em Reais, corrigidos pela inflação até fev/2022",
+       y = "Valor (R$/kg)",
+       x = "Ano",
+       caption = "Mozart Marinho-Jr") +
+  theme(plot.caption = element_text(color = "gray60", size = 8),
+        axis.text = element_text(colour = "#EE0000", size = 10),
+        panel.grid.major = element_line(colour = "grey50"),
+        axis.title.y = element_text(size = 12),
+        axis.title.x = element_text(size = 12))
+
+```
+
+
