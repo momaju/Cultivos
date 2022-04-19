@@ -63,7 +63,7 @@ price_selected %>%
   theme_tufte() +
   #theme_classic()
   labs(title = "Preços Médios Anuais Ofertados ao Produtor Para Camarão de 10g",
-       subtitle = "Valores em Reais, corrigidos pela inflação até fev/2022",
+       subtitle = "Valores em Reais (R$/kg), corrigidos pela inflação até fev/2022",
        y = "Valor (R$/kg)",
        x = "Ano",
        caption = "Mozart Marinho-Jr") +
