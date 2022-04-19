@@ -10,6 +10,7 @@ Biom %>%
   select(viveiro, biometria_1) %>% 
   ggplot(aes(factor(viveiro), biometria_1))+
   geom_boxplot()+
+  geom_hline(yintercept = mean(Biom$biometria_1), colour = "red") + 
   labs(title = "Primeira Biometria",
   subtitle =  "Peso em g",
   y = "Peso na Primeira Biometria",
