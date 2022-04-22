@@ -15,7 +15,9 @@ Biom %>%
   summarize(biom_real = round(sum(biom_real),2)) %>% 
   ggplot(aes(x=ano_desp, y=biom_real, fill = ano_desp)) +
   geom_bar(stat="identity", width = 0.5,show.legend = FALSE) +
-  scale_y_continuous(breaks = seq(0, 65000, by = 10000))+
+  scale_y_continuous(breaks = seq(0, 65000, by = 10000),
+                     labels = label_number(big.mark = ".",
+                                           decimal.mark = ","))+
   scale_fill_brewer(palette = "Dark2")+
   labs(title = "Produção Anual (kg)",
        y = "Kg Produzidos",
