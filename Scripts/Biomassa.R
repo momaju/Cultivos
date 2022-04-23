@@ -47,9 +47,20 @@ d
 
 # Regressão-----
 
-Biom %>% 
-fit_Biom <- lm(biom_real ~ biom_calc)
+fit_Biom <- Biom %>% 
+  lm(biom_real ~ biom_calc, data = .)
+
+fit_Biom
+
 summary(fit_Biom)
+
+attributes(fit_Biom)
+fit_Biom$residuals
+hist(fit_Biom$residuals)
+
+
+
+
 
 lm_eqn <- function(fit_Biom){
   fit <- lm(biom_real ~ biom_calc, data = Biom);
