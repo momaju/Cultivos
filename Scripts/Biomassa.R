@@ -59,6 +59,16 @@ fit_Biom$residuals
 hist(fit_Biom$residuals)
 
 
+# Regression Prediction ---------------------------------------------------
+
+## Predicting for 2000 kg, 3000 kg and 5000 kg
+
+
+Biom %>%
+  lm(biom_real ~ biom_calc, data = .) %>% 
+  predict(data.frame(biom_calc = c(2000, 3000, 5000))) %>% 
+  round(2)
+  
 
 
 
@@ -393,7 +403,7 @@ Biom %>%
   theme(plot.caption = element_text(size = 8, color = "grey60")) +
   geom_text(aes(label = fallow, ), vjust = -0.5, color="#996035", size = 4.0) +
   scale_fill_viridis_d(option = "viridis") +
-  facet_wrap(~viveiro)
+  facet_wrap(~viveiro, scales = "free")
 
 Biom %>% 
   group_by(viveiro) %>% 
