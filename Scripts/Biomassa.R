@@ -9,27 +9,27 @@ library(scales)
 library(corrplot)
 
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
 
 # transformando algumas variáveis em fatores
 
-#Biom$viveiro = factor(Biom$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
+#biom$viveiro = factor(biom$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
 
-#Biom$ciclo = factor(Biom$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11"))
+#biom$ciclo = factor(biom$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11"))
 
-#Biom$bionutri = factor(Biom$bionutri)
+#biom$bionutri = factor(biom$bionutri)
 
-str(Biom)
+str(biom)
 
-summary(Biom)
-
-
+summary(biom)
 
 
 
-d <- Biom %>% 
+
+
+d <- biom %>% 
   ggplot(aes(biom_calc, biom_real)) +
   geom_point(aes(shape = factor(viveiro)), size = 2.5) +
   geom_smooth(method = lm, se = FALSE) +
@@ -47,16 +47,16 @@ d
 
 # Regressão-----
 
-fit_Biom <- Biom %>% 
+fit_biom <- biom %>% 
   lm(biom_real ~ biom_calc, data = .)
 
-fit_Biom
+fit_biom
 
-summary(fit_Biom)
+summary(fit_biom)
 
-attributes(fit_Biom)
-fit_Biom$residuals
-hist(fit_Biom$residuals)
+attributes(fit_biom)
+fit_biom$residuals
+hist(fit_biom$residuals)
 
 
 # Regression Prediction ---------------------------------------------------
@@ -64,7 +64,7 @@ hist(fit_Biom$residuals)
 ## Predicting for 2000 kg, 3000 kg and 5000 kg
 
 
-Biom %>%
+biom %>%
   lm(biom_real ~ biom_calc, data = .) %>% 
   predict(data.frame(biom_calc = c(2000, 3000, 5000))) %>% 
   round(2)
@@ -72,24 +72,24 @@ Biom %>%
 
 
 
-lm_eqn <- function(fit_Biom){
-  fit <- lm(biom_real ~ biom_calc, data = Biom);
+lm_eqn <- function(fit_biom){
+  fit <- lm(biom_real ~ biom_calc, data = biom);
   eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
-                   list(a = format(unname(coef(fit_Biom)[1]), digits = 3),
-                        b = format(unname(coef(fit_Biom)[2]), digits = 3),
-                        r2 = format(summary(fit_Biom)$r.squared, digits = 3)))
+                   list(a = format(unname(coef(fit_biom)[1]), digits = 3),
+                        b = format(unname(coef(fit_biom)[2]), digits = 3),
+                        r2 = format(summary(fit_biom)$r.squared, digits = 3)))
   as.character(as.expression(eq));
 }
 
-d + geom_text(x = 1500.00, y = 4500.00, label = lm_eqn(fit_Biom), parse = TRUE)
+d + geom_text(x = 1500.00, y = 4500.00, label = lm_eqn(fit_biom), parse = TRUE)
 
-biom_mod <- lm(biom_real ~ biom_calc, data = Biom)
+biom_mod <- lm(biom_real ~ biom_calc, data = biom)
 
 summary(biom_mod)
 
 # O mesmo cálculo para um único viveiro.
 
-V4 <- Biom %>% 
+V4 <- biom %>% 
   filter(viveiro == 4) 
 
 V4
@@ -141,7 +141,7 @@ s + theme_economist()
 
 # Gáfico de barras de densidade média por ano:-----
 
-Biom %>% 
+biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
   group_by(ano_desp) %>%
   summarize(densidade_media = round(mean(densidade),2)) %>% 
@@ -157,7 +157,7 @@ Biom %>%
 
 # Gáfico de barras de produtividade média por ano:----
 
-Biom %>%
+biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
   group_by(ano_desp) %>%
   summarize(produtividade_media = round(mean(produtividade),2)) %>% 
@@ -178,7 +178,7 @@ Biom %>%
 # a tottalidae de indivíduos encontrados mortos, nas bandejas de alimentação 
 # durante todo o cultivo
 
-V1 <- Biom %>% 
+V1 <- biom %>% 
   filter(viveiro == 1) %>% 
   mutate(ano_desp = factor(year(data_desp)))
 V1
@@ -222,7 +222,7 @@ m1 + theme(
 # Código para várias correlações. Basta substituir as variáveis x e y para 
 # obter-se a correlação desejada.
 
-Biom %>% 
+biom %>% 
 ggplot(aes(x = g_final, y = sobrevive, color = factor(viveiro),label =factor(ciclo))) + 
   geom_text_repel(max.overlaps = 100)+ #ficou meio feio. Ajustei com ggrepel
   geom_point(shape =1, size = 2) + 
@@ -236,7 +236,7 @@ ggplot(aes(x = g_final, y = sobrevive, color = factor(viveiro),label =factor(cic
 theme(plot.caption = element_text(size = 8, color = "grey60"))
       
 
-Biom %>% 
+biom %>% 
   mutate(viveiro = factor(viveiro)) %>% 
   ggplot(aes(x = densidade, y = produtividade, color = viveiro, label = viveiro)) +
   geom_text_repel(max.overlaps = 100)+
@@ -253,15 +253,15 @@ Biom %>%
 
 # Regressões
 
-fit <- lm(produtividade ~ densidade, data=Biom)
+fit <- lm(produtividade ~ densidade, data=biom)
 summary(fit) # show results
 
-fit <- lm(g_semana ~ densidade, data=Biom)
+fit <- lm(g_semana ~ densidade, data=biom)
 summary(fit) # show results
 
 # Gráfico sem agrupar por viveiro:
 
-sp <- Biom %>% 
+sp <- biom %>% 
   ggplot(aes(x = densidade, y = g_semana)) + 
   geom_point(shape =1, size = 2) + 
   geom_smooth(method = lm, se = F)
@@ -296,7 +296,7 @@ sp + annotate("text", x = 20.00, y = 1.20, label = equation(lm), parse = TRUE, c
 
 
 
-V4_fallow <- Biom %>% 
+V4_fallow <- biom %>% 
   filter(viveiro == 4) %>% 
   mutate(ciclo = factor(ciclo))
 
@@ -317,7 +317,7 @@ V4_fallow %>% ggplot(aes(fallow, fct_reorder(ciclo, fallow),fill = ciclo)) +
 
   
 
-V4_fallow <- Biom %>% 
+V4_fallow <- biom %>% 
   filter(viveiro == 4) %>% 
   mutate(ciclo = factor(ciclo))
 
@@ -333,7 +333,7 @@ V4_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
   geom_text(aes(label = fallow, ), vjust = -0.5, color="#996035", size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
-V3_fallow <- Biom %>% 
+V3_fallow <- biom %>% 
   filter(viveiro == 3) %>% 
   mutate(ciclo = factor(ciclo))
 
@@ -349,7 +349,7 @@ V3_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
   geom_text(aes(label = fallow, ), vjust = -0.5, color="#996035", size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
-V2_fallow <- Biom %>% 
+V2_fallow <- biom %>% 
   filter(viveiro == 2) %>% 
   mutate(ciclo = factor(ciclo))
 
@@ -366,7 +366,7 @@ V2_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
   scale_fill_viridis_d(option = "viridis")
 
 
-V1_fallow <- Biom %>% 
+V1_fallow <- biom %>% 
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo))
 
@@ -389,7 +389,7 @@ V1_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
 
 
 
-Biom %>% 
+biom %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   group_by(viveiro) %>% 
   ggplot(aes(ciclo, fallow, fill = ciclo)) + 
@@ -405,7 +405,7 @@ Biom %>%
   scale_fill_viridis_d(option = "viridis") +
   facet_wrap(~viveiro, scales = "free")
 
-Biom %>% 
+biom %>% 
   group_by(viveiro) %>% 
   summarize(med_dias_parados = mean(fallow, na.rm = TRUE)) 
 
@@ -415,7 +415,7 @@ Biom %>%
 
 
 
-V1 <- Biom %>%
+V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
@@ -454,7 +454,7 @@ v + geom_label(x = 60, y = 14, label = lm_eqn(fit_V1), color="#654CFF", size = 6
 
 
 
-V2 <- Biom %>%
+V2 <- biom %>%
   filter(viveiro == 2) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
@@ -494,7 +494,7 @@ v + geom_label(x = 60, y = 12, label = lm_eqn(fit_V2), color="#654CFF", size = 6
 # Crescimento Semanal -----------------------------------------------------
 
  
-V1_V2_crescimento <- Biom %>%
+V1_V2_crescimento <- biom %>%
   filter(viveiro %in% c(1,2)) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(viveiro,ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
@@ -506,7 +506,7 @@ V1_V2_crescimento %>%
 
 # Viveios despescados em agosto & setembro -----------------------------------------
 
-despesca_ago_set <- Biom %>% 
+despesca_ago_set <- biom %>% 
   mutate(mes_despesca = month(data_desp)) %>% 
   filter(mes_despesca %in% c(8, 9))
 
@@ -534,7 +534,7 @@ despesca_ago_set %>%
             densidade = mean(densidade, na.rm = TRUE),
             sobreviv = mean(sobrevive, na.rm = TRUE))
 
-despesca_mes <- Biom %>% 
+despesca_mes <- biom %>% 
   mutate(mes_despesca = factor(month(data_desp, label = TRUE)))
 
 despesca_mes %>% 
@@ -553,7 +553,7 @@ despesca_mes %>%
 despesca_mes %>% 
   count(mes_despesca, sort = TRUE)
 
-Biom %>% 
+biom %>% 
   filter(densidade >= 11.99 & densidade <= 12.01) %>% 
   select(viveiro, ciclo, g_semana, sobrevive, ddc, g_final) %>% 
   summarize(cultivos = n(), peso_medio = mean(g_final), 
@@ -561,7 +561,7 @@ Biom %>%
 
 ## Produção acumulada em kg para cada viveiro.
 
-Biom %>% 
+biom %>% 
   mutate(viveiro = factor(viveiro)) %>% 
   count(viveiro, wt = biom_real) %>% 
   ggplot(aes(viveiro,n, fill = viveiro)) +
@@ -571,7 +571,7 @@ Biom %>%
  
 
 
-Biom %>%
+biom %>%
   mutate(ano_despesca = factor(year(data_desp))) %>% 
   #filter(!is.na(densidade)) %>% 
   group_by(ano_despesca) %>% 
@@ -586,7 +586,7 @@ Biom %>%
   expand_limits(y = 0) +
   scale_y_continuous(labels = comma_format())
 
-V1 <- Biom %>%
+V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
@@ -596,7 +596,7 @@ V1 %>% summarise(median_b1 = median(biometria_1), median_db1 = median(dbiometria
 
 
 
-V1 <- Biom %>%
+V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
@@ -606,7 +606,7 @@ V1 %>% summarise(min_b1 = min(biometria_1), min_db1 = min(dbiometria_1))
 summary(V1$biometria_1)
 
 
-V1 <- Biom %>%
+V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
@@ -614,7 +614,7 @@ V1 %>% summarise(max_b1 = max(biometria_1), min_db1 = min(dbiometria_1))
 
 
 
-V1 <- Biom %>%
+V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
   select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
@@ -623,7 +623,7 @@ V1 %>% summarise(median_b1 = median(biometria_1), median_db1 = median(dbiometria
 
 # Sobrev. por ano ---------------------------------------------------------
 
-sobrevive_ano <- Biom %>%  
+sobrevive_ano <- biom %>%  
   mutate(ano_desp = factor(year(data_desp))) %>% 
   group_by(ano_desp) %>% 
   summarize(sobrevive = median(sobrevive))
@@ -643,7 +643,7 @@ sobrevive_ano %>%
 
 # tables ------------------------------------------------------------------
 
-Biom %>% gt() %>% 
+biom %>% gt() %>% 
 tab_options(
   table.font.color = "#81B1D6",
   column_labels.background.color = "#4B974F",
@@ -682,26 +682,26 @@ tab_options(
 
 library(RColorBrewer)
 
-Biom_numeric <- Biom %>% 
+biom_numeric <- biom %>% 
   na.omit() %>% 
   select_if(is.numeric)
 
-cor(Biom_numeric[, 3:19]) %>%
+cor(biom_numeric[, 3:19]) %>%
   corrplot()
 
-cor_matrix <- Biom %>% 
+cor_matrix <- biom %>% 
   na.omit() %>% 
   select_if(is.numeric) %>% 
   cor()
 
 cor_matrix
 
-cor.test(Biom$biom_calc, Biom$biom_real, method = "pearson", use = "complete.obs")
+cor.test(biom$biom_calc, biom$biom_real, method = "pearson", use = "complete.obs")
 
-cor.test(Biom$produtividade, Biom$sobrevive, method = "pearson", use = "complete.obs")
+cor.test(biom$produtividade, biom$sobrevive, method = "pearson", use = "complete.obs")
 
  
-cor(Biom_numeric[, 1:9]) %>%
+cor(biom_numeric[, 1:9]) %>%
   corrplot(method = "color",
            type = "lower",
            order = "alphabet",
@@ -727,17 +727,17 @@ cor(Biom_numeric[, 1:9]) %>%
 
 ## Cálculo para toda a fazenda. Melhor usar este e acrecenta mais 15% ao resultado.
 
-fit_Biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = Biom)
-summary(fit_Biom)
+fit_biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = biom)
+summary(fit_biom)
 
-Biom_V2 <- Biom %>% 
+biom_V2 <- biom %>% 
   na.omit() %>% 
   filter(viveiro == 2)
 
 ## Mesmo cálculo para o viveiro 2
 
-fit_Biom_V2 <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = Biom_V2)
-summary(fit_Biom_V2)
+fit_biom_V2 <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = biom_V2)
+summary(fit_biom_V2)
 
 
 
