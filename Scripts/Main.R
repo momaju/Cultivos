@@ -6,6 +6,7 @@ library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
 library(googledrive)
+library(scales)
 
 
 # Lendo a planilha de dados -----------------------------------------------
