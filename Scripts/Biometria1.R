@@ -1,14 +1,14 @@
 
-# Boxplot Primeira Biometria ----------------------------------------------
+# Boxplot Primeira biometria ----------------------------------------------
 
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-Biom %>% 
+biom %>% 
   mutate(viveiro = factor(viveiro),
          ciclo = factor(ciclo)) %>% 
   ggplot(aes(x=viveiro, y=biometria_1, color = viveiro)) +
