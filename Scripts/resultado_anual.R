@@ -5,10 +5,10 @@ library(lubridate)
 library(ggrepel)
 library(scales)
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-Biom %>% 
+biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
   group_by(ano_desp) %>%
   summarize(biom_real = round(sum(biom_real),2)) %>% 
@@ -25,7 +25,7 @@ Biom %>%
 
 # Trocando a a palete de cores (Viridis) test
 
-Biom %>% 
+biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
   group_by(ano_desp) %>%
   summarize(biom_real = round(sum(biom_real),2)) %>% 
