@@ -18,7 +18,7 @@ library(scales)
 #Veja instuções no Onenote. A "sheet"Biomassa, é a segunda da planilha. 
 #O sistema pede autenticação do usuário.
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 # or by its name, which requires an assist from the googledrive package (googledrive.tidyverse.org):
 
@@ -27,13 +27,13 @@ drive_get("Cultivo") %>%
 
 # or
 
-Biom <- drive_get("Cultivo") %>% 
+biom <- drive_get("Cultivo") %>% 
         read_sheet(2)
 
 
 # Produtividade -----------------------------------------------------------
 
-Produtividade_ciclo <- Biom %>% 
+Produtividade_ciclo <- biom %>% 
   group_by(ciclo) %>%# agrupa os dados por ciclo
   mutate(ciclo = factor(ciclo)) %>%
   summarize(densidade = round(mean(densidade), 2), gramatura = mean(g_final), 
