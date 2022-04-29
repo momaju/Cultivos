@@ -126,7 +126,10 @@ lm_eqn <- function(fit4){
   as.character(as.expression(eq));
 }
 
-p + annotate("text", x = 1500.00, y = 4500.00, label = lm_eqn(fit4), parse = TRUE, color = "Blue", size=5)
+p + annotate("text", x = 1500.00, 
+             y = 4500.00, 
+             label = lm_eqn(fit4), 
+             parse = TRUE, color = "Blue", size=5)
   
 
 # Escrevendo de outra maneira
@@ -142,7 +145,8 @@ s + theme_economist()
 # Gáfico de barras de densidade média por ano:-----
 
 biom %>% 
-  mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data de despesca
+  mutate(ano_desp = factor(year(data_desp))) %>% #extrai o ano da data 
+  #de despesca
   group_by(ano_desp) %>%
   summarize(densidade_media = round(mean(densidade),2)) %>% 
   ggplot(aes(x=ano_desp, y=densidade_media, fill = ano_desp)) +
@@ -153,7 +157,9 @@ biom %>%
        caption = "Fonte: Azul Marinho Aquicultura")+
   theme_minimal() +
   theme(plot.caption = element_text(size = 7, color = "grey60")) +
-  geom_text(aes(label = format(densidade_media, big.mark = ".", decimal.mark = ",")), vjust=1.6, color="white", size=4.0)
+  geom_text(aes(label = format(densidade_media, big.mark = ".", 
+                               decimal.mark = ",")), 
+            vjust=1.6, color="white", size=4.0)
 
 # Gáfico de barras de produtividade média por ano:----
 
@@ -169,7 +175,9 @@ biom %>%
        caption = "Fonte: Azul Marinho Aquicultura")+
   theme_minimal() +
   theme(plot.caption = element_text(size = 7, color = "grey60")) +
-  geom_text(aes(label = format(produtividade_media, big.mark = ".", decimal.mark = ",")), vjust=1.6, color="white", size=4.0)
+  geom_text(aes(label = format(produtividade_media, big.mark = ".", 
+                               decimal.mark = ",")), 
+            vjust=1.6, color="white", size=4.0)
 
   
 
@@ -223,7 +231,8 @@ m1 + theme(
 # obter-se a correlação desejada.
 
 biom %>% 
-ggplot(aes(x = g_final, y = sobrevive, color = factor(viveiro),label =factor(ciclo))) + 
+ggplot(aes(x = g_final, y = sobrevive, 
+           color = factor(viveiro),label =factor(ciclo))) + 
   geom_text_repel(max.overlaps = 100)+ #ficou meio feio. Ajustei com ggrepel
   geom_point(shape =1, size = 2) + 
   geom_smooth(method = lm, se = F, aes(group = 1))+
@@ -238,7 +247,8 @@ theme(plot.caption = element_text(size = 8, color = "grey60"))
 
 biom %>% 
   mutate(viveiro = factor(viveiro)) %>% 
-  ggplot(aes(x = densidade, y = produtividade, color = viveiro, label = viveiro)) +
+  ggplot(aes(x = densidade, y = produtividade, 
+             color = viveiro, label = viveiro)) +
   geom_text_repel(max.overlaps = 100)+
   geom_point(size = 2) + 
   geom_smooth(method = lm, se = F, aes(group =1)) +
@@ -280,13 +290,15 @@ equation = function(lr) {
   lm_coef <- list(a = round(coef(lm)[1], digits = 2),
                   b = round(coef(lm)[2], digits = 2),
                   r2 = round(summary(lr)$r.squared, digits = 2));
-  lm_eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(R)^2~"="~r2,lm_coef)
+  lm_eq <- substitute(
+    italic(y) == a + b %.% italic(x)*","~~italic(R)^2~"="~r2,lm_coef)
   as.character(as.expression(lm_eq));                 
 }
 
 
 # Escrevendo no gráfico
-sp + annotate("text", x = 20.00, y = 1.20, label = equation(lm), parse = TRUE, color = "red", size = 7)
+sp + annotate("text", x = 20.00, y = 1.20, 
+              label = equation(lm), parse = TRUE, color = "red", size = 7)
 
 
 # Dias parados entre ciclos -----------------------------------------------
@@ -418,7 +430,8 @@ biom %>%
 V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
+  select(ciclo, densidade, biom_real, sobrevive, 
+         produtividade, g_semana, g_final, ddc)
   
 
 
@@ -447,7 +460,8 @@ lm_eqn <- function(fit_V1){
   as.character(as.expression(eq));
 }
 
-v + geom_label(x = 60, y = 14, label = lm_eqn(fit_V1), color="#654CFF", size = 6, parse = TRUE) +
+v + geom_label(x = 60, y = 14, label = lm_eqn(fit_V1), 
+               color="#654CFF", size = 6, parse = TRUE) +
   
   geom_text(aes(label = ciclo ), vjust = -0.5, color="#654CFF", size = 4.0) +
   theme(legend.position = "none")
@@ -457,7 +471,8 @@ v + geom_label(x = 60, y = 14, label = lm_eqn(fit_V1), color="#654CFF", size = 6
 V2 <- biom %>%
   filter(viveiro == 2) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
+  select(ciclo, densidade, biom_real, sobrevive, 
+         produtividade, g_semana, g_final, ddc)
 
 
 
@@ -488,7 +503,8 @@ lm_eqn <- function(fit_V2){
   as.character(as.expression(eq));
 }
 
-v + geom_label(x = 60, y = 12, label = lm_eqn(fit_V2), color="#654CFF", size = 6, parse = TRUE) 
+v + geom_label(x = 60, y = 12, label = lm_eqn(fit_V2), 
+               color="#654CFF", size = 6, parse = TRUE) 
   
 
 # Crescimento Semanal -----------------------------------------------------
@@ -497,7 +513,8 @@ v + geom_label(x = 60, y = 12, label = lm_eqn(fit_V2), color="#654CFF", size = 6
 V1_V2_crescimento <- biom %>%
   filter(viveiro %in% c(1,2)) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(viveiro,ciclo, densidade, biom_real, sobrevive, produtividade, g_semana, g_final, ddc)
+  select(viveiro,ciclo, densidade, biom_real, sobrevive, 
+         produtividade, g_semana, g_final, ddc)
 
 V1_V2_crescimento %>%
   group_by(viveiro) %>% 
@@ -589,8 +606,10 @@ biom %>%
 V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
-V1 %>% summarise(median_b1 = median(biometria_1), median_db1 = median(dbiometria_1))V
+  select(ciclo, densidade, biometria_1,dbiometria_1, 
+         produtividade, g_semana, g_final, ddc)
+V1 %>% summarise(median_b1 = median(biometria_1), 
+                 median_db1 = median(dbiometria_1))V
 
 #V1
 
@@ -599,7 +618,8 @@ V1 %>% summarise(median_b1 = median(biometria_1), median_db1 = median(dbiometria
 V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
+  select(ciclo, densidade, biometria_1,dbiometria_1, 
+         produtividade, g_semana, g_final, ddc)
 V1 %>% summarise(min_b1 = min(biometria_1), min_db1 = min(dbiometria_1))
 
 
@@ -609,16 +629,20 @@ summary(V1$biometria_1)
 V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
-V1 %>% summarise(max_b1 = max(biometria_1), min_db1 = min(dbiometria_1))
+  select(ciclo, densidade, biometria_1,dbiometria_1, 
+         produtividade, g_semana, g_final, ddc)
+V1 %>% summarise(max_b1 = max(biometria_1), 
+                 min_db1 = min(dbiometria_1))
 
 
 
 V1 <- biom %>%
   filter(viveiro == 1) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(ciclo, densidade, biometria_1,dbiometria_1, produtividade, g_semana, g_final, ddc)
-V1 %>% summarise(median_b1 = median(biometria_1), median_db1 = median(dbiometria_1))
+  select(ciclo, densidade, biometria_1,dbiometria_1, 
+         produtividade, g_semana, g_final, ddc)
+V1 %>% summarise(median_b1 = median(biometria_1), 
+                 median_db1 = median(dbiometria_1))
 
 
 # Sobrev. por ano ---------------------------------------------------------
@@ -696,9 +720,11 @@ cor_matrix <- biom %>%
 
 cor_matrix
 
-cor.test(biom$biom_calc, biom$biom_real, method = "pearson", use = "complete.obs")
+cor.test(biom$biom_calc, biom$biom_real, 
+         method = "pearson", use = "complete.obs")
 
-cor.test(biom$produtividade, biom$sobrevive, method = "pearson", use = "complete.obs")
+cor.test(biom$produtividade, biom$sobrevive, 
+         method = "pearson", use = "complete.obs")
 
  
 cor(biom_numeric[, 1:9]) %>%
@@ -725,9 +751,11 @@ cor(biom_numeric[, 1:9]) %>%
 
 # Estimativa de biomassa real ---------------------------------------------
 
-## Cálculo para toda a fazenda. Melhor usar este e acrecenta mais 15% ao resultado.
+## Cálculo para toda a fazenda. Melhor usar este e 
+#acrecenta mais 15% ao resultado.
 
-fit_biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = biom)
+fit_biom <- lm(biom_real ~ biom_calc + pop + ddc + 
+                 densidade + baixa_mil, data = biom)
 summary(fit_biom)
 
 biom_V2 <- biom %>% 
@@ -736,7 +764,8 @@ biom_V2 <- biom %>%
 
 ## Mesmo cálculo para o viveiro 2
 
-fit_biom_V2 <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = biom_V2)
+fit_biom_V2 <- lm(biom_real ~ biom_calc + pop + ddc + 
+                    densidade + baixa_mil, data = biom_V2)
 summary(fit_biom_V2)
 
 
