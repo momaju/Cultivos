@@ -7,13 +7,13 @@ library(ggrepel)
 library(scales)
 
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 ## Cria um barplot mostrando a produtividade por cilo, usando o objeto Biom que foi criado
 ## com o código anterior.
 
 
-Produtividade_ciclo <- Biom %>% 
+Produtividade_ciclo <- biom %>% 
     #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera
     #antes de summarize e não é o desejado
     group_by(ciclo) %>%# agrupa os dados
@@ -50,7 +50,7 @@ Produtividade_ciclo %>%
 
 
 
-Produtividade_viveiro_ciclo <- Biom %>% 
+Produtividade_viveiro_ciclo <- biom %>% 
   #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera
   #antes de summarize e não é o desejado
   group_by(viveiro, ciclo) %>%# agrupa os dados
@@ -210,7 +210,7 @@ Produtividade_viveiro_ciclo %>%
 # Produtividade >= 1000 ---------------------------------------------------
 
 
-Produtividade_mil <- Biom %>% 
+Produtividade_mil <- biom %>% 
   #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera
   #antes de summarize e não é o desejado
   filter(produtividade >= 1000) %>% 
@@ -234,7 +234,7 @@ summary(Produtividade_mil)
 
 
 
-Biom_1000 <- Biom %>% 
+biom_1000 <- biom %>% 
   filter(produtividade >= 1000) %>%
   mutate(year = lubridate ::year(data_desp)) %>% 
   group_by(year, ciclo) %>% # agrupa os dados 
@@ -243,12 +243,12 @@ Biom_1000 <- Biom %>%
             sobrev = round(mean(sobrevive), 2)) %>%
   arrange(desc(produtividade))
 
-Biom_1000
+biom_1000
 
 
 ## Mudando a orientação do gráfico
 ## 
-Biom_ciclo %>%   
+biom_ciclo %>%   
   ggplot(aes(y = fct_reorder(ciclo, produtividade),x = produtividade)) + # Cria um ggplot object
   geom_bar(stat = "identity",fill = "lightblue4") +  # Defines the geometry
   #coord_flip() +
@@ -260,7 +260,7 @@ Biom_ciclo %>%
        x = "Produtividade (kg/ha)",
        y = "Ciclo de Cultivo")
 
-Biom_ciclo
+biom_ciclo
 
 
 # Unico Viveiro -----------------------------------------------------------
@@ -270,7 +270,7 @@ Biom_ciclo
 ## 
 ## 
 
-biom_v3 <- Biom %>%
+biom_v3 <- biom %>%
   filter(viveiro == 3) %>% 
   mutate(ciclo = factor(ciclo))
   
@@ -289,7 +289,7 @@ biom_v3 <- Biom %>%
  
   ## Produção
   
- biom_v3 <- Biom %>%
+ biom_v3 <- biom %>%
    filter(viveiro == 3) %>% 
    mutate(ciclo = factor(ciclo))
  
@@ -314,14 +314,14 @@ biom_v3 <- Biom %>%
   
 
   
-  Biom_sep_ano <- Biom %>%
+  biom_sep_ano <- biom %>%
     separate(data_desp, c("aaaa", "mm", "dd"), sep = "-") %>%
     mutate(ano = aaaa) %>%
     group_by(ano,ciclo) %>% # agrupa os dados 
     summarize(densidade = round(mean(densidade), 2), gramatura = mean(g_final), 
               produção = sum(biom_real), produtividade = mean(produtividade), 
               sobrev = mean(sobrevive))
-    ggplot(Biom_sep_ano,aes(ciclo, produtividade)) +
+    ggplot(biom_sep_ano,aes(ciclo, produtividade)) +
     geom_point(aes(color = ano),size = 4) + # a legenda não ficou boa.
     geom_line() + # adiciona uma linha ao gráfico
     scale_color_discrete(name = "Year") + # Esta linha corrige a legenda.
@@ -330,11 +330,11 @@ biom_v3 <- Biom %>%
     ggtitle("Productivity for Semi-intensive Shrimp Farming") +
     labs(caption =  "Source: Mozart Marinho-Jr, 2020") +
     theme_economist()
-Biom
+biom
     
   # A mesma análise acima, agora, agrupada por viveiros.
   
-  Biom_viveiro <- Biom %>% 
+  biom_viveiro <- biom %>% 
     #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera
     #antes de summarize e não é o desejado
     group_by(viveiro) %>% # agrupa os dados 
@@ -344,9 +344,9 @@ Biom
     #filter(densidade >= 5 & sobrevive >= 50) %>% # filter após summarize,
     # sai como quqero. Emitindo esta linha, pega totos os ciclos.
     #arrange(sobrevive)
-  Biom_viveiro
+  biom_viveiro
   
-  Biom_viveiro %>% ggplot(aes(viveiro, produtividade)) + # Cria um ggplot object
+  biom_viveiro %>% ggplot(aes(viveiro, produtividade)) + # Cria um ggplot object
     geom_bar(stat = "identity", fill = "steelblue") +  # Defines the geometry
     geom_hline(yintercept = 850, linetype="dashed", color = "red") +  
     geom_text(aes(label = sobrevive), vjust = -1, color = "tomato", size = 4)+
@@ -356,16 +356,16 @@ Biom
     labs(subtitle = "2015 a 2020\nSobrevivência") +
     labs(caption =  "Fonte: Mozart Marinho-Jr, 2020")
     
-  Biom_viveiro
+  biom_viveiro
   
   
   
   ## Grafico de Pontos entre duas variáveis.
   ## 
   
-  Biomassa <- read.csv(file.choose(), header = T)
+  biomassa <- read.csv(file.choose(), header = T)
   
-  head(Biomassa)
+  head(biomassa)
   
   library(dplyr)
   library(ggplot2)
@@ -376,7 +376,7 @@ Biom
   
   
   
-  despesca <- Biom %>%
+  despesca <- biom %>%
     mutate(year = lubridate ::year(data_desp)) %>% 
     select(viveiro,ciclo, biom_calc, biom_real, year)
     #filter(biom.real >= biom.calc)
@@ -432,7 +432,7 @@ Biom
 ## Maior produtividade (kg/ha) durante o ano 
   
 
-maior_produtividade_ano <- Biom %>%
+maior_produtividade_ano <- biom %>%
   separate(data_desp, c("aaaa", "mm", "dd"), sep = "-") %>%
   mutate(ano = aaaa) %>%
   group_by(ano) %>%
@@ -444,7 +444,7 @@ maior_produtividade_ano
 
 ## Maior produtividade por viveiro -----------
 
-maior_produtividade_viveiro <- Biom %>%
+maior_produtividade_viveiro <- biom %>%
   separate(data_desp, c("aaaa", "mm", "dd"), sep = "-") %>%
   mutate(ano = aaaa) %>%
   group_by(viveiro) %>%
@@ -470,7 +470,7 @@ viveiro_mais_produtivo %>% ggplot(mapping = aes(x = maior)) +
 
 ## Peso Médio Despescado ----------------
 
-Biom %>%
+biom %>%
   ggplot(aes(g_final)) +
   geom_histogram(binwidth = 1, color = "white", fill = rainbow(21)) +
   scale_x_continuous(limits = c(0, 20)) +
@@ -480,7 +480,7 @@ Biom %>%
 
 ## Sovrevivência vs. Densidade por viveiro ------------
 
-Biom %>%
+biom %>%
   #group_by(viveiro) %>%
   ggplot(aes(densidade, sobrevive)) +
   geom_point(aes(color = as.factor(viveiro)), size = 3) +
@@ -491,7 +491,7 @@ Biom %>%
 
 ## Histograma de dias parados (entre despescas)---------  
 
-dias_parados <- Biom %>%
+dias_parados <- biom %>%
   filter(!is.na(fallow))%>%
   select(viveiro, ciclo,fallow)
 dias_parados 
@@ -528,7 +528,7 @@ ggplot(dias_parados,aes(fallow)) +
   group_by(ciclo) %>%
   summarize(avg.fallow = mean(fallow))
 
-d_cultivo <- Biom %>%
+d_cultivo <- biom %>%
   filter(!is.na(fallow))%>%
   select(viveiro, ciclo,ddc)
 d_cultivo
@@ -569,9 +569,9 @@ d_cultivo %>%
 
 
 
-Biom %>%
+biom %>%
   filter(ciclo == 12)
-Biom %>%
+biom %>%
   filter(ciclo == 12)
 
 ####
@@ -580,7 +580,7 @@ Biom %>%
 
 # Em média, qual o melhor dia para despescar? 
 # 
-dia_de_despesca <- Biom %>%
+dia_de_despesca <- biom %>%
   mutate(dow = lubridate ::wday(data.desp, label = TRUE)) %>%
   select(dow, biom.real) %>%
   #filter(biom.real >0) %>% #no caso, este filtro não é necessário
@@ -604,7 +604,7 @@ dia_de_despesca %>%
 # Gráfico para o Linkedin
 
 
-dia_de_despesca <- Biom %>%
+dia_de_despesca <- biom %>%
   mutate(dow = lubridate ::wday(data.desp, label = TRUE, locale = "English_United States.1252")) %>%
   select(dow, biom.real) %>%
   #filter(biom.real >0) %>% #no caso, este filtro não é necessário
@@ -627,7 +627,7 @@ dia_de_despesca %>%
 
 # Quantidade de despescas por dia da semana
 
-despesca_semana <- Biom %>%
+despesca_semana <- biom %>%
   mutate(dow = lubridate ::wday(data.desp, label = TRUE, locale = "English_United States.1252")) %>%
   # locale coloca os dias da semana em inglês
   select(dow, biom.real) %>%
@@ -677,7 +677,7 @@ knitr::kable(
 
 library(ggtext)
 
-g <- ggplot(Biom, aes(ddc, g_final, group = viveiro)) +
+g <- ggplot(biom, aes(ddc, g_final, group = viveiro)) +
   geom_point(aes(colour = as_factor(viveiro), shape = as_factor(viveiro)), alpha = 1, size =3) +
   scale_color_manual(values = c("orange","blue","red2", "green4")) +
   labs(title = "Peso Médio por Viveiro",
@@ -700,7 +700,7 @@ g
 
 
 
- p <- ggplot(Biom, aes(ddc, sobrevive, group = viveiro)) +
+ p <- ggplot(biom, aes(ddc, sobrevive, group = viveiro)) +
   geom_point(aes(colour = as_factor(viveiro), shape = as_factor(viveiro)), alpha = 1, size =3) +
   scale_color_manual(values = c("orange","blue","red2", "green4")) +
   labs(title = "Sobrevivência por Viveiro",
@@ -729,13 +729,13 @@ p
 
 
 
-Means <- Biom %>%
+Means <- biom %>%
   group_by(viveiro) %>%
   summarize(across(where(is.numeric), mean, na.rm =TRUE, .names = "mean_{col}"))
 Means
 
 
-kg_produzidos_ano <- Biom %>%
+kg_produzidos_ano <- biom %>%
   separate(data_desp, c("aaaa", "mm", "dd"), sep = "-") %>%
   mutate(ano = aaaa) %>%
   group_by(ano) %>%
@@ -750,13 +750,13 @@ kg_produzidos_ano
 
 
 
-produtividade_por_ciclo <- Biom %>%
+produtividade_por_ciclo <- biom %>%
                             group_by(ciclo) %>%
                             summarise(Value = mean(produtividade), 
                                       Total = sum(biom_real, sort = TRUE))
 produtividade_por_ciclo
 
-Biom %>% 
+biom %>% 
   summarize(mean_densidade =mean(densidade), sd_densidade = sd(densidade))
 
 
