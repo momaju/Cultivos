@@ -12,15 +12,6 @@ library(corrplot)
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-
-# transformando algumas variáveis em fatores
-
-#biom$viveiro = factor(biom$viveiro, levels = c(1,2,3,4), labels = c("V1","V2","V3","V4"))
-
-#biom$ciclo = factor(biom$ciclo,levels = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11"))
-
-#biom$bionutri = factor(biom$bionutri)
-
 str(biom)
 
 summary(biom)
