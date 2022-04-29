@@ -3,16 +3,16 @@ library(tidyverse)
 library(googlesheets4)
 library(scales)
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
-glimpse(Biom)
+glimpse(biom)
 
 
 
 # Densidade Primeira Biometria --------------------------------------------
 
 
-Biom %>% 
+biom %>% 
   ggplot(aes(x = biometria_1, 
              fill = factor(viveiro))) +
   scale_x_continuous(breaks = seq(1,6,1),
@@ -25,7 +25,7 @@ Biom %>%
 # Densidade Sobrevivência -------------------------------------------------
 
 
-Biom %>% 
+biom %>% 
   ggplot(aes(x = sobrevive, 
              fill = factor(viveiro))) +
   scale_x_continuous(breaks = seq(20,300,20),
