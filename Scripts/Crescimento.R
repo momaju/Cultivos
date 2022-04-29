@@ -9,19 +9,19 @@ library(scales)
 library(corrplot)
 
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-head(Biom)
-summary(Biom)
-str(Biom)
+head(biom)
+summary(biom)
+str(biom)
 
 
 
 # Regressão ---------------------------------------------------------------
 
 
-fit <- Biom %>% 
+fit <- biom %>% 
   lm(g_semana ~ densidade, data = .)
 fit
 summary(fit) # show results
@@ -31,7 +31,7 @@ summary(fit) # show results
 # Gráfico sem agrupar por viveiro -----------------------------------------
 
 
-sp <- Biom %>% 
+sp <- biom %>% 
   drop_na(densidade, g_semana) %>% 
   ggplot(aes(x = densidade, y = g_semana)) + 
   geom_point(size = 4, alpha = 0.5, color = "#eca11a") + 
