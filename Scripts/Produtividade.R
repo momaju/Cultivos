@@ -1,6 +1,6 @@
 # Azul Marinho: Produtividade em kg/ha vs Densidade do povoamento em numero de camarões por metro quadrado. Os dados referem-se aos 10 ciclos de cultivo (2015 ~ 2017).
 
-Biomassa <- read.csv(file = "Cultivo - Biomassa.csv", header = T)
+biomassa <- read.csv(file = "Cultivo - biomassa.csv", header = T)
 
 head(Biomassa)
 
@@ -18,7 +18,7 @@ str(Biomassa)
 library(ggplot2)
 library(ggthemes)
 
-a <- ggplot(data = Biom, aes(x = densidade, y = produtividade)) + geom_point(shape = 1)
+a <- ggplot(data = biom, aes(x = densidade, y = produtividade)) + geom_point(shape = 1)
 
 a <- a + geom_smooth(method = lm, se = FALSE)
 a
@@ -29,7 +29,7 @@ a <- a + xlab("Densidade") + ylab("Produtividade kg/ha") + ggtitle("Azul Marinho
 a
 
 # Regressão
-fit <- lm(produtividade ~ densidade, data = Biom)
+fit <- lm(produtividade ~ densidade, data = biom)
 summary(fit)
 
 # Inserting the equation
