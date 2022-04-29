@@ -4,7 +4,7 @@
 
 
 
-Produtividade_12_ciclo <- Biom %>% 
+Produtividade_12_ciclo <- biom %>% 
   group_by(ciclo,viveiro) %>%# agrupa os dados por ciclo
   mutate(ciclo = factor(ciclo), viveiro = factor(viveiro)) %>%
   summarize(densidade = round(mean(densidade), 2),
@@ -26,7 +26,7 @@ Produtividade_12_ciclo
 
 
 
-Produtividade_10_ciclo <- Biom %>% 
+Produtividade_10_ciclo <- biom %>% 
   group_by(ciclo,viveiro) %>%# agrupa os dados por ciclo
   mutate(ciclo = factor(ciclo), viveiro = factor(viveiro)) %>%
   summarize(densidade = round(mean(densidade), 2),
