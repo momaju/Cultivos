@@ -9,13 +9,13 @@ library(lubridate)
 library(ggrepel)
 
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
 # Todos os viveiros -------------------------------------------------------
 
 
-povoa_out <- Biom %>% 
+povoa_out <- biom %>% 
   mutate(mes_povoa = month(data_pov)) %>% 
   filter(mes_povoa == 10)
 
@@ -23,7 +23,7 @@ povoa_out <- Biom %>%
 
 # Apenas viveiros 3 e 4 ---------------------------------------------------
 
-povoa_out_34 <- Biom %>% 
+povoa_out_34 <- biom %>% 
   mutate(mes_povoa = month(data_pov)) %>% 
   filter(mes_povoa == 10 & viveiro %in% c(3,4))
 
@@ -34,7 +34,7 @@ povoa_out_34 <- Biom %>%
 
 
 
-povoa_mensal <- Biom %>% 
+povoa_mensal <- biom %>% 
   mutate(mes_povoa = factor(month(data_pov, label = TRUE)))
 
 povoa_mensal %>% 
