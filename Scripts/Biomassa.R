@@ -81,7 +81,7 @@ v4 <- biom %>%
 
 v4
 
-p <- V4 %>%
+p <- v4 %>%
   ggplot(aes(biom_calc, biom_real)) +
   geom_point(size = 2.5) +
   geom_smooth(method = lm, se = FALSE) +
@@ -101,7 +101,7 @@ p
 
 
 
-fit4 <- lm(biom_real ~ biom_calc, data = V4)
+fit4 <- lm(biom_real ~ biom_calc, data = v4)
 summary(fit4)
 
 lm_eqn <- function(fit4) {
@@ -479,7 +479,7 @@ v <- ggplot(v2, aes(ddc, g_final)) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 7, color = "grey60"),
         legend.position = "none") +
-  geom_text(aes(label = ciclo, vjust = -0.5, color = "#654CFF", size = 4.0)
+  geom_text(aes(label = ciclo, vjust = -0.5, color = "#654CFF", size = 4.0) # nolint
 
 
 v
