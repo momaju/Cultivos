@@ -504,7 +504,7 @@ v + geom_label(x = 60, y = 12, label = lm_eqn(fit_v2),
 
  
 v1_v2_crescimento <- biom %>%
-  filter(viveiro %in% c(12)) %>%
+  filter(viveiro %in% c(1, 2)) %>%
   mutate(ciclo = factor(ciclo)) %>%
   select(viveiro, ciclo, densidade, biom_real, sobrevive,
          produtividade, g_semana, g_final, ddc)
@@ -512,6 +512,8 @@ v1_v2_crescimento <- biom %>%
 v1_v2_crescimento %>%
   group_by(viveiro) %>%
   summarize(crescimento = mean(g_semana, na.rm = TRUE))
+
+v1_v2_crescimento
 
 
 # Viveios despescados em agosto & setembro --------------
