@@ -480,10 +480,12 @@ v <- ggplot(v2, aes(ddc, g_final)) +
   theme(plot.caption = element_text(size = 7, color = "grey60"),
         legend.position = "none") +
   geom_text(aes(label = ciclo, vjust = -0.5, color = "#654CFF", size = 4.0)
+
+
 v
 
 fit_v2 <- lm(g_final ~ ddc, data = V2)
-summary(fit_V2)
+summary(fit_v2)
 
 lm_eqn <- function(fit_v2) {
   fit_v2 <- lm(g_final ~ ddc, data = v2)
