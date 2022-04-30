@@ -504,17 +504,17 @@ v + geom_label(x = 60, y = 12, label = lm_eqn(fit_v2),
 
  
 v1_v2_crescimento <- biom %>%
-  filter(viveiro %in% c(1,2)) %>% 
-  mutate(ciclo = factor(ciclo)) %>% 
-  select(viveiro, ciclo, densidade, biom_real, sobrevive, 
+  filter(viveiro %in% c(12)) %>%
+  mutate(ciclo = factor(ciclo)) %>%
+  select(viveiro, ciclo, densidade, biom_real, sobrevive,
          produtividade, g_semana, g_final, ddc)
 
 v1_v2_crescimento %>%
-  group_by(viveiro) %>% 
+  group_by(viveiro) %>%
   summarize(crescimento = mean(g_semana, na.rm = TRUE))
 
 
-# Viveios despescados em agosto & setembro -----------------------------------------
+# Viveios despescados em agosto & setembro --------------
 
 despesca_ago_set <- biom %>%
   mutate(mes_despesca = month(data_desp)) %>%
@@ -536,7 +536,7 @@ despesca_ago_set %>%
 
 despesca_ago_set %>%
   filter(viveiro %in% c(1, 2)) %>%
-  group_by(viveiro, mes_despesca) %>% 
+  group_by(viveiro, mes_despesca) %>%
   summarise(cultivos = n(),
             crescimento = mean(g_semana, na.rm = TRUE),
             dias = mean(ddc, na.rm = TRUE),
@@ -574,7 +574,7 @@ biom %>%
 biom %>%
   mutate(viveiro = factor(viveiro)) %>%
   count(viveiro, wt = biom_real) %>%
-  ggplot(aes(viveiro,n, fill = viveiro)) +
+  ggplot(aes(viveiro, n, fill = viveiro)) +
   geom_col() +
   theme(legend.position = "none") +
   scale_y_continuous(labels = comma_format(big.mark = ".", decimal.mark = ","))
@@ -599,7 +599,7 @@ biom %>%
 v1 <- biom %>%
   filter(viveiro == 1) %>%
   mutate(ciclo = factor(ciclo)) %>%
-  select(ciclo, densidade, biometria_1,dbiometria_1,
+  select(ciclo, densidade, biometria_1, dbiometria_1,
          produtividade, g_semana, g_final, ddc)
 v1 %>% summarise(median_b1 = median(biometria_1),
                  median_db1 = median(dbiometria_1))
@@ -611,7 +611,7 @@ v1 %>% summarise(median_b1 = median(biometria_1),
 v1 <- biom %>%
   filter(viveiro == 1) %>%
   mutate(ciclo = factor(ciclo)) %>%
-  select(ciclo, densidade, biometria_1,dbiometria_1,
+  select(ciclo, densidade, biometria_1, dbiometria_1,
          produtividade, g_semana, g_final, ddc)
 v1 %>% summarise(min_b1 = min(biometria_1), min_db1 = min(dbiometria_1))
 
@@ -622,7 +622,7 @@ summary(v1$biometria_1)
 v1 <- biom %>%
   filter(viveiro == 1) %>%
   mutate(ciclo = factor(ciclo)) %>%
-  select(ciclo, densidade, biometria_1,dbiometria_1,
+  select(ciclo, densidade, biometria_1, dbiometria_1,
          produtividade, g_semana, g_final, ddc)
 v1 %>% summarise(max_b1 = max(biometria_1),
                  min_db1 = min(dbiometria_1))
@@ -632,7 +632,7 @@ v1 %>% summarise(max_b1 = max(biometria_1),
 v1 <- biom %>%
   filter(viveiro == 1) %>%
   mutate(ciclo = factor(ciclo)) %>%
-  select(ciclo, densidade, biometria_1,dbiometria_1,
+  select(ciclo, densidade, biometria_1, dbiometria_1,
          produtividade, g_semana, g_final, ddc)
 v1 %>% summarise(median_b1 = median(biometria_1),
                  median_db1 = median(dbiometria_1))
@@ -648,7 +648,7 @@ sobrevive_ano <- biom %>%
 sobrevive_ano %>%
   ggplot(aes(ano_desp, sobrevive)) +
   geom_point() +
-  geom_line(group = 1)+
+  geom_line(group = 1) +
   expand_limits(y = 60) +
   labs(title = "Taxa Anual de Sobrevivência",
        x = "Ano",
@@ -660,7 +660,9 @@ sobrevive_ano %>%
 
 # tables ------------------------------------------------------------------
 
-biom %>% gt() %>% 
+biom %>%
+gt() %>%
+
 tab_options(
   table.font.color = "#81B1D6",
   column_labels.background.color = "#4B974F",
@@ -731,7 +733,7 @@ cor(biom_numeric[, 1:9]) %>%
            number.cex = 0.9,
            addgrid.col = "black",
            title = "Matrix de Correlação \nde Produção de Camarão Marinho",
-           mar = c(0,0,5,0),
+           mar = c(0, 0, 5, 0),
            #col = COL2('PiYG')),
            #col = COL2('PuOr', 10)),
            #col = COL1('YlGn'),
@@ -760,4 +762,3 @@ biom_v2 <- biom %>%
 fit_biom_v2 <- lm(biom_real ~ biom_calc + pop + ddc +
                     densidade + baixa_mil, data = biom_v2)
 summary(fit_biom_v2)
-
