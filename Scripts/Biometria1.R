@@ -8,13 +8,13 @@ library(ggthemes)
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-biom %>% 
+biom %>%
   mutate(viveiro = factor(viveiro),
-         ciclo = factor(ciclo)) %>% 
-  ggplot(aes(x=viveiro, y=biometria_1, color = viveiro)) +
+         ciclo = factor(ciclo)) %>%
+  ggplot(aes(x = viveiro, y = biometria_1, color = viveiro)) +
   geom_boxplot(size = 1) +
   geom_jitter(width = 0.25, alpha = 0.5) +
-  theme_set(theme_bw())+
+  theme_set(theme_bw()) +
   labs(title = "Primeira Biometria (g)",
        y = "Peso (g)",
        x = "Viveiro",
@@ -32,9 +32,3 @@ biom %>%
 
 
 # export the chart: width = 1280, height = 720
-
-
-
-
-
-
