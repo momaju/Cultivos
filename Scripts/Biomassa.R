@@ -482,7 +482,7 @@ v <- ggplot(v2, aes(ddc, g_final)) +
   geom_text(aes(label = ciclo, vjust = -0.5, color = "#654CFF", size = 4.0) # nolint
 
 
-v
+v # nolint
 
 fit_v2 <- lm(g_final ~ ddc, data = V2)
 summary(fit_v2)
