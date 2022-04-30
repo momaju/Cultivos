@@ -20,6 +20,6 @@ p <- biom %>%
 p
 
 # Incluindo texto
-sp <- p + annotate(geom="text", x=3.6, y=10,
-                 label="Média = 3.16075 g", color="red")
+sp <- p + annotate(geom = "text", x = 3.6, y = 25,
+                 label = "Média = 3.16075 g", color = "red")
 sp
