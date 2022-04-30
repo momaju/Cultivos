@@ -18,6 +18,7 @@ biom %>%
                shape = 20, size = 4, color = "blue") +
   theme_set(theme_bw()) +
   labs(title = "Primeira Biometria (g)",
+      subtitle = "Showing The Mean (blue dot)",
        y = "Peso (g)",
        x = "Viveiro",
        caption = "Fonte: Azul Marinho Aquicultura") +
