@@ -20,7 +20,7 @@ summary(biom)
 
 
 
-d <- biom %>% 
+d <- biom %>%
   ggplot(aes(biom_calc, biom_real)) +
   geom_point(aes(shape = factor(viveiro)), size = 2.5) +
   geom_smooth(method = lm, se = FALSE) +
@@ -29,7 +29,7 @@ d <- biom %>%
        x = "Biomassa Calculada",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1))+
+  theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1)) +
   scale_shape_discrete(name = "Viveiro") # ajusta o t´tulo da legenda
   
 d
@@ -38,7 +38,7 @@ d
 
 # Regressão-----
 
-fit_biom <- biom %>% 
+fit_biom <- biom %>%
   lm(biom_real ~ biom_calc, data = .)
 
 fit_biom
@@ -56,16 +56,16 @@ hist(fit_biom$residuals)
 
 
 biom %>%
-  lm(biom_real ~ biom_calc, data = .) %>% 
-  predict(data.frame(biom_calc = c(2000, 3000, 5000))) %>% 
+  lm(biom_real ~ biom_calc, data = .) %>%
+  predict(data.frame(biom_calc = c(2000, 3000, 5000))) %>%
   round(2)
   
 
 
 
-lm_eqn <- function(fit_biom){
-  fit <- lm(biom_real ~ biom_calc, data = biom);
-  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
+lm_eqn <- function(fit_biom) {
+  fit <- lm(biom_real ~ biom_calc, data = biom) # nolint
+  eq <- substitute(italic(y) == a + b %.% italic(x) * ","~~italic(r)^2~"="~r2,
                    list(a = format(unname(coef(fit_biom)[1]), digits = 3),
                         b = format(unname(coef(fit_biom)[2]), digits = 3),
                         r2 = format(summary(fit_biom)$r.squared, digits = 3)))
@@ -80,12 +80,12 @@ summary(biom_mod)
 
 # O mesmo cálculo para um único viveiro.
 
-V4 <- biom %>% 
-  filter(viveiro == 4) 
+V4 <- biom %>%
+  filter(viveiro == 4)
 
 V4
 
-p <- V4 %>% 
+p <- V4 %>%
   ggplot(aes(biom_calc, biom_real)) +
   geom_point(size = 2.5) +
   geom_smooth(method = lm, se = FALSE) +
@@ -108,16 +108,16 @@ p
 fit4 <- lm(biom_real ~ biom_calc, data = V4)
 summary(fit4)
 
-lm_eqn <- function(fit4){
-  fit <- lm(biom_real ~ biom_calc, data = V4);
-  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
+lm_eqn <- function(fit4) {
+  fit <- lm(biom_real ~ biom_calc, data = V4) # nolint
+  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,  # nolint # nolint
                    list(a = format(unname(coef(fit4)[1]), digits = 3),
                         b = format(unname(coef(fit4)[2]), digits = 3),
                         r2 = format(summary(fit4)$r.squared, digits = 3)))
   as.character(as.expression(eq));
 }
 
-p + annotate("text", x = 1500.00, 
+p + annotate("text", x = 1500.00,
              y = 4500.00, 
              label = lm_eqn(fit4), 
              parse = TRUE, color = "Blue", size=5)
@@ -442,8 +442,8 @@ v
 fit_V1 <- lm(g_final ~ ddc, data = V1)
 summary(fit_V1)
 
-lm_eqn <- function(fit_V1){
-  fit <- lm(g_final ~ ddc, data = V1);
+lm_eqn <- function(fit_V1) {
+  fit_V1 <- lm(g_final ~ ddc, data = V1)
   eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
                    list(a = format(unname(coef(fit_V1)[1]), digits = 3),
                         b = format(unname(coef(fit_V1)[2]), digits = 3),
@@ -485,9 +485,9 @@ v
 fit_V2 <- lm(g_final ~ ddc, data = V2)
 summary(fit_V2)
 
-lm_eqn <- function(fit_V2){
-  fit <- lm(g_final ~ ddc, data = V2);
-  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2, 
+lm_eqn <- function(fit_V2) {
+  fit_V2 <- lm(g_final ~ ddc, data = V2)
+  eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,  # nolint
                    list(a = format(unname(coef(fit_V2)[1]), digits = 3),
                         b = format(unname(coef(fit_V2)[2]), digits = 3),
                         r2 = format(summary(fit_V2)$r.squared, digits = 3)))
@@ -600,7 +600,7 @@ V1 <- biom %>%
   select(ciclo, densidade, biometria_1,dbiometria_1, 
          produtividade, g_semana, g_final, ddc)
 V1 %>% summarise(median_b1 = median(biometria_1), 
-                 median_db1 = median(dbiometria_1))V
+                 median_db1 = median(dbiometria_1))
 
 #V1
 
