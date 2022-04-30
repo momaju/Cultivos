@@ -31,7 +31,22 @@ biom %>%
         axis.title.y = element_text(size = 15, color = "black"),
         axis.title.x = element_text(size = 15, color = "black")) +
   scale_color_brewer(palette = "Dark2")
-  
+
+## Histogram-------------------------------------
+
+p <- biom %>%
+    ggplot(aes(biometria_1)) +
+    geom_histogram(color = "black", fill = "white", bins = 9,
+                    binwidth = 0.5) +
+    geom_vline(aes(xintercept = mean(biometria_1)),
+                color = "blue", linetype = "dashed", size = 1)
+
+p
+
+# Incluindo texto
+sp <- p + annotate(geom = "text", x = 3.6, y = 25,
+                 label = "Média = 3.16075 g", color = "red")
+sp
 
 
 
