@@ -659,7 +659,7 @@ sobrevive_ano %>%
 
 
 # tables ------------------------------------------------------------------
-
+library(gt)
 biom %>%
 gt() %>%
 
@@ -673,7 +673,8 @@ tab_options(
 
 
 
-
+biom %>%
+gt() %>%
 tab_options(
   summary_row.background.color = "#ACEACE80",
   grand_summary_row.background.color = "#990000",
