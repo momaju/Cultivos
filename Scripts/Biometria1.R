@@ -14,6 +14,8 @@ biom %>%
   ggplot(aes(x = viveiro, y = biometria_1, color = viveiro)) +
   geom_boxplot(size = 1) +
   geom_jitter(width = 0.25, alpha = 0.5) +
+  stat_summary(fun = mean, geom = "point",
+               shape = 20, size = 4, color = "blue") +
   theme_set(theme_bw()) +
   labs(title = "Primeira Biometria (g)",
        y = "Peso (g)",
