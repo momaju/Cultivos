@@ -27,16 +27,16 @@ library(kableExtra)
 
 
 
-Biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 ```
 
 ```{r, numericas, include=FALSE}
-Biom$viveiro = factor(Biom$viveiro)
-Biom$viveiro = factor(Biom$ciclo)
+biom$viveiro = factor(biom$viveiro)
+biom$viveiro = factor(biom$ciclo)
 
 
-Biom_numeric <- Biom %>%
+biom_numeric <- biom %>%
   rename(harverst_kg = "biom_real", ind_per_sqm = "densidade",
          survival = "sobrevive", fcr = "tca", population="pop",
          kg_per_ha = "produtividade", end_g = "g_final",
@@ -45,7 +45,7 @@ Biom_numeric <- Biom %>%
         select(population, harverst_kg, survival,
          ind_per_sqm, kg_per_ha,end_g, start_g, doc, fcr,g_wk)
 
-Biom_numeric
+biom_numeric
 
 
 
@@ -105,7 +105,7 @@ select_var %>%
 O correlograma abaixo mostra de forma gráfica a matriz de correlção entre estas variáveis. Além de exibir os coeficientes de correlação o tamanho dos círculos reprentam a grandeza destes e os codifica em uma gradação de cores com os mais negativos em vermelho e os mais positivos em azul.
 
 ```{r, correlation}
-cor(Biom_numeric[, 1:10]) %>%
+cor(biom_numeric[, 1:10]) %>%
   corrplot(method = "circle",
            bg = "#fefefe",
            type = "lower",
@@ -148,7 +148,7 @@ As correlações mais próximas a zero, ou seja, sem correlação foram entre ta
 
 ## Pallet Brewer
 
-cor(Biom_numeric[, 1:9]) %>%
+cor(biom_numeric[, 1:9]) %>%
   corrplot(method = "color",
            type = "lower",
            order = "alphabet",
@@ -169,7 +169,7 @@ cor(Biom_numeric[, 1:9]) %>%
 
 
 
-cor(Biom_numeric[, 1:9]) %>%
+cor(biom_numeric[, 1:9]) %>%
   corrplot(method = "color",
            type = "lower",
            order = "alphabet",
@@ -193,7 +193,7 @@ cor(Biom_numeric[, 1:9]) %>%
 
 library(viridisLite)
 
-cor(Biom_numeric[, 1:9]) %>%
+cor(biom_numeric[, 1:9]) %>%
   corrplot(method = "color",
            type = "upper",
            order = "alphabet",
@@ -216,7 +216,7 @@ library(knitr)
 
 ## Matiz de correlação
 
-cor_matrix <- Biom_numeric %>% 
+cor_matrix <- biom_numeric %>% 
   na.omit() %>% 
   select(population, harverst_kg, survival,
          ind_per_sqm, kg_per_ha,end_g, start_g, doc, fcr,g_wk) %>% 
@@ -231,8 +231,8 @@ kable(cor_matrix,
 ```{r, regression, include=FALSE}
 ## Regressão
 
-fit_Biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = Biom)
-summary(fit_Biom)
+fit_biom <- lm(biom_real ~ biom_calc + pop + ddc + densidade + baixa_mil, data = biom)
+summary(fit_biom)
 ```
 
 ![Principais Correlações](correl.png)
