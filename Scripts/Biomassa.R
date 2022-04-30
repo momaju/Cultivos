@@ -105,7 +105,7 @@ fit4 <- lm(biom_real ~ biom_calc, data = v4)
 summary(fit4)
 
 lm_eqn <- function(fit4) {
-  fit <- lm(biom_real ~ biom_calc, data = V4) # nolint
+  fit <- lm(biom_real ~ biom_calc, data = v4) # nolint
   eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,  # nolint # nolint
                    list(a = format(unname(coef(fit4)[1]), digits = 3),
                         b = format(unname(coef(fit4)[2]), digits = 3),
@@ -127,7 +127,7 @@ p + geom_text(x = 1500.00, y = 4500.00, label = lm_eqn(fit4), parse = TRUE)
 
 # Theme
 library(ggthemes)
-s + theme_economist()
+p + theme_economist()
 
 # Gáfico de barras de densidade média por ano:-----
 
@@ -299,7 +299,7 @@ v4_fallow <- biom %>%
   filter(viveiro == 4) %>%
   mutate(ciclo = factor(ciclo))
 
-V4_fallow %>% ggplot(aes(fallow, fct_reorder(ciclo, fallow), fill = ciclo)) +
+v4_fallow %>% ggplot(aes(fallow, fct_reorder(ciclo, fallow), fill = ciclo)) +
   geom_col() +
   theme(legend.position = "none") +
   labs(title = "V4-Número de Dias Parados Entre Cultivos ",
@@ -321,7 +321,7 @@ v4_fallow <- biom %>%
   filter(viveiro == 4) %>%
   mutate(ciclo = factor(ciclo))
 
-V4_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
+v4_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
   geom_col() +
   theme(legend.position = "none") +
   labs(title = "V4-Número de Dias Parados Entre Cultivos ",
@@ -441,15 +441,15 @@ v <- ggplot(v1, aes(ddc, g_final)) +
 
 v
 
-fit_v1 <- lm(g_final ~ ddc, data = V1)
+fit_v1 <- lm(g_final ~ ddc, data = v1)
 summary(fit_v1)
 
 lm_eqn <- function(fit_v1) {
   fit_v1 <- lm(g_final ~ ddc, data = v1)
   eq <- substitute(italic(y) == a + b %.% italic(x) * ","~~italic(r)^2~"="~r2,
-                   list(a = format(unname(coef(fit_V1)[1]), digits = 3),
-                        b = format(unname(coef(fit_V1)[2]), digits = 3),
-                        r2 = format(summary(fit_V1)$r.squared, digits = 3)))
+                   list(a = format(unname(coef(fit_v1)[1]), digits = 3),
+                        b = format(unname(coef(fit_v1)[2]), digits = 3),
+                        r2 = format(summary(fit_v1)$r.squared, digits = 3)))
   as.character(as.expression(eq));
 }
 
@@ -479,20 +479,20 @@ v <- ggplot(v2, aes(ddc, g_final)) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 7, color = "grey60"),
         legend.position = "none") +
-  geom_text(aes(label = ciclo, vjust = -0.5, color = "#654CFF", size = 4.0) # nolint
+  geom_text(aes(label = ciclo, vjust = -0.5, color = "#654CFF", size = 4.0)) # nolint
 
 
 v # nolint
 
-fit_v2 <- lm(g_final ~ ddc, data = V2)
+fit_v2 <- lm(g_final ~ ddc, data = v2)
 summary(fit_v2)
 
 lm_eqn <- function(fit_v2) {
   fit_v2 <- lm(g_final ~ ddc, data = v2)
   eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,  # nolint
-                   list(a = format(unname(coef(fit_V2)[1]), digits = 3),
-                        b = format(unname(coef(fit_V2)[2]), digits = 3),
-                        r2 = format(summary(fit_V2)$r.squared, digits = 3)))
+                   list(a = format(unname(coef(fit_v2)[1]), digits = 3),
+                        b = format(unname(coef(fit_v2)[2]), digits = 3),
+                        r2 = format(summary(fit_v2)$r.squared, digits = 3)))
   as.character(as.expression(eq));
 }
 
@@ -506,7 +506,7 @@ v + geom_label(x = 60, y = 12, label = lm_eqn(fit_v2),
 v1_v2_crescimento <- biom %>%
   filter(viveiro %in% c(1,2)) %>% 
   mutate(ciclo = factor(ciclo)) %>% 
-  select(viveiro,ciclo, densidade, biom_real, sobrevive, 
+  select(viveiro, ciclo, densidade, biom_real, sobrevive, 
          produtividade, g_semana, g_final, ddc)
 
 v1_v2_crescimento %>%
@@ -760,3 +760,4 @@ biom_v2 <- biom %>%
 fit_biom_v2 <- lm(biom_real ~ biom_calc + pop + ddc +
                     densidade + baixa_mil, data = biom_v2)
 summary(fit_biom_v2)
+
