@@ -19,6 +19,7 @@ biom %>%
        y = "Peso (g)",
        x = "Viveiro",
        caption = "Fonte: Azul Marinho Aquicultura") +
+       theme_light() +
   theme(legend.position = "none",
         plot.title = element_text(size = 20, color = "black"),
         plot.caption = element_text(size = 9, color = "grey60"),
