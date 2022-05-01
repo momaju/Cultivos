@@ -30,7 +30,7 @@ ggplot(aes(baixa_mil, sobrevive)) +
   labs(title = "Sobrevivência por ind.mortos/mil povoado",
         x = "Mortalidade em no. de Ind./milheiro",
         y = "Sobrevivência (%)",
-        caption = "Azul Marinho Aquicultuyra") +
+        caption = "Azul Marinho Aquicultura") +
   theme_classic() +
   theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1))
 sp
@@ -71,3 +71,4 @@ sp + geom_text(x = 1.0, y = 200, label = eq1, color = "navy blue", cex = 5)
 # Outra forma:
 
 sp + geom_label(x = 1.0, y = 200, label = eq1, color = "navy blue", cex = 5)
+
