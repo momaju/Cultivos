@@ -71,4 +71,3 @@ sp + geom_text(x = 1.0, y = 200, label = eq1, color = "navy blue", cex = 5)
 # Outra forma:
 
 sp + geom_label(x = 1.0, y = 200, label = eq1, color = "navy blue", cex = 5)
-
