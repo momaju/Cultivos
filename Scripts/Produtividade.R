@@ -1,3 +1,49 @@
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+library(lubridate)
+library(ggrepel)
+library(scales)
+
+
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+
+##Produtividade por ciclo de cultivo--------------------------------
+
+produtividade_ciclo <- biom %>%
+    #filter(densidade >= 10 & sobrevive >= 50) %>% # neste caso, o filtro opera
+    #antes de summarize e não é o desejado
+    group_by(ciclo) %>% # agrupa os dados
+    mutate(ciclo = factor(ciclo)) %>%
+    summarize(densidade = round(mean(densidade), 2), gramatura = mean(g_final),
+              produção = sum(biom_real),
+              produtividade = round(mean(produtividade), 2),
+              sobrevive = round(mean(sobrevive), 2)) %>%
+    #filter(densidade >= 5 & sobrevive >= 50) %>% # filter após summarize,
+    # sai como quqero. Omitindo  esta linha, pega totos os ciclos.
+    arrange(sobrevive)
+
+produtividade_ciclo
+
+# Produtividade por ciclo, destacando a sobrevivência ---------------------
+
+produtividade_ciclo %>%
+  ggplot(aes(ciclo, produtividade)) + # Cria um ggplot object
+  geom_bar(stat = "identity", fill = "royalblue2") +  # Defines the geometry
+  geom_hline(yintercept = 1000, linetype = "dashed", color = "#000000") +
+  geom_text(aes(label = sobrevive), vjust = -1, color = "black", size = 3) +
+  labs(title = "Produtividade por Ciclo",
+         subtitle = "Destacando a Sobrevivência Média",
+         caption = "Fonte: Azul Marinho Aquicultura",
+         x = "Ciclo de Cultivo",
+         y = "Produtividade (kg/ha)") +
+  theme_minimal() +
+  theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1))
+  
+
+
+
+
 # Azul Marinho: Produtividade em kg/ha vs Densidade do povoamento em numero de camarões por metro quadrado. Os dados referem-se aos 10 ciclos de cultivo (2015 ~ 2017).
 
 biomassa <- read.csv(file = "Cultivo - biomassa.csv", header = T)
