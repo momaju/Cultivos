@@ -72,13 +72,14 @@ predict(data.frame(biom_calc = c(2510),
                   baixa_mil = c(0.5))) %>%
 round(2)
 
+## Regressão para um único viveiro-------------------------------------------
 
 biom_v2 <- biom %>%
   na.omit() %>%
   filter(viveiro == 2)
+biom_v2
 
-## Mesmo cálculo para o viveiro 2
-
-fit_biom_v2 <- lm(biom_real ~ biom_calc + pop + ddc +
-                    densidade + baixa_mil, data = biom_v2)
+fit_biom_v2 <- biom_v2 %>%
+lm(biom_real ~ biom_calc + pop + ddc +
+                    densidade + baixa_mil, data = .)
 summary(fit_biom_v2)
