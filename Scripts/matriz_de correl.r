@@ -55,8 +55,9 @@ cor(biom_numeric[, 1:9]) %>%
 ## Cálculo para toda a fazenda. Melhor usar este e
 #acrecenta mais 15% ao resultado.
 
-fit_biom <- lm(biom_real ~ biom_calc + pop + ddc +
-                 densidade + baixa_mil, data = biom)
+fit_biom <- biom %>%
+lm(biom_real ~ biom_calc + pop + ddc +
+                 densidade + baixa_mil, data = .)
 summary(fit_biom)
 
 # Previsão de Despesca ---------------------------------------------------
