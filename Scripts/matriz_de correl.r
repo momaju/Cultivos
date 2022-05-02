@@ -59,6 +59,20 @@ fit_biom <- lm(biom_real ~ biom_calc + pop + ddc +
                  densidade + baixa_mil, data = biom)
 summary(fit_biom)
 
+# Previsão de Despesca ---------------------------------------------------
+
+
+biom %>%
+lm(biom_real ~ biom_calc + pop + ddc +
+                 densidade + baixa_mil, data = .) %>%
+predict(data.frame(biom_calc = c(2510),
+                  pop = c(350000),
+                  ddc = c(60),
+                  densidade = c(11.99),
+                  baixa_mil = c(0.5))) %>%
+round(2)
+
+
 biom_v2 <- biom %>%
   na.omit() %>%
   filter(viveiro == 2)
