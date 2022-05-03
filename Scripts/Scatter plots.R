@@ -18,21 +18,35 @@ View(biom)
 biom %>%
 mutate(viveiro = factor(viveiro)) %>%
 ggplot(aes(baixa_mil, biom_real)) +
-  geom_point(aes(shape = viveiro, color = viveiro), size = 3) +
-   geom_smooth(method = lm, se = FALSE)
+  geom_point(aes(shape = viveiro, color = viveiro), size = 4) +
+   geom_smooth(method = lm, se = FALSE) +
+   labs(title = "Produção Total (kg)",
+        subtitle = "Em Função de Camarões Mortos por\nMilheiro Povoado",
+        x = "Mortalidade em no. de Camarões/Milheiro Povoado",
+        y = "Total Despescado (kg)",
+        caption = "Azul Marinho Aquicultura") +
+  theme_classic() +
+  theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1),
+        plot.title = element_text(size = 30),
+        axis.title.y = element_text(size = 25),
+        axis.title.x = element_text(size = 25),
+        plot.subtitle = element_text(size = 25))
 
 
 sp <- biom %>%
 mutate(viveiro = factor(viveiro)) %>%
 ggplot(aes(baixa_mil, sobrevive)) +
-  geom_point(aes(shape = viveiro, color = viveiro), size = 3) +
+  geom_point(aes(shape = viveiro, color = viveiro), size = 4) +
   geom_smooth(method = lm, se = FALSE) +
   labs(title = "Sobrevivência por ind.mortos/mil povoado",
-        x = "Mortalidade em no. de Ind./milheiro",
+        x = "Mortalidade em no. de Camarões/Milheiro Povoado",
         y = "Sobrevivência (%)",
         caption = "Azul Marinho Aquicultura") +
   theme_classic() +
-  theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1))
+  theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1),
+        plot.title = element_text(size = 30),
+        axis.title.y = element_text(size = 25),
+        axis.title.x = element_text(size = 25))
 sp
 
 # Fit regression line------------------------------------
