@@ -50,9 +50,9 @@ equation <- function(reg) {
   as.character(as.expression(lm_eq));
 }
 
-s <- sp + annotate("text", x = 0.75, y = 60, label = equation(reg),
- parse = TRUE, color = "Blue", size = 5)
-s
+sp + annotate("text", x = 1, y = 200, label = equation(reg),
+ parse = TRUE, color = "Blue", size = 10)
+
 
 
  
