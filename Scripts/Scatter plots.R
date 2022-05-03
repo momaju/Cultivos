@@ -58,16 +58,7 @@ sp + annotate("text", x = 1, y = 200, label = equation(reg),
  
 # Incluindo R squared na regressão-----------------------------------
 
-coeff <- c(coefficients(reg),
-summary(reg <- lm(sobrevive ~ baixa_mil, data = biom))$r.squared)
-
-eq1 <- paste0("y = ", round(coeff[2], 2), "x + ", round(coeff[1], 2), "\nrˆ2 =",
- round(coeff[3], 2))
-
-sp + geom_text(x = 1.0, y = 200, label = eq1, color = "navy blue", cex = 5)
-  
-
-
-# Outra forma:
-
-sp + geom_label(x = 1.0, y = 200, label = eq1, color = "navy blue", cex = 5)
+sp + annotate("text", x = 0.75, y = 180, parse = FALSE,
+           label = "y = 99.03  -31.15 * baixa_mil",
+           size = 10,
+           color = "blue")
