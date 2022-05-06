@@ -22,11 +22,11 @@ cor(biom_numeric[, 3:19]) %>%
 biom %>%
 lm(biom_real ~ biom_calc + pop + ddc +
                  densidade + baixa_mil, data = .) %>%
-predict(data.frame(biom_calc = c(2510),
-                  pop = c(350000),
+predict(data.frame(biom_calc = c(2860),
+                  pop = c(470000),
                   ddc = c(60),
-                  densidade = c(11.99),
-                  baixa_mil = c(0.5))) %>%
+                  densidade = c(12.05),
+                  baixa_mil = c(0.8))) %>%
 round(2)
 
 ## Regressão para um único viveiro-------------------------------------------
