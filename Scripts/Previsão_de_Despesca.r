@@ -29,6 +29,23 @@ predict(data.frame(biom_calc = c(2860),
                   baixa_mil = c(0.8))) %>%
 round(2)
 
+
+## Função de previsão-----------------------------------------------------------
+
+previsto <- function(biomc, pop, ddc, dens, baixa) {
+  biom %>%
+    lm(biom_real ~ biom_calc + pop + ddc +
+         densidade + baixa_mil, data = .) %>%
+    predict(data.frame(biom_calc = c(biomc),
+                       pop = c(pop),
+                       ddc = c(ddc),
+                       densidade = c(dens),
+                       baixa_mil = c(baixa))) %>%
+    round(2)
+}
+
+previsto(2860, 470000, 60, 12.05, 0.8)
+
 ## Regressão para um único viveiro-------------------------------------------
 
 biom_v2 <- biom %>%
