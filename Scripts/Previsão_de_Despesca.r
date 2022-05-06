@@ -22,7 +22,7 @@ cor(biom_numeric[, 3:19]) %>%
 biom %>%
 lm(biom_real ~ biom_calc + pop + ddc +
                  densidade + baixa_mil, data = .) %>%
-predict(data.frame(biom_calc = c(2860),
+predict(data.frame(biom_calc = c(5000),
                   pop = c(470000),
                   ddc = c(60),
                   densidade = c(12.05),
@@ -44,7 +44,7 @@ previsto <- function(biomc, pop, ddc, dens, baixa) {
     round(2)
 }
 
-previsto(2860, 470000, 60, 12.05, 0.8)
+previsto(5000, 470000, 60, 12.05, 0.8)
 
 
 ## Regressão para um único viveiro-------------------------------------------
