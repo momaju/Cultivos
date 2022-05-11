@@ -22,12 +22,13 @@ cor(biom_numeric[, 3:19]) %>%
 biom %>%
 lm(biom_real ~ biom_calc + pop + ddc +
                  densidade + baixa_mil, data = .) %>%
-predict(data.frame(biom_calc = c(5000),
-                  pop = c(470000),
-                  ddc = c(60),
-                  densidade = c(12.05),
-                  baixa_mil = c(1.0))) %>%
-round(2)
+summary()
+#predict(data.frame(biom_calc = c(5000),
+                  #pop = c(470000),
+                  #ddc = c(60),
+                  #densidade = c(12.05),
+                  #baixa_mil = c(1.0))) %>%
+#round(2)
 
 
 ## Função de previsão-----------------------------------------------------------
