@@ -46,7 +46,6 @@ previsto <- function(biomc, pop, ddc, dens, baixa) {
 ## Para um viveiro--------------------------------------------------------------
 
 previsto(2455, 350000, 61, 11.99, 0.034)
-S
 ## Para dois viveiros-----------------------------------------------------------
 
 previsto(c(3075, 2498),
