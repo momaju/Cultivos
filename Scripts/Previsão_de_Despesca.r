@@ -20,19 +20,19 @@ cor(biom_numeric[, 3:19]) %>%
 # Previsão de Despesca ---------------------------------------------------
 
 biom %>%
-lm(biom_real ~ g_final + biom_calc + pop + ddc +
+lm(biom_real ~ g_final + sobrevive + pop + ddc +
                  densidade + baixa_mil, data = .) %>%
 summary()
 
 
 ## Função de previsão-----------------------------------------------------------
 
-previsto <- function(g, biomc, pop, ddc, dens, baixa) {
+previsto <- function(g, sobrevive, pop, ddc, dens, baixa) {
     biom %>%
-    lm(biom_real ~ g_final + biom_calc + pop + ddc +
+    lm(biom_real ~ g_final + sobrevive + pop + ddc +
          densidade + baixa_mil, data = .) %>%
     predict(data.frame(g_final = c(g),
-                      biom_calc = c(biomc),
+                      sobrevive = c(sobrevive),
                        pop = c(pop),
                        ddc = c(ddc),
                        densidade = c(dens),
@@ -41,7 +41,7 @@ previsto <- function(g, biomc, pop, ddc, dens, baixa) {
 }
 ## Para um viveiro--------------------------------------------------------------
 
-previsto(8.0, 2333, 350000, 61, 11.99, 0.034)
+previsto(8.81, 73.34, 470000, 60, 12.05, 0.54)
 ## Para dois viveiros-----------------------------------------------------------
 
 previsto(c(8.5, 8.0),
