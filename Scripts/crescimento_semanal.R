@@ -20,7 +20,7 @@ v1_crescimento <- biom %>%
 v1_crescimento %>%
   ggplot(aes(ciclo, crescimento)) +
   geom_line(aes(group =1), color = "steelblue") +
-  geom_point() +
+  geom_point(shape = 1, size = 3) +
   theme_light() +
   labs(title = "Crescimento Médio Semanal ",
        subtitle = "Viveiro 01",
