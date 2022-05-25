@@ -28,5 +28,6 @@ v1_crescimento %>%
        y = "Crescimento (g/semana)",
        x = "Ciclo de Cultivo") +
   theme(legend.position = "none",
-        panel.border = element_blank())
+        panel.border = element_blank(),
+        plot.caption = element_text(size = 8, color = "grey60"))
   
