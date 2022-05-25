@@ -1,6 +1,6 @@
 # Custos Mensais de Ração
 
-library(tidyverse)
+library(tidyverse)   
 
 feed_costs <- tibble::tribble(
   ~mes,      ~`2020`,   ~`2021`,
