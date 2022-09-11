@@ -759,7 +759,27 @@ produtividade_por_ciclo
 biom %>% 
   summarize(mean_densidade =mean(densidade), sd_densidade = sd(densidade))
 
+biom %>% 
+  group_by(lab) %>%
+  summarise(ciclo = n())
 
+biom %>% 
+  group_by(lab) %>%
+  summarise(lab = n_distintict(lab))
+
+biom %>% 
+  group_by(lab, viveiro) %>%
+  summarise(ciclos = n())
+
+biom %>% 
+  group_by(lab,ciclo) %>%
+  summarise(lab = n())
+
+
+
+biom %>% 
+  group_by(viveiro) %>%
+  summarise(lab = n())
 
 
 
