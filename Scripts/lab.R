@@ -39,3 +39,11 @@ biom %>%
 biom %>% 
   group_by(lab) %>%
   summarise(ciclo = n())
+
+
+# Percentage by group -----------------------------------------------------
+
+biom %>% 
+  count(lab) %>% 
+  mutate(pct = n/sum(n)*100)
+
