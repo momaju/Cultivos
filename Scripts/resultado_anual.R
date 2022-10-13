@@ -43,3 +43,12 @@ biom %>%
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
    vjust = -0.5, color = "red", size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
+
+
+# Produção de um único ano ------------------------------------------------
+
+
+ano_2022 <- biom %>%
+  mutate(ano_desp = factor(year(data_desp))) %>% 
+  filter(ano_desp == "2022") %>% 
+  summarize((total_kg = sum(biom_real, na.rm = TRUE)))
