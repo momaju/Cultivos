@@ -52,3 +52,19 @@ ano_2022 <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>% 
   filter(ano_desp == "2022") %>% 
   summarize((total_kg = sum(biom_real, na.rm = TRUE)))
+
+
+
+
+# Produção total por viveiro------------------------------
+
+biom %>% 
+  group_by(viveiro) %>% 
+  summarise(cultivos = n(), 
+            total_kg = sum(biom_real),
+            kg_ha = mean(produtividade),
+            sovrevive = mean(sobrevive),
+            ddc = sum(ddc),
+            dias_parados = sum(fallow, na.rm = TRUE),
+            pct_parado = sum(fallow/ddc*100, na.rm = TRUE),
+            fcr = mean(tca))
