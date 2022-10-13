@@ -28,6 +28,15 @@ Produtividade_ciclo <- biom %>%
 Produtividade_ciclo
 
 
+# Produção de um único ano ------------------------------------------------
+
+
+ano_2022 <- biom %>%
+  mutate(ano_desp = factor(year(data_desp))) %>% 
+  filter(ano_desp == "2022") %>% 
+  summarize((total_kg = sum(biom_real, na.rm = TRUE)))
+
+
 
 # Produtividade por ciclo, destacando a sobrevivência ---------------------
 
