@@ -12,8 +12,10 @@ biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
   group_by(ano_desp) %>%
   summarize(biom_real = round(sum(biom_real), 2)) %>%
-  ggplot(aes(x = ano_desp, y = biom_real, fill = ano_desp)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = FALSE) +
+  ggplot(aes(x = ano_desp, y = biom_real,)) +
+  geom_bar(stat = "identity", width = 0.5, 
+           show.legend = FALSE,
+           fill = "#3299FF") +
   labs(title = "Produção Anual",
        subtitle = "Azul Marinho Aquicultura",
        y = "Kg Produzidos",
