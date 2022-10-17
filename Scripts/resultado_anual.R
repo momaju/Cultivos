@@ -9,7 +9,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
 biom %>%
-  mutate(ano_desp = factor(year(data_desp))) %>% 
+  mutate(ano_desp = year(data_desp)) %>% 
   group_by(ano_desp) %>%
   summarize(biom_real = round(sum(biom_real), 2)) %>%
   ggplot(aes(x = ano_desp, y = biom_real,)) +
