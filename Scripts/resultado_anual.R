@@ -18,11 +18,21 @@ biom %>%
        y = "Kg Produzidos",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
+  scale_y_continuous(
+    labels = scales::label_number(big.mark = ".",
+                                  decimal.mark = ",")) +
+  expand_limits(y = 65000) +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "grey60")) +
+  theme(plot.caption = element_text(size = 9, color = "grey60"),
+        axis.text.y = element_text(size = 15),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 20,
+                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(size = 20),
+        plot.title = element_text(size = 25)) +
   geom_text(aes(label = format(biom_real, big.mark = ".",
                                         decimal.mark = ",")),
-               vjust = 1.6, color = "white", size = 4.0)
+               vjust = 1.6, color = "white", size = 5)
 
 
 # Trocando a a palete de cores (Viridis) test
@@ -37,9 +47,18 @@ biom %>%
        y = "Kg Produzidos",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
-  expand_limits(y = 50000) +
+  scale_y_continuous(
+    labels = scales::label_number(big.mark = ".",
+                                  decimal.mark = ",")) +
+  expand_limits(y = 65000) +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "grey60")) +
+  theme(plot.caption = element_text(size = 9, color = "grey60"),
+        axis.text.y = element_text(size = 15),
+        axis.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 20,
+                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(size = 20),
+        plot.title = element_text(size = 25)) +
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
    vjust = -0.5, color = "red", size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
