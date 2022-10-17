@@ -14,7 +14,8 @@ biom %>%
   summarize(biom_real = round(sum(biom_real), 2)) %>%
   ggplot(aes(x = ano_desp, y = biom_real, fill = ano_desp)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = FALSE) +
-  labs(title = "Produção Anual (kg)",
+  labs(title = "Produção Anual",
+       subtitle = "Azul Marinho Aquicultura",
        y = "Kg Produzidos",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
@@ -23,17 +24,19 @@ biom %>%
                                   decimal.mark = ",")) +
   expand_limits(y = 65000) +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "grey60"),
-        axis.text.y = element_text(size = 15),
-        axis.text.x = element_text(size = 15),
+  theme(plot.caption = element_text(size = 9, color = "#3FA0FF"),
+        axis.text.y = element_text(size = 15, color = "#000080"),
+        axis.text.x = element_text(size = 15, color = "#000080"),
         axis.title.y = element_text(size = 20,
+                                    color = "#000080",
                                     margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.title.x = element_text(size = 20),
-        plot.title = element_text(size = 25)) +
-  geom_text(aes(label = format(biom_real, big.mark = ".",
-                                        decimal.mark = ",")),
-               vjust = 1.6, color = "white", size = 5)
-
+        axis.title.x = element_text(size = 20, color = "#000080"),
+        plot.title = element_text(size = 34, color = "#000080"),
+        plot.subtitle = element_text(size = 17, color = "#000080"),
+        axis.line.y = element_line(color = "#264DFF"),
+        axis.line.x = element_line(color = "#264DFF")) +
+  geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
+            vjust = -0.5, color = "#264DFF", size = 4.0) 
 
 # Trocando a a palete de cores (Viridis) test
 
@@ -43,7 +46,8 @@ biom %>%
   summarize(biom_real = round(sum(biom_real), 2)) %>%
   ggplot(aes(x = ano_desp, y = biom_real, fill = ano_desp)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = FALSE) +
-  labs(title = "Produção Anual (kg)",
+  labs(title = "Produção Anual",
+       subtitle = "Azul Marinho Aquicultura",
        y = "Kg Produzidos",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
@@ -52,15 +56,19 @@ biom %>%
                                   decimal.mark = ",")) +
   expand_limits(y = 65000) +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "grey60"),
-        axis.text.y = element_text(size = 15),
-        axis.text.x = element_text(size = 15),
+  theme(plot.caption = element_text(size = 9, color = "#3FA0FF"),
+        axis.text.y = element_text(size = 15, color = "#000080"),
+        axis.text.x = element_text(size = 15, color = "#000080"),
         axis.title.y = element_text(size = 20,
+                                    color = "#000080",
                                     margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.title.x = element_text(size = 20),
-        plot.title = element_text(size = 25)) +
+        axis.title.x = element_text(size = 20, color = "#000080"),
+        plot.title = element_text(size = 34, color = "#000080"),
+        plot.subtitle = element_text(size = 17, color = "#000080"),
+        axis.line.y = element_line(color = "#264DFF"),
+        axis.line.x = element_line(color = "#264DFF")) +
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
-   vjust = -0.5, color = "red", size = 4.0) +
+   vjust = -0.5, color = "#264DFF", size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
 
