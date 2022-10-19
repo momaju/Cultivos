@@ -105,6 +105,7 @@ kg_ano <- biom %>%
   group_by(viveiro, ciclo) %>%
   mutate(ano_desp = year(data_desp)) %>% 
   filter(ano_desp == "2022") %>% 
-  summarise( ano = ano_desp,total_kg = sum(biom_real))
+  summarise( ano = ano_desp,total_kg = sum(biom_real)) %>% 
+  select(ano, everything())
 kg_ano
             
