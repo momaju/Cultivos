@@ -104,8 +104,11 @@ biom %>%
 kg_ano <- biom %>% 
   group_by(viveiro, ciclo) %>%
   mutate(ano_desp = year(data_desp)) %>% 
-  filter(ano_desp == "2020") %>% 
-  summarise( ano = ano_desp,total_kg = sum(biom_real)) %>% 
+  filter(ano_desp == "2021") %>% 
+  summarise( ano = ano_desp,total_kg = sum(biom_real), .groups = "drop") %>% 
+  # .groups = "drop" elimina a soma cumulativa por grupo e soma todo o ano,
+  # caso contrário acumula por grupo de viveiro.
+  mutate(acumulado_kg = cumsum(total_kg)) %>%
   select(ano, everything())
 kg_ano
             
