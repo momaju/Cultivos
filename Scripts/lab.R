@@ -27,6 +27,8 @@ lab_desempenho <- biom %>%
             Biometria_1 = mean(biometria_1),
             Id_entrada = mean(id_entrada))
 
+lab_desempenho
+
 
 # Desempenho por viveiro e ciclo de cultivo -------------------------------
 
@@ -57,6 +59,23 @@ lab_table <- flextable(lab_desempenho) %>%
   bold(i = 1, bold = TRUE, part = "header")
 
 lab_table  
+
+
+
+# Making table wider ------------------------------------------------------
+
+# This did not work the way I wanted
+
+lab_wide_table <- lab_desempenho %>% 
+  pivot_wider(names_from = lab, values_from = c(Pls_compradas:Id_entrada)) %>%
+  flextable() %>% 
+  #colformat_double(., j = c(3:11), digits = 2) %>% 
+  #bg(., i= ~ lab == "AQC", part = "body", bg = "#7CADD2") %>% 
+  #bg(., i= ~ lab == "TIJ", part = "body", bg = "#FFFF6D") %>% 
+  bold(i = 1, bold = TRUE, part = "header")
+  
+  
+lab_wide_table  
 
 
 
