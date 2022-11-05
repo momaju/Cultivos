@@ -53,10 +53,10 @@ price_selected %>%
   group_by(ano) %>% 
   summarise(corrigido = mean(corrigido)) %>% 
   ggplot(aes(ano, corrigido)) +
-  geom_point(size = 4, color = "#EE0000") +
+  geom_point(size = 4, color = "#000080") +
   #geom_line(size = 1)+
   #geom_line()+
-  geom_smooth(se = FALSE, color = "#EE0000") +
+  geom_smooth(se = FALSE, color = "#000080") +
   scale_color_brewer(palette = "Set1") +
   #scale_color_manual(values = c("#E7B800","#FC4E07")) +
   #theme_fivethirtyeight()
@@ -67,9 +67,21 @@ price_selected %>%
        y = "Valor (R$/kg)",
        x = "Ano",
        caption = "Mozart Marinho-Jr") +
-  theme(plot.caption = element_text(color = "gray60", size = 8),
-        axis.text = element_text(colour = "#EE0000", size = 10),
-        panel.grid.major = element_line(colour = "grey50"),
-        axis.title.y = element_text(size = 12),
-        axis.title.x = element_text(size = 12))
+  theme(plot.caption = element_text(color = "#3288FF", size = 9),
+        axis.text.y = element_text(size = 15, color = "#000080"),
+        axis.text.x = element_text(size = 15, color = "#000080"),
+        #axis.text = element_text(colour = "#EE0000", size = 10),
+        axis.title.y = element_text(size = 20,
+                                    color = "#000080"),
+        axis.title.x = element_text(size = 20, color = "#000080"),
+        plot.title = element_text(size = 25, color = "#000080"),
+        plot.subtitle = element_text(size = 12, color = "#000080"),
+        panel.grid.major = element_line(colour = "grey50")) +
+        #axis.title.y = element_text(size = 12),
+        #axis.title.x = element_text(size = 12)) +
+  geom_text(aes(label = round((corrigido),2)),
+            check_overlap = T,
+            nudge_y = 0.4,
+            color ="#000080",
+            fontface = "bold")
 
