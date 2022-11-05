@@ -26,7 +26,7 @@ biom %>%
                                   decimal.mark = ",")) +
   expand_limits(y = 65000) +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "#3FA0FF"),
+  theme(plot.caption = element_text(size = 9, color = "#3288FF"),
         axis.text.y = element_text(size = 15, color = "#000080"),
         axis.text.x = element_text(size = 15, color = "#000080"),
         axis.title.y = element_text(size = 20,
