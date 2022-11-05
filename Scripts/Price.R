@@ -57,7 +57,7 @@ price_selected %>%
   #geom_line(size = 1)+
   #geom_line()+
   geom_smooth(se = FALSE, color = "#3299FF") +
-  scale_color_brewer(palette = "Set1") +
+  #scale_color_brewer(palette = "Set1") +
   #scale_color_manual(values = c("#E7B800","#FC4E07")) +
   #theme_fivethirtyeight()
   theme_tufte() +
@@ -76,7 +76,9 @@ price_selected %>%
         axis.title.x = element_text(size = 20, color = "#000080"),
         plot.title = element_text(size = 25, color = "#000080"),
         plot.subtitle = element_text(size = 12, color = "#000080"),
-        panel.grid.major = element_line(color = "#3299FF", size = 0.1)) +
+        panel.grid.major = element_line(color = "#3299FF", size = 0.1),
+        panel.border = element_rect(colour = "#3299FF", 
+                                    fill = NA, size = 1)) +
         #axis.title.y = element_text(size = 12),
         #axis.title.x = element_text(size = 12)) +
   geom_text(aes(label = round((corrigido),2)),
