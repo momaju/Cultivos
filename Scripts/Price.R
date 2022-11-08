@@ -86,7 +86,7 @@ price_selected %>%
         #axis.title.x = element_text(size = 12)) +
   geom_text(aes(label = round((corrigido),2)),
             check_overlap = T,
-            nudge_y = 0.4,
+            nudge_y = 0.8,
             color ="#000080",
             fontface = "bold")
 
