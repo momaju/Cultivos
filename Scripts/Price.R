@@ -63,7 +63,7 @@ price_selected %>%
                      limits = c(10,30)) +
   #scale_color_manual(values = c("#E7B800","#FC4E07")) +
   #theme_fivethirtyeight()
-  theme_tufte() +
+  theme_light() +
   #theme_classic()
   labs(title = "Preços Médios Anuais Ofertados ao Produtor Para Camarão de 10g",
        subtitle = "Valores em Reais (R$/kg), corrigidos pela inflação até fev/2022",
@@ -79,11 +79,8 @@ price_selected %>%
         axis.title.x = element_text(size = 20, color = "#000080"),
         plot.title = element_text(size = 25, color = "#000080"),
         plot.subtitle = element_text(size = 12, color = "#000080"),
-        panel.grid.major = element_line(color = "#000080", size = 0.1))+
-        #panel.border = element_rect(colour = "#3299FF", 
-        #                            fill = NA, size = 1)) +
-        #axis.title.y = element_text(size = 12),
-        #axis.title.x = element_text(size = 12)) +
+        panel.grid.major = element_line(color = "#9999cc", size = 0.1),
+        panel.grid.minor = element_blank()) +
   geom_text(aes(label = round((corrigido),2)),
             check_overlap = T,
             nudge_y = 0.8,
