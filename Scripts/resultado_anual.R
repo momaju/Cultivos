@@ -15,30 +15,31 @@ biom %>%
   ggplot(aes(x = ano_desp, y = biom_real,)) +
   geom_bar(stat = "identity", width = 0.5, 
            show.legend = FALSE,
-           fill = "#3299FF") +
+           fill = "#2e98fe") +
   labs(title = "Produção Anual",
        subtitle = "Azul Marinho Aquicultura",
        y = "Kg Produzidos",
        x = "Ano",
-       caption = "Fonte: Azul Marinho Aquicultura") +
+       caption = "Azul Marinho Aquicultura") +
   scale_y_continuous(
     labels = scales::label_number(big.mark = ".",
                                   decimal.mark = ",")) +
   expand_limits(y = 65000) +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "#3288FF"),
+  theme(plot.caption = element_text(size = 9, color = "#8080c0"),
         axis.text.y = element_text(size = 15, color = "#000080"),
         axis.text.x = element_text(size = 15, color = "#000080"),
         axis.title.y = element_text(size = 20,
                                     color = "#000080",
                                     margin = margin(t = 0, r = 20, b = 0, l = 0)),
         axis.title.x = element_text(size = 20, color = "#000080"),
-        plot.title = element_text(size = 34, color = "#000080"),
-        plot.subtitle = element_text(size = 17, color = "#000080"),
-        axis.line.y = element_line(color = "#264DFF"),
-        axis.line.x = element_line(color = "#264DFF")) +
+        plot.title = element_text(size = 25, color = "#000080"),
+        plot.subtitle = element_text(size = 12, color = "#000080"),
+        axis.line.y = element_line(color = "#000080"),
+        axis.line.x = element_line(color = "#000080"),
+        panel.grid.major = element_blank()) +
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
-            vjust = -0.5, color = "#264DFF", size = 4.0) 
+            vjust = -0.5, color = "#000080", size = 4.0) 
 
 # Trocando a a palete de cores (Viridis) test
 

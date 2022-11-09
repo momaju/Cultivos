@@ -54,10 +54,10 @@ price_selected %>%
   group_by(ano) %>% 
   summarise(corrigido = mean(corrigido)) %>% 
   ggplot(aes(ano, corrigido)) +
-  geom_point(size = 4, color = "#3299FF") +
+  geom_point(size = 4, color = "#2e98f3") +
   #geom_line(size = 1)+
   #geom_line()+
-  geom_smooth(se = FALSE, color = "#3299FF") +
+  geom_smooth(se = FALSE, color = "#2e98f3") +
   scale_y_continuous(labels = label_dollar(prefix = "R$"),
                      expand = expansion(0),
                      limits = c(10,30)) +
@@ -70,7 +70,7 @@ price_selected %>%
        y = "Valor",
        x = "Ano",
        caption = "Azul Marinho Aquicultura") +
-  theme(plot.caption = element_text(color = "#3288FF", size = 9),
+  theme(plot.caption = element_text(color = "#8080c0", size = 9),
         axis.text.y = element_text(size = 15, color = "#000080"),
         axis.text.x = element_text(size = 15, color = "#000080"),
         #axis.text = element_text(colour = "#EE0000", size = 10),
@@ -79,7 +79,7 @@ price_selected %>%
         axis.title.x = element_text(size = 20, color = "#000080"),
         plot.title = element_text(size = 25, color = "#000080"),
         plot.subtitle = element_text(size = 12, color = "#000080"),
-        panel.grid.major = element_line(color = "#3299FF", size = 0.1))+
+        panel.grid.major = element_line(color = "#000080", size = 0.1))+
         #panel.border = element_rect(colour = "#3299FF", 
         #                            fill = NA, size = 1)) +
         #axis.title.y = element_text(size = 12),
