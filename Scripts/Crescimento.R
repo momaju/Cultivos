@@ -41,7 +41,7 @@ sp <- biom %>%
   xlim(0, 30) +
   ylim(0, 2.5) +
   labs(title = "Crescimento Médio Semanal em Função de Densidade de Estocagem",
-       y = "Peso (g)",
+       y = "Cescimento \n(g/semana)",
        x = "Densidade (ind/mq)",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
