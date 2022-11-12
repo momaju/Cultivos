@@ -12,12 +12,46 @@ library(ggrepel)
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-# Todos os viveiros -------------------------------------------------------
+# Todos os viveiros por mes de povoamento -------------------------------------------------------
+
+
+# agosto ------------------------------------------------------------------
+
+
+povoa_ago <- biom %>% 
+  mutate(mes_povoa = month(data_pov)) %>% 
+  filter(mes_povoa == 8) %>% 
+  group_by(viveiro) %>% 
+  summarise(survival = mean(sobrevive, na.rm = TRUE),
+            kg = mean(biom_real, na.rm = TRUE),
+            densidade = mean(densidade, na.rm = TRUE))
+
+
+# Setembro ----------------------------------------------------------------
+
+povoa_set <- biom %>% 
+  mutate(mes_povoa = month(data_pov)) %>% 
+  filter(mes_povoa == 9) %>% 
+  group_by(viveiro) %>% 
+  summarise(survival = mean(sobrevive, na.rm = TRUE),
+            kg = mean(biom_real, na.rm = TRUE),
+            densidade = mean(densidade, na.rm = TRUE))
+
+
+
+# Outubro -----------------------------------------------------------------
+
 
 
 povoa_out <- biom %>% 
   mutate(mes_povoa = month(data_pov)) %>% 
-  filter(mes_povoa == 10)
+  filter(mes_povoa == 10) %>% 
+  group_by(viveiro) %>% 
+  summarise(survival = mean(sobrevive, na.rm = TRUE),
+            kg = mean(biom_real, na.rm = TRUE),
+            densidade = mean(densidade, na.rm = TRUE))
+
+
 
 
 
