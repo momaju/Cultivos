@@ -23,7 +23,8 @@ biom %>%
        caption = "Azul Marinho Aquicultura") +
   scale_y_continuous(
     labels = scales::label_number(big.mark = ".",
-                                  decimal.mark = ",")) +
+                                  decimal.mark = ","),
+    expand = expansion(0),) + #faz as barras encostarem no eixo
   expand_limits(y = 65000) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, color = "#8080c0"),
