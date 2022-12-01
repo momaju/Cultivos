@@ -66,25 +66,12 @@ lab_table
 
 
 
-# Making table wider ------------------------------------------------------
-
-# This did not work the way I wanted
-
-lab_wide_table <- lab_desempenho %>% 
-  pivot_wider(names_from = lab, values_from = c(Pls_compradas:Id_entrada)) %>%
-  flextable() %>% 
-  #colformat_double(., j = c(3:11), digits = 2) %>% 
-  #bg(., i= ~ lab == "AQC", part = "body", bg = "#7CADD2") %>% 
-  #bg(., i= ~ lab == "TIJ", part = "body", bg = "#FFFF6D") %>% 
-  bold(i = 1, bold = TRUE, part = "header")
-  
-  
-lab_wide_table  
+ 
 
 
 # Resultado Tijuca --------------------------------------------------------
 # Tabelas utilizando o pacote kableExtra
-# 
+
 
 
 library(kableExtra)
@@ -120,7 +107,7 @@ tij_desempenho %>%
 
 
 
-# Todos cultivos Tijuca ---------------------------------------------------
+# Todos cultivos Tijuca (kableExtra)  --------------------------------------
 
 
 tij_desempenho_all <- biom %>% 
@@ -190,7 +177,7 @@ library(gt)
 aqc_desempenho_all <- biom %>% 
   filter(lab == "AQC") %>% 
   group_by(viveiro) %>% 
-  summarise(Pls_compradas = sum(pop),
+  summarise(Pls_compradas = trunc(sum(pop)),
             Sobrevive = round(mean(sobrevive),2),
             Densidade = round(mean(densidade),2),
             Dias_de_cultivo = round(mean(ddc),2),
@@ -205,9 +192,27 @@ aqc_desempenho_all <- biom %>%
 
 aqc_desempenho_all %>% 
   gt() %>% 
+  cols_label(
+    viveiro = "Viveiro",
+    Pls_compradas = "Total PLs",
+    Sobrevive = "Sobrevive.",
+    Dias_de_cultivo = "Dias",
+    Peso_final = "Peso(g)"
+  ) %>%
+  cols_width(
+    viveiro ~ px(40),
+    Sobrevive ~ px(110),
+    Peso_final ~ px(60),
+    Crescimento ~ px(100),
+    Produtividade ~ px(135),
+    everything() ~ px(80)) %>% 
+  cols_align(
+    align = "right",
+    columns = everything()
+  ) %>% 
   fmt_number(columns = c(Pls_compradas:Id_entrada), dec_mark = ",",
              sep_mark = ".") %>%
-  tab_header(title = "Resultado dos Cultivos com PLs Aquacrusta") %>% 
+  tab_header(title = md("**Resultado dos Cultivos com PLs Aquacrusta**")) %>% 
   summary_rows(
     groups = NULL,
     columns = Pls_compradas,
@@ -217,6 +222,25 @@ aqc_desempenho_all %>%
       groups = NULL,
       columns = c(Sobrevive:Id_entrada),
       fns = list(
-      Média = ~mean(., na.rm = TRUE)), dec_mark = ",",sep_mark = ".")
+      Média = ~mean(., na.rm = TRUE)), dec_mark = ",",sep_mark = ".") %>% 
+  tab_options(
+    summary_row.background.color = "#ACEACE80",
+    grand_summary_row.background.color = "#000080",
+    row_group.background.color = "#FFEFDB80",
+    heading.background.color = "#ffffff",
+    column_labels.background.color = "#8080c0",
+    stub.background.color = "#ffffff",
+    table.font.color = "#000080",
+    table_body.hlines.color = "#000080",
+    table_body.border.top.color = "#989898",
+    heading.border.bottom.color = "#989898",
+    row_group.border.top.color = "#989898",
+    row_group.border.bottom.style = "none",
+    stub.border.style = "line",
+    stub.border.color = "#000080",
+    stub.border.width = "1px",
+    summary_row.border.color = "#989898",
+    table.width = "100%"
+  )
 
                 
