@@ -6,7 +6,7 @@ library(ggthemes)
 library(lubridate)
 library(ggrepel)
 library(scales)
-library(flextable)
+
 
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
@@ -17,7 +17,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 lab_desempenho <- biom %>% 
   group_by(lab) %>% 
   summarise(Pls_compradas = sum(pop),
-            Sobrevivência = mean(sobrevive),
+            Sobrevive = mean(sobrevive),
             Densidade = mean(densidade),
             Dias_de_cultivo = mean(ddc),
             Peso_final = mean(g_final, na.rm = TRUE),
@@ -52,6 +52,9 @@ biom %>%
 
 # Making tables -----------------------------------------------------------
 # use flextable package
+
+library(flextable) 
+
 
 lab_table <- flextable(lab_desempenho) %>% 
   colformat_double(., j = c(3:11), digits = 2) %>% 
@@ -90,7 +93,7 @@ tij_desempenho <- biom %>%
   filter(lab == "TIJ" & ciclo == 32) %>% 
   group_by(viveiro) %>% 
   summarise(Pls_compradas = sum(pop),
-            Sobrevivência = mean(sobrevive),
+            Sobrevive = mean(sobrevive),
             Densidade = mean(densidade),
             Dias_de_cultivo = mean(ddc),
             Peso_final = mean(g_final, na.rm = TRUE),
@@ -124,7 +127,7 @@ tij_desempenho_all <- biom %>%
   filter(lab == "TIJ") %>% 
   group_by(viveiro) %>% 
   summarise(Pls_compradas = sum(pop),
-            Sobrevivência = round(mean(sobrevive),2),
+            Sobrevive = round(mean(sobrevive),2),
             Densidade = round(mean(densidade),2),
             Dias_de_cultivo = round(mean(ddc),2),
             Peso_final = round(mean(g_final, na.rm = TRUE),2),
@@ -147,11 +150,37 @@ tij_desempenho_all %>%
 
 library(gt)
 
+tij_desempenho_all <- biom %>% 
+  filter(lab == "TIJ") %>% 
+  group_by(viveiro) %>% 
+  summarise(Pls_compradas = sum(pop),
+            Sobrevive = round(mean(sobrevive),2),
+            Densidade = round(mean(densidade),2),
+            Dias_de_cultivo = round(mean(ddc),2),
+            Peso_final = round(mean(g_final, na.rm = TRUE),2),
+            Crescimento = round(mean(g_semana),2),
+            Produtividade = round(mean(produtividade),2),
+            Conversão = round(mean(tca),2),
+            Biometria_1 = round(mean(biometria_1),2),
+            Id_entrada = round(mean(id_entrada),2)) 
+
+
 tij_desempenho_all %>% 
   gt() %>% 
   fmt_number(columns = c(Pls_compradas:Id_entrada), dec_mark = ",",
              sep_mark = ".") %>%
-  tab_header(title = "Resultado dos Cultivos com PLs Tijuca")
+  tab_header(title = "Resultado dos Cultivos com PLs Tijuca") %>% 
+  summary_rows(
+    groups = NULL,
+    columns = Pls_compradas,
+    fns = list(
+      Total = ~sum(., na.rm = TRUE)), dec_mark = ",",sep_mark = ".") %>% 
+  summary_rows(
+    groups = NULL,
+    columns = c(Sobrevive:Id_entrada),
+    fns = list(
+      Média = ~mean(., na.rm = TRUE)), dec_mark = ",",sep_mark = ".")
+  
 
 
 # Todos os cultivos Aquacrusta --------------------------------------------
@@ -183,11 +212,11 @@ aqc_desempenho_all %>%
     groups = NULL,
     columns = Pls_compradas,
     fns = list(
-      Total = ~sum(., na.rm = TRUE))) %>% 
+      Total = ~sum(., na.rm = TRUE)), dec_mark = ",",sep_mark = ".") %>% 
   summary_rows(
       groups = NULL,
       columns = c(Sobrevive:Id_entrada),
       fns = list(
-      Média = ~mean(., na.rm = TRUE)))
+      Média = ~mean(., na.rm = TRUE)), dec_mark = ",",sep_mark = ".")
 
                 
