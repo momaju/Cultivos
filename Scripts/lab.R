@@ -80,7 +80,10 @@ lab_wide_table
 
 
 # Resultado Tijuca --------------------------------------------------------
+# Tabelas utilizando o pacote kableExtra
 # 
+
+
 library(kableExtra)
 
 tij_desempenho <- biom %>% 
@@ -137,6 +140,54 @@ tij_desempenho_all %>%
   kable_styling(bootstrap_options = "condensed",
                 full_width = F,
                 fixed_thead = T)
-  
+
+
+
+# Using gt package --------------------------------------------------------
+
+library(gt)
+
+tij_desempenho_all %>% 
+  gt() %>% 
+  fmt_number(columns = c(Pls_compradas:Id_entrada), dec_mark = ",",
+             sep_mark = ".") %>%
+  tab_header(title = "Resultado dos Cultivos com PLs Tijuca")
+
+
+# Todos os cultivos Aquacrusta --------------------------------------------
+
+library(gt)
+
+aqc_desempenho_all <- biom %>% 
+  filter(lab == "AQC") %>% 
+  group_by(viveiro) %>% 
+  summarise(Pls_compradas = sum(pop),
+            Sobrevive = round(mean(sobrevive),2),
+            Densidade = round(mean(densidade),2),
+            Dias_de_cultivo = round(mean(ddc),2),
+            Peso_final = round(mean(g_final, na.rm = TRUE),2),
+            Crescimento = round(mean(g_semana),2),
+            Produtividade = round(mean(produtividade),2),
+            Conversão = round(mean(tca),2),
+            Biometria_1 = round(mean(biometria_1),2),
+            Id_entrada = round(mean(id_entrada),2)) 
+
+
+
+aqc_desempenho_all %>% 
+  gt() %>% 
+  fmt_number(columns = c(Pls_compradas:Id_entrada), dec_mark = ",",
+             sep_mark = ".") %>%
+  tab_header(title = "Resultado dos Cultivos com PLs Aquacrusta") %>% 
+  summary_rows(
+    groups = NULL,
+    columns = Pls_compradas,
+    fns = list(
+      Total = ~sum(., na.rm = TRUE))) %>% 
+  summary_rows(
+      groups = NULL,
+      columns = c(Sobrevive:Id_entrada),
+      fns = list(
+      Média = ~mean(., na.rm = TRUE)))
 
                 
