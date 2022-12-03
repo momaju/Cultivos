@@ -33,6 +33,7 @@ lab_desempenho
 # Tabela: conjunto dos dois laboratórios ----------------------------------
 
 # Utilizando library(gt)
+# Look for color in : https://hue.tools/mix?mode=lch&steps=10&colors=b3cde0ff%3B011f4bff
 
 
 
@@ -53,23 +54,24 @@ lab_desempenho <- biom %>%
 lab_desempenho %>% 
   gt() %>% 
   cols_label(
-    #viveiro = "Viveiro",
+    lab = "Lab",
     Pls_compradas = "Total PLs",
     Sobrevive = "Sobrevive.",
     Dias_de_cultivo = "Dias",
     Peso_final = "Peso(g)"
   ) %>%
-  cols_width(
-   # viveiro ~ px(40),
-    Sobrevive ~ px(110),
-    Peso_final ~ px(80),
-    Crescimento ~ px(75),
-    Produtivid. ~ px(185),
-    Conversão ~ px(90),
-    everything() ~ px(100)) %>% 
+  # cols_width(
+  # Sobrevive ~ px(110),
+  # Peso_final ~ px(80),
+  #  Crescimento ~ px(75),
+  #  Produtivid. ~ px(185),
+  #  Conversão ~ px(90),
+  #  everything() ~ px(100)) %>% 
   cols_align(
-    align = "right",
-    columns = everything()
+    align = "left",
+    columns = lab
+    #align = "right",
+    #columns = everything()
   ) %>% 
   fmt_number(columns = c(Pls_compradas:Id_entrada), dec_mark = ",",
              sep_mark = ".") %>%
