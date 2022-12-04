@@ -6,6 +6,8 @@ library(ggthemes)
 library(lubridate)
 library(ggrepel)
 library(scales)
+library(kableExtra)
+library(gt)
 
 
 
@@ -151,7 +153,7 @@ lab_table
 
 
 
-library(kableExtra)
+#library(kableExtra)
 
 tij_desempenho <- biom %>% 
   filter(lab == "TIJ" & ciclo == 32) %>% 
@@ -212,7 +214,7 @@ tij_desempenho_all %>%
 
 # Using gt package --------------------------------------------------------
 
-library(gt)
+#library(gt)
 
 tij_desempenho_all <- biom %>% 
   filter(lab == "TIJ") %>% 
@@ -249,7 +251,6 @@ tij_desempenho_all %>%
 
 # Todos os cultivos Aquacrusta --------------------------------------------
 
-library(gt)
 
 aqc_desempenho_all <- biom %>% 
   filter(lab == "AQC") %>% 
