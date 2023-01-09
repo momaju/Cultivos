@@ -113,4 +113,11 @@ kg_ano <- biom %>%
   mutate(acumulado_kg = cumsum(total_kg)) %>%
   select(ano, everything())
 kg_ano
-            
+
+
+# Using dataxray package --------------------------------------------------
+
+biom %>% 
+  make_xray() %>% 
+  view_xray()
+# por alguma razão não funcionou            
