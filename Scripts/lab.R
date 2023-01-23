@@ -8,8 +8,7 @@ library(ggrepel)
 library(scales)
 library(kableExtra)
 library(gt)
-
-
+library(flextable)
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
@@ -132,7 +131,6 @@ biom %>%
 # Making tables -----------------------------------------------------------
 # use flextable package
 
-library(flextable) 
 
 
 lab_table <- flextable(lab_desempenho) %>% 
