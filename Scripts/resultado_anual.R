@@ -120,4 +120,4 @@ kg_ano
 biom %>% 
   make_xray() %>% 
   view_xray()
-# por alguma razão não funcionou            
+# carregar: library(dataxray)     
