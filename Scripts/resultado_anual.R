@@ -127,9 +127,41 @@ biom %>%
 # Despescas Mensais -------------------------------------------------------
 biom_mes <- biom %>% 
   mutate(ano = year(data_desp), 
-                mes = month(data_desp, label = TRUE, abb = TRUE)) %>% 
+                mes = month(data_desp, label = TRUE, abb = FALSE)) %>% 
   select(ano, viveiro, mes, biom_real) %>% 
   group_by(mes) %>% 
-  summarise(mes = unique(mes), mean_kg = mean(biom_real), total_kg = sum(biom_real))
+  summarise(mes = unique(mes), mean_kg = round(mean(biom_real),2), total_kg = sum(biom_real)) %>% 
+  ggplot(aes(x = mes, y = mean_kg,)) +
+  geom_bar(stat = "identity", width = 0.8, 
+           show.legend = FALSE,
+           fill = "#2e98fe") +
+  labs(title = "Produção Média Mensal",
+       subtitle = "Azul Marinho Aquicultura",
+       y = "Kg Produzidos",
+       x = "",
+       caption = "Azul Marinho Aquicultura") +
+  scale_y_continuous(
+    labels = scales::label_number(big.mark = ".",
+                                  decimal.mark = ","),
+    expand = expansion(0),) + #faz as barras encostarem no eixo
+  expand_limits(y = 4000) +
+  theme_minimal() +
+  theme(plot.caption = element_text(size = 9, color = "#8080c0"),
+        axis.text.y = element_text(size = 15, color = "#000080"),
+        axis.text.x = element_text(size = 15, color = "#000080"),
+        axis.title.y = element_text(size = 20,
+                                    color = "#000080",
+                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(size = 20, color = "#000080"),
+        plot.title = element_text(size = 25, color = "#000080"),
+        plot.subtitle = element_text(size = 12, color = "#000080"),
+        axis.line.y = element_line(color = "#000080"),
+        axis.line.x = element_line(color = "#000080"),
+        panel.grid.major = element_blank()) +
+  geom_text(aes(label = format(mean_kg, 
+                big.mark = ".", 
+                decimal.mark = ",")),
+            vjust = -0.5, color = "#000080", size = 4.0)
 
+  
 biom_mes
