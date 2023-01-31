@@ -121,3 +121,15 @@ biom %>%
   make_xray() %>% 
   view_xray()
 # carregar: library(dataxray)     
+
+
+
+# Despescas Mensais -------------------------------------------------------
+biom_mes <- biom %>% 
+  mutate(ano = year(data_desp), 
+                mes = month(data_desp, label = TRUE, abb = TRUE)) %>% 
+  select(ano, viveiro, mes, biom_real) %>% 
+  group_by(mes) %>% 
+  summarise(mes = unique(mes), mean_kg = mean(biom_real), total_kg = sum(biom_real))
+
+biom_mes
