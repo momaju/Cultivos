@@ -144,8 +144,8 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
   scale_y_continuous(
     labels = scales::label_number(big.mark = ".",
                                   decimal.mark = ","),
-    expand = expansion(0),) + #faz as barras encostarem no eixo
-  expand_limits(y = 4000) +
+    expand = expansion(0)) + #faz as barras encostarem no eixo
+    expand_limits(y = 4000) +
   geom_hline(yintercept = mean(biom_mes$mean_kg), 
              color = "#1a0080", 
              linetype = "solid",
