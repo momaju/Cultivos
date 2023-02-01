@@ -142,10 +142,12 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
        x = "",
        caption = "Azul Marinho Aquicultura") +
   scale_y_continuous(
+    limit = (c(0, 4000)),
+    breaks = (seq(0, 4000, 500)),
     labels = scales::label_number(big.mark = ".",
                                   decimal.mark = ","),
     expand = expansion(0)) + #faz as barras encostarem no eixo
-    expand_limits(y = 4000) +
+    #expand_limits(y = 4000) +
   geom_hline(yintercept = mean(biom_mes$mean_kg), 
              color = "#1a0080", 
              linetype = "solid",
