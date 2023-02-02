@@ -14,7 +14,7 @@ Ficou assim:
 biom_mes
 
 
-For `month()` and `wday()` you can set `label = TRUE` to return the abbreviated name of the month or day of the week. Set `abbr = FALSE` to return the full name.
+For `month()` and `wday()` you can set `label = TRUE` to return the abbreviated name of the month or day of the week. Set `abbr = FALSE` to return the full name.
 
 summarise( ano = ano_desp,total_kg = sum(biom_real), .groups = "drop") %>% 
   # .groups = "drop" elimina a soma cumulativa por grupo e soma todo o ano,
