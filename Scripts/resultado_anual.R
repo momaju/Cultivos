@@ -4,6 +4,7 @@ library(ggthemes)
 library(lubridate)
 library(ggrepel)
 library(scales)
+library(magick)
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
@@ -177,4 +178,13 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
                                big.mark = ".", 
                                decimal.mark = ",")),
             vjust = -0.5, color = "#000080", size = 4.0)
+logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo.png")
+#grid::grid.raster(logo, x = 0.1, y = 0.02, just = c('left', 'bottom'), width = unit(1.9, 'inches'))
+
+
+grid::grid.raster(logo, x = 1.05, y = 0.02, just =c("right", "bottom"), width = unit(1.9, 'inches'))
+
+
 biom_mes
+
+
