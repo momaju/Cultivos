@@ -182,8 +182,7 @@ logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/azul
 #grid::grid.raster(logo, x = 0.1, y = 0.02, just = c('left', 'bottom'), width = unit(1.9, 'inches'))
 
 
-grid::grid.raster(logo, x = 1.05, y = 0.02, just =c("right", "bottom"), width = unit(1.9, 'inches'))
-
+grid::grid.raster(logo, x = 0.88, y = 0.85, just =c("left", "bottom"), width = unit(1.9, 'inches'))
 
 biom_mes
 
