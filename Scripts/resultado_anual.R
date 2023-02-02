@@ -14,7 +14,7 @@ biom %>%
   group_by(ano_desp) %>%
   summarize(biom_real = round(sum(biom_real), 2)) %>%
   ggplot(aes(x = ano_desp, y = biom_real,)) +
-  geom_bar(stat = "identity", width = 0.5, 
+  geom_bar(stat = "identity", width = 0.8, 
            show.legend = FALSE,
            fill = "#2e98fe") +
   labs(title = "Produção Anual",
@@ -42,6 +42,8 @@ biom %>%
         panel.grid.major = element_blank()) +
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
             vjust = -0.5, color = "#000080", size = 4.0) 
+logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo.png")
+grid::grid.raster(logo, x = 0.88, y = 0.85, just =c("left", "bottom"), width = unit(1.9, 'inches'))
 
 # Trocando a a palete de cores (Viridis) test
 
