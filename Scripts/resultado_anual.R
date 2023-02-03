@@ -45,8 +45,8 @@ biom_ano %>%
         panel.grid.major = element_blank()) +
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
             vjust = -0.5, color = "#000080", size = 4.0) 
-logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo.png")
-grid::grid.raster(logo, x = 0.88, y = 0.85, just =c("left", "bottom"), width = unit(1.9, 'inches'))
+logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/logo_azul.png")
+grid::grid.raster(logo, x = 0.88, y = 0.80, just =c("left", "bottom"), width = unit(1.9, 'inches'))
 
 # Trocando a a palete de cores (Viridis) test
 
@@ -183,11 +183,11 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
                                big.mark = ".", 
                                decimal.mark = ",")),
             vjust = -0.5, color = "#000080", size = 4.0)
-logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo.png")
+logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/logo_azul.png")
 #grid::grid.raster(logo, x = 0.1, y = 0.02, just = c('left', 'bottom'), width = unit(1.9, 'inches'))
 
 
-grid::grid.raster(logo, x = 0.9, y = 0.85, just =c("left", "bottom"), width = unit(1.9, 'inches'))
+grid::grid.raster(logo, x = 0.9, y = 0.83, just =c("left", "bottom"), width = unit(1.9, 'inches'))
 
 biom_mes
 
