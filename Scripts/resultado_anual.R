@@ -9,10 +9,12 @@ library(magick)
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 
-biom %>%
+biom_ano <- biom %>%
   mutate(ano_desp = year(data_desp)) %>% 
   group_by(ano_desp) %>%
-  summarize(biom_real = round(sum(biom_real), 2)) %>%
+  summarize(biom_real = round(sum(biom_real), 2))
+
+biom_ano %>% 
   ggplot(aes(x = ano_desp, y = biom_real,)) +
   geom_bar(stat = "identity", width = 0.8, 
            show.legend = FALSE,
@@ -27,6 +29,7 @@ biom %>%
                                   decimal.mark = ","),
     expand = expansion(0),) + #faz as barras encostarem no eixo
   expand_limits(y = 65000) +
+  scale_x_continuous(breaks = biom_ano$ano_desp) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, color = "#8080c0"),
         axis.text.y = element_text(size = 15, color = "#000080"),
@@ -184,7 +187,7 @@ logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/azul
 #grid::grid.raster(logo, x = 0.1, y = 0.02, just = c('left', 'bottom'), width = unit(1.9, 'inches'))
 
 
-grid::grid.raster(logo, x = 0.88, y = 0.85, just =c("left", "bottom"), width = unit(1.9, 'inches'))
+grid::grid.raster(logo, x = 0.9, y = 0.85, just =c("left", "bottom"), width = unit(1.9, 'inches'))
 
 biom_mes
 
