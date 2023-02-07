@@ -46,7 +46,7 @@ biom_ano %>%
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
             vjust = -0.5, color = "#000080", size = 4.0) 
 logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/logo_azul.png")
-grid::grid.raster(logo, x = 0.01, y = 0.91, just =c("left", "bottom"), width = unit(2.5, 'cm'))
+grid::grid.raster(logo, x = 0.005, y = 0.91, just =c("left", "bottom"), width = unit(2.5, 'cm'))
 
 # Trocando a a palete de cores (Viridis) test
 
@@ -143,7 +143,7 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
            show.legend = FALSE,
            fill = "#2e98fe") +
   labs(title = "Produção Média Mensal",
-       subtitle = "Azul Marinho Aquicultura",
+       subtitle = "De 2015 a 2023",
        y = "Kg Produzidos",
        x = "",
        caption = "Azul Marinho Aquicultura") +
@@ -187,7 +187,7 @@ logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/logo
 #grid::grid.raster(logo, x = 0.1, y = 0.02, just = c('left', 'bottom'), width = unit(1.9, 'inches'))
 
 
-grid::grid.raster(logo, x = 0.9, y = 0.83, just =c("left", "bottom"), width = unit(1.9, 'inches'))
+grid::grid.raster(logo, x = 0.005, y = 0.91, just =c("left", "bottom"), width = unit(2.5, 'cm'))
 
 biom_mes
 
