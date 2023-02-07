@@ -46,7 +46,7 @@ biom_ano %>%
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")),
             vjust = -0.5, color = "#000080", size = 4.0) 
 logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/logo_azul.png")
-grid::grid.raster(logo, x = 0.88, y = 0.80, just =c("left", "bottom"), width = unit(1.9, 'inches'))
+grid::grid.raster(logo, x = 0.01, y = 0.91, just =c("left", "bottom"), width = unit(2.5, 'cm'))
 
 # Trocando a a palete de cores (Viridis) test
 
