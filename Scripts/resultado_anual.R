@@ -171,7 +171,8 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
         plot.subtitle = element_text(size = 12, color = "#000080"),
         axis.line.y = element_line(color = "#000080"),
         axis.line.x = element_line(color = "#000080"),
-        panel.grid.major = element_blank()) +
+        panel.grid.major = element_blank(),
+        plot.margin = margin(25,25,25,30)) +
   annotate("curve", x = 3, y = 3500, xend = 2, yend = 2651,
            curvature = 0.3, arrow = arrow(length = unit(2, "mm"))) +
   annotate(geom = "text", 
@@ -187,7 +188,10 @@ logo <- image_read("G:/My Drive/RWork/Projects/Azul Marinho/Cultivos/Images/logo
 #grid::grid.raster(logo, x = 0.1, y = 0.02, just = c('left', 'bottom'), width = unit(1.9, 'inches'))
 
 
-grid::grid.raster(logo, x = 0.005, y = 0.91, just =c("left", "bottom"), width = unit(2.5, 'cm'))
+grid::grid.raster(logo, x = 0.001,
+                  y = 0.91, 
+                  just =c("left", "bottom"), 
+                  width = unit(2.4, 'cm'))
 
 biom_mes
 
