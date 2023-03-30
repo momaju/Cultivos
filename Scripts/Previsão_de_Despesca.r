@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
@@ -66,7 +66,7 @@ fit_biom_v2 <- biom_v2 %>%
 lm(biom_real ~ biom_calc + pop + ddc +
                     densidade + baixa_mil, data = .)
 summary(fit_biom_v2)
-=======
+
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
@@ -131,4 +131,4 @@ fit_biom_v2 <- biom_v2 %>%
 lm(biom_real ~ biom_calc + pop + ddc +
                     densidade + baixa_mil, data = .)
 summary(fit_biom_v2)
->>>>>>> acb6c01cdb993483d516267d2027f21baa8a1e80
+
