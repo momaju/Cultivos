@@ -9,6 +9,7 @@ library(scales)
 library(kableExtra)
 library(gt)
 library(flextable)
+library(gtsummary)
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
@@ -319,4 +320,22 @@ aqc_desempenho_all %>%
     table.width = "100%"
   )
 
+
+# gtsummary ---------------------------------------------------------------
+
+biom %>% 
+   mutate(#Pls_compradas = sum(pop),
+          Sobrevive = round(mean(sobrevive),2),
+          Densidade = round(mean(densidade),2),
+          #Dias_de_cultivo = round(mean(ddc),2),
+          Peso_final = round(mean(g_final, na.rm = TRUE),2),
+          Crescimento = round(mean(g_semana),2),
+          Produtivid. = round(mean(produtividade),2),
+          Conversão = round(mean(tca),2),
+          Biometria_1 = round(mean(biometria_1),2),
+          Id_entrada = round(mean(id_entrada),2)) %>% 
+  select(lab, pop, Sobrevive, Densidade, ddc, tca) %>% 
+tbl_summary(by = lab)
+  #add_p() %>% 
+  #add_overall()
                 
