@@ -347,7 +347,11 @@ tbl_summary(by = lab,
                            "Id. Entrada", g_final = "Peso Final (g)",
                          sobrevive = "Sobrevivência", ddc = "Dias de Cultivo"),
             missing = "no") %>% 
-  modify_header(label ~ "**Variavel**") %>%
-             
-  add_p()
+  modify_header(label ~ "**Variável**") %>%
+  modify_spanning_header(c("stat_1", "stat_2") ~ "**Laboratório**") %>%
+  modify_caption("**Desempenho por Laboratório**") %>%
+  add_p() %>% 
+  as_gt() %>% #the summary table must first be converted into a gt object
+  gt::tab_source_note(gt::md("*Azul Marinho Aquicultura*"))
+  
                 
