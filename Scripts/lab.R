@@ -324,18 +324,30 @@ aqc_desempenho_all %>%
 # gtsummary ---------------------------------------------------------------
 
 biom %>% 
-   mutate(#Pls_compradas = sum(pop),
-          Sobrevive = round(mean(sobrevive),2),
-          Densidade = round(mean(densidade),2),
-          #Dias_de_cultivo = round(mean(ddc),2),
-          Peso_final = round(mean(g_final, na.rm = TRUE),2),
-          Crescimento = round(mean(g_semana),2),
-          Produtivid. = round(mean(produtividade),2),
-          Conversão = round(mean(tca),2),
-          Biometria_1 = round(mean(biometria_1),2),
-          Id_entrada = round(mean(id_entrada),2)) %>% 
-  select(lab, pop, Sobrevive, Densidade, ddc, tca) %>% 
-tbl_summary(by = lab)
-  #add_p() %>% 
-  #add_overall()
+#   mutate(#Pls_compradas = sum(pop),
+#          Sobrevive = round(mean(sobrevive),2),
+#          Densidade = round(mean(densidade),2),
+#          #Dias_de_cultivo = round(mean(ddc),2),
+#          Peso_final = round(mean(g_final, na.rm = TRUE),2),
+#          Crescimento = round(mean(g_semana),2),
+#          Produtivid. = round(mean(produtividade),2),
+#          Conversão = round(mean(tca),2),
+#          Biometria_1 = round(mean(biometria_1),2),
+#         Id_entrada = round(mean(id_entrada),2)) %>% 
+#  select(lab, pop, Sobrevive, Densidade, ddc, tca) %>% 
+select(lab, baixa_mil, tca, biometria_1, fallow, g_semana, id_entrada, g_final,
+       sobrevive, ddc) %>% 
+tbl_summary(by = lab,
+            statistic = list(
+              all_continuous() ~ "{mean} ({sd})"), 
+            label = list(lab = "Lab", baixa_mil = "Mortalida/Milheiro", tca =
+                           "Conversão Alimentar", biometria_1 = "Primeira Biometria (g)",
+                         fallow = "Dias Parados",
+                         g_semana = "Crescimento Semanal (g)", id_entrada = 
+                           "Id. Entrada", g_final = "Peso Final (g)",
+                         sobrevive = "Sobrevivência", ddc = "Dias de Cultivo"),
+            missing = "no") %>% 
+  modify_header(label ~ "**Variavel**") %>%
+             
+  add_p()
                 
