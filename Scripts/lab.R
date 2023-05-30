@@ -1,3 +1,5 @@
+
+
 ### Hatchery Performance
 
 library(tidyverse)
@@ -324,17 +326,6 @@ aqc_desempenho_all %>%
 # gtsummary ---------------------------------------------------------------
 
 biom %>% 
-#   mutate(#Pls_compradas = sum(pop),
-#          Sobrevive = round(mean(sobrevive),2),
-#          Densidade = round(mean(densidade),2),
-#          #Dias_de_cultivo = round(mean(ddc),2),
-#          Peso_final = round(mean(g_final, na.rm = TRUE),2),
-#          Crescimento = round(mean(g_semana),2),
-#          Produtivid. = round(mean(produtividade),2),
-#          Conversão = round(mean(tca),2),
-#          Biometria_1 = round(mean(biometria_1),2),
-#         Id_entrada = round(mean(id_entrada),2)) %>% 
-#  select(lab, pop, Sobrevive, Densidade, ddc, tca) %>% 
 select(lab, baixa_mil, tca, biometria_1, fallow, g_semana, id_entrada, g_final,
        sobrevive, ddc) %>% 
 tbl_summary(by = lab,
@@ -344,14 +335,20 @@ tbl_summary(by = lab,
                            "Conversão Alimentar", biometria_1 = "Primeira Biometria (g)",
                          fallow = "Dias Parados",
                          g_semana = "Crescimento Semanal (g)", id_entrada = 
-                           "Id. Entrada", g_final = "Peso Final (g)",
+                           "Id. Entrada (PL)", g_final = "Peso Final (g)",
                          sobrevive = "Sobrevivência", ddc = "Dias de Cultivo"),
-            missing = "no") %>% 
-  modify_header(label ~ "**Variável**") %>%
+            missing = "no") %>%  # don't list missing data separately
+  modify_header(label ~ "**Variável**") %>% # update the column header
   modify_spanning_header(c("stat_1", "stat_2") ~ "**Laboratório**") %>%
   modify_caption("**Desempenho por Laboratório**") %>%
-  add_p() %>% 
+  bold_labels() %>% 
+  #add_difference() #add column for difference between two group, 
+                  #confidence interval, and p-value
+  add_p() %>% # test for a difference between groups
   as_gt() %>% #the summary table must first be converted into a gt object
-  gt::tab_source_note(gt::md("*Azul Marinho Aquicultura*"))
-  
+  gt::tab_source_note(gt::md("*Azul Marinho Aquicultura*")) %>% 
+  gt::tab_options(column_labels.background.color = "#8080c0",
+                  table_body.hlines.color = "#000080",
+                  table.font.color = "#000080")
+   
                 
