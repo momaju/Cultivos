@@ -326,13 +326,16 @@ aqc_desempenho_all %>%
 # gtsummary ---------------------------------------------------------------
 
 biom %>% 
-select(lab, baixa_mil, tca, biometria_1, fallow, g_semana, id_entrada, g_final,
+select(lab, pop, baixa_mil, tca, biometria_1, fallow, g_semana, id_entrada, g_final,
        sobrevive, ddc) %>% 
 tbl_summary(by = lab,
             statistic = list(
-              all_continuous() ~ "{mean} ({sd})"), 
-            label = list(lab = "Lab", baixa_mil = "Mortalida/Milheiro", tca =
-                           "Conversão Alimentar", biometria_1 = "Primeira Biometria (g)",
+             all_continuous() ~ "{mean} ({sd})",
+             c(pop) ~ "{sum}"), 
+            label = list(lab = "Lab", pop = "PLs Compradas (milheiro)", 
+                         baixa_mil = "Mortalida/Milheiro", tca =
+                           "Conversão Alimentar", biometria_1 = 
+                           "Primeira Biometria (g)",
                          fallow = "Dias Parados",
                          g_semana = "Crescimento Semanal (g)", id_entrada = 
                            "Id. Entrada (PL)", g_final = "Peso Final (g)",
@@ -342,13 +345,22 @@ tbl_summary(by = lab,
   modify_spanning_header(c("stat_1", "stat_2") ~ "**Laboratório**") %>%
   modify_caption("**Desempenho por Laboratório**") %>%
   bold_labels() %>% 
-  #add_difference() #add column for difference between two group, 
+  #dd_difference() #add column for difference between two group, 
                   #confidence interval, and p-value
   add_p() %>% # test for a difference between groups
+  add_significance_stars() %>% #Add significance stars
+  bold_p() %>%  #bold significant p-values
   as_gt() %>% #the summary table must first be converted into a gt object
   gt::tab_source_note(gt::md("*Azul Marinho Aquicultura*")) %>% 
   gt::tab_options(column_labels.background.color = "#8080c0",
                   table_body.hlines.color = "#000080",
-                  table.font.color = "#000080")
+                  table.font.color = "#000080") %>% 
+  gt::fmt_number(columns = everything(),
+                 #rows = everything(),
+                 decimals = 5,
+                 system = "intl",
+                 pattern = "{x}",
+                 dec_mark = ",",
+                 sep_mark = ".")
    
                 
