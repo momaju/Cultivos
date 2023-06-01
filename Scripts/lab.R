@@ -326,13 +326,24 @@ aqc_desempenho_all %>%
 # gtsummary ---------------------------------------------------------------
 
 biom %>% 
-select(lab, pop, baixa_mil, tca, biometria_1, fallow, g_semana, id_entrada, g_final,
-       sobrevive, ddc) %>% 
+select(lab, 
+       pop, 
+       baixa_mil, 
+       tca, 
+       biometria_1, 
+       fallow, 
+       g_semana, 
+       id_entrada, 
+       g_final,
+       sobrevive, 
+       ddc) %>% 
+ 
 tbl_summary(by = lab,
             statistic = list(
              all_continuous() ~ "{mean} ({sd})",
-             c(pop) ~ "{sum}"), 
-            label = list(lab = "Lab", pop = "PLs Compradas (milheiro)", 
+             c(pop) ~ "{sum}"),
+            digits = all_continuous() ~ 2,
+            label = list(lab = "Lab", pop = "PLs Compradas", 
                          baixa_mil = "Mortalida/Milheiro", tca =
                            "Conversão Alimentar", biometria_1 = 
                            "Primeira Biometria (g)",
@@ -341,26 +352,28 @@ tbl_summary(by = lab,
                            "Id. Entrada (PL)", g_final = "Peso Final (g)",
                          sobrevive = "Sobrevivência", ddc = "Dias de Cultivo"),
             missing = "no") %>%  # don't list missing data separately
+  
   modify_header(label ~ "**Variável**") %>% # update the column header
   modify_spanning_header(c("stat_1", "stat_2") ~ "**Laboratório**") %>%
-  modify_caption("**Desempenho por Laboratório**") %>%
-  bold_labels() %>% 
+  #modify_caption("**Desempenho por Laboratório**") %>%
   #dd_difference() #add column for difference between two group, 
                   #confidence interval, and p-value
+  #add_p(pvalue_fun = ~ style_pvalue(.x, digits = 3)) %>% 
   add_p() %>% # test for a difference between groups
-  add_significance_stars() %>% #Add significance stars
+  #add_significance_stars() %>% #Add significance stars
   bold_p() %>%  #bold significant p-values
   as_gt() %>% #the summary table must first be converted into a gt object
   gt::tab_source_note(gt::md("*Azul Marinho Aquicultura*")) %>% 
   gt::tab_options(column_labels.background.color = "#8080c0",
                   table_body.hlines.color = "#000080",
                   table.font.color = "#000080") %>% 
-  gt::fmt_number(columns = everything(),
-                 #rows = everything(),
-                 decimals = 5,
-                 system = "intl",
-                 pattern = "{x}",
-                 dec_mark = ",",
-                 sep_mark = ".")
+  gt::fmt_number(columns =  where(~ is.numeric(.x)), #não formata de acordo
+                 decimals = 4) %>% 
+                 #dec_mark = ",",
+                 #sep_mark = ".") %>% 
+  gt::tab_header(
+    title = md("Desempenho por Laboratório"),
+    subtitle = "2015 - 2023"
+  )
    
                 
