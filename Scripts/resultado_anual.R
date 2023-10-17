@@ -85,10 +85,11 @@ biom %>%
 # Produção de um único ano ------------------------------------------------
 
 
-ano_2022 <- biom %>%
+ano_2023 <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>% 
-  filter(ano_desp == "2022") %>% 
+  filter(ano_desp == "2023") %>% 
   summarize((total_kg = sum(biom_real, na.rm = TRUE)))
+ano_2023
 
 
 
