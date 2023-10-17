@@ -1,4 +1,4 @@
-# Matriz de correlção
+# correlate de correlção
 
 library(tidyverse)
 library(googlesheets4)

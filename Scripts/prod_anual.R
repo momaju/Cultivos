@@ -22,7 +22,7 @@ biom %>%
   labs(title = "Produção Anual (kg)",
        y = "Kg Produzidos",
        x = "Ano",
-       caption = "Fonte: Azul Marinho Aquicultura")+
+       caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, color = "grey60")) +
   geom_text(aes(label = format(biom_real, big.mark = ".", decimal.mark = ",")), vjust=1.6, color="white", size=4.0)
