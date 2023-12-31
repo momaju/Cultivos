@@ -7,12 +7,13 @@ library(ggthemes)
 library(scales)
 library(magick)
 
+options(showWarnCalls = FALSE)
 
 
-price <- read_sheet("https://docs.google.com/spreadsheets/d/1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU/edit#gid=1319412488",
-                    sheet = 6)
+price <- read_sheet("https://docs.google.com/spreadsheets/d/1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU/edit#gid=1319412488", sheet = 6)
+
 price_pivoted <- price %>% 
-  rename(Corrigido ='C10G_Fev_2022', Nominal = 'C10G_nominal') %>% 
+  rename(Corrigido = 'C10G_Fev_2022', Nominal = 'C10G_nominal') %>% 
   select(Data, Corrigido, Nominal) %>% 
   pivot_longer(c(Corrigido,Nominal),
                names_to = "preço", values_to = "valor") %>% 
@@ -45,7 +46,7 @@ price_pivoted %>%
 # Somente os preços corrigidos --------------------------------------------
 
 price_selected <- price %>% 
-  rename(corrigido ='C10G_Fev_2022') %>% 
+  rename(corrigido = 'C10G_Fev_2022') %>% 
   select(Data, corrigido) %>% 
   mutate(ano = year(Data),
          mês = month(Data),
@@ -85,7 +86,7 @@ price_selected %>%
   geom_text(aes(label = round((corrigido),2)),
             check_overlap = T,
             nudge_y = 0.8,
-            color ="#000080",
+            color = "#000080",
             fontface = "bold")
 
 # Preços corrigidos até 2023-03 -------------------------------------------
@@ -170,7 +171,7 @@ price2023_plot <- price2023_selected %>%
   geom_text(aes(label = round((corrigido),2)),
             check_overlap = T,
             nudge_y = 0.8,
-            color ="#000080",
+            color = "#000080",
             fontface = "bold")
 
 price2023_plot
@@ -186,7 +187,7 @@ logo <- image_read("Images/azul_logo_transp.png")
 grid::grid.raster(logo, 
                   x = 0.89,
                   y = 0.845, 
-                  just =c("center", "center"),
+                  just = c("center", "center"),
                   width = unit(3.5, 'cm'))
 
 ggsave("price2023_plot.png",
