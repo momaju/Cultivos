@@ -765,3 +765,4 @@ biom_v2 <- biom %>%
 fit_biom_v2 <- lm(biom_real ~ biom_calc + pop + ddc +
                     densidade + baixa_mil, data = biom_v2)
 summary(fit_biom_v2)
+
