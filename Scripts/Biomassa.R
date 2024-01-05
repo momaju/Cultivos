@@ -16,13 +16,25 @@ str(biom)
 
 summary(biom)
 
+# Regressão-----
+
+fit_biom <- biom %>%
+  lm(biom_real ~ biom_calc, data = .)
+
+fit_biom
+
+summary(fit_biom)
+
+
+# Gráfico biomassa real ---------------------------------------------------
+
 
 
 d <- biom %>%
   ggplot(aes(biom_calc, biom_real)) +
-  geom_point(aes(shape = factor(viveiro)), size = 2.5) +
+  geom_point(aes(shape = factor(viveiro)), size = 3.5) +
   geom_smooth(method = lm, se = FALSE) +
-  labs(title = "Total Despescado (kg): Calculado vs Real",
+  labs(title = "Total Despescado (kg): Real vs Calculado",
        y = "Biomassa Real",
        x = "Biomassa Calculada",
        caption = "Fonte: Azul Marinho Aquicultura",
@@ -31,19 +43,25 @@ d <- biom %>%
   theme(plot.caption = element_text(size = 9, color = "#8080c0"),
         axis.text.y = element_text(size = 12, color = "#000080"),
         axis.text.x = element_text(size = 12, color = "#000080"),
-        axis.title.y = element_text(size = 15,
+        axis.title.y = element_text(size = 20,
                                     color = "#000080",
                                     margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.title.x = element_text(size = 15, color = "#000080"),
-        plot.title = element_text(size = 20, color = "#000080"),
+        axis.title.x = element_text(size = 20, color = "#000080"),
+        plot.title = element_text(size = 25, color = "#000080"),
         axis.line.y = element_line(color = "#000080"),
         axis.line.x = element_line(color = "#000080"),
         panel.grid.major = element_blank(),
         legend.position = "top",
         legend.key.size = unit(0.5, "cm"),
-        legend.title = element_text(size = 15, color = "#8080c0"))
+        legend.title = element_text(size = 20, color = "#8080c0")) +
+  annotate("text",
+           x = 1000, y = 5000,
+           label = paste("y = 103.32 + 1.07 x"),
+           color = "#8080c0", 
+           size = 8) +
+  guides(shape = guide_legend(override.aes = list(size = 4)))
 
-d
+d 
 
 # Inserindo o logo
 
