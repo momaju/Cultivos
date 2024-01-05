@@ -25,7 +25,8 @@ d <- biom %>%
   labs(title = "Total Despescado (kg): Calculado vs Real",
        y = "Biomassa Real",
        x = "Biomassa Calculada",
-       caption = "Fonte: Azul Marinho Aquicultura") +
+       caption = "Fonte: Azul Marinho Aquicultura",
+       shape = "Viveiro") + # ajusta o texto da legenda
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, color = "#8080c0"),
         axis.text.y = element_text(size = 12, color = "#000080"),
@@ -37,14 +38,22 @@ d <- biom %>%
         plot.title = element_text(size = 20, color = "#000080"),
         axis.line.y = element_line(color = "#000080"),
         axis.line.x = element_line(color = "#000080"),
-        panel.grid.major = element_blank())
-  scale_shape_discrete(name = "Viveiro") # ajusta o título da legenda
-  
+        panel.grid.major = element_blank(),
+        legend.position = "top",
+        legend.key.size = unit(0.5, "cm"),
+        legend.title = element_text(size = 15, color = "#8080c0"))
+
 d
 
+# Inserindo o logo
+
+logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
+grid::grid.raster(logo, x = 0.92, y = 0.85, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
 
 
-# Regressão-----
+
+
+ # Regressão-----
 
 fit_biom <- biom %>%
   lm(biom_real ~ biom_calc, data = .)
