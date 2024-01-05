@@ -16,6 +16,7 @@ str(biom)
 summary(biom)
 
 
+
 d <- biom %>%
   ggplot(aes(biom_calc, biom_real)) +
   geom_point(aes(shape = factor(viveiro)), size = 2.5) +
@@ -25,7 +26,17 @@ d <- biom %>%
        x = "Biomassa Calculada",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 8, color = "grey60", hjust = 1)) +
+  theme(plot.caption = element_text(size = 9, color = "#8080c0"),
+        axis.text.y = element_text(size = 12, color = "#000080"),
+        axis.text.x = element_text(size = 12, color = "#000080"),
+        axis.title.y = element_text(size = 15,
+                                    color = "#000080",
+                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(size = 15, color = "#000080"),
+        plot.title = element_text(size = 20, color = "#000080"),
+        axis.line.y = element_line(color = "#000080"),
+        axis.line.x = element_line(color = "#000080"),
+        panel.grid.major = element_blank())
   scale_shape_discrete(name = "Viveiro") # ajusta o t´tulo da legenda
   
 d
