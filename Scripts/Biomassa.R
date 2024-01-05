@@ -7,6 +7,7 @@ library(lubridate)
 library(ggrepel)
 library(scales)
 library(corrplot)
+library(magick)
 
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
@@ -37,7 +38,7 @@ d <- biom %>%
         axis.line.y = element_line(color = "#000080"),
         axis.line.x = element_line(color = "#000080"),
         panel.grid.major = element_blank())
-  scale_shape_discrete(name = "Viveiro") # ajusta o t´tulo da legenda
+  scale_shape_discrete(name = "Viveiro") # ajusta o título da legenda
   
 d
 
