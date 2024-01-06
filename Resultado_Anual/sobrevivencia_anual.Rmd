@@ -63,8 +63,7 @@ d <- sobrevive_ano %>%
 ```
 
 ## Inserindo o logo
-
-```{r}
+```{r, echo=FALSE, fig.height = 9, fig.width = 19}
 d
 logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
 grid::grid.raster(logo, x = 0.92, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
