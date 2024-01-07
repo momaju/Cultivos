@@ -11,6 +11,7 @@ library(ggthemes)
 library(lubridate)
 library(scales)
 library(magick)
+library(tinytex)
 
 ```
 
@@ -56,7 +57,7 @@ sobrevive_ano %>%
 ```
 
 ```{r}
-logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
-grid::grid.raster(logo, x = 0.92, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+#logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
+#grid::grid.raster(logo, x = 0.92, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
 
 ```
