@@ -1,12 +1,20 @@
 ---
-title: "Sobrevive"
+title: "Sobrevivência Anual"
 format: pdf
 editor: visual
 editor_options: 
   chunk_output_type: inline
+execute:
+  echo: false
 ---
 
-## Biblioteca
+## Sobrevivêcia Anual
+
+Os dados representados no gráfico abaixo representam a sobrevivência média anual nos vários anos de operção da Azul Marinho. Os dois piores anos foram os de 2018 e 2023.
+
+Em 2017-2018 ocorreu um episódio do vírus da mancha branca na rigião, o que reduziu draticamente a sobrevivência. Já no ano de 2023, credito as baixas sobreviências à baixa qualidade das pós larvas adquiridas do laboratório Labor Science, cujo meu amigo Júlio Macias é o responsável técnico. Ao todo fizemos seis cultivos com ests fornecedor. Posteriomente vou tentar anexar uma tabela com o resumo dos resultados deste laboratório,
+
+Para não ser totalmente injusto com o fornecedor, podemos levantar a hipótese que a fazenda já está dando sinais de necessita de um  novo tratamento de solo. Em todo caso, voltei a adquirir PLs da Aquacrusta.
 
 ```{r}
 library(tidyverse)
@@ -34,8 +42,11 @@ sobrevive_ano <- biom %>%
 
 ```
 
-```{r, fig.width=8}
-sobrevive_ano %>%
+```{r}
+
+#| label: Grafico
+
+d <- sobrevive_ano %>%
   ggplot(aes(ano_desp, sobrevive)) +
   geom_point() +
   #geom_line() +
@@ -62,12 +73,17 @@ sobrevive_ano %>%
 
 ```
 
-```{r}
-#logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
-#grid::grid.raster(logo, x = 0.92, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+```{r, fig.width=8}
+#| label: Logo
+
+#logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png") # no windows
+
+d
+
+logo <-  image_read("/mnt/chromeos/GoogleDrive/MyDrive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo_transp.png") # no ChromeOS 
+
+grid::grid.raster(logo, x = 0.87, y = 0.70, just = c('left', 'bottom'), width = unit(0.9, 'inches'))
 
 ```
 
-```{r}
 
-```
