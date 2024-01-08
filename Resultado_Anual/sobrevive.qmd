@@ -14,7 +14,7 @@ Os dados representados no gráfico abaixo representam a sobrevivência média an
 
 Em 2017-2018 ocorreu um episódio do vírus da mancha branca na rigião, o que reduziu draticamente a sobrevivência. Já no ano de 2023, credito as baixas sobreviências à baixa qualidade das pós larvas adquiridas do laboratório Labor Science, cujo meu amigo Júlio Macias é o responsável técnico. Ao todo fizemos seis cultivos com ests fornecedor. Posteriomente vou tentar anexar uma tabela com o resumo dos resultados deste laboratório,
 
-Para não ser totalmente injusto com o fornecedor, podemos levantar a hipótese que a fazenda já está dando sinais de necessita de um  novo tratamento de solo. Em todo caso, voltei a adquirir PLs da Aquacrusta.
+Para não ser totalmente injusto com o fornecedor, podemos levantar a hipótese que a fazenda já está dando sinais de necessita de um novo tratamento de solo. Em todo caso, voltei a adquirir PLs da Aquacrusta.
 
 ```{r}
 library(tidyverse)
@@ -76,14 +76,14 @@ d <- sobrevive_ano %>%
 ```{r, fig.width=8}
 #| label: Logo
 
-#logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png") # no windows
-
 d
 
-logo <-  image_read("/mnt/chromeos/GoogleDrive/MyDrive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo_transp.png") # no ChromeOS 
+logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png") # no windows
+
+
+
+#logo <-  image_read("/mnt/chromeos/GoogleDrive/MyDrive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo_transp.png") # no ChromeOS 
 
 grid::grid.raster(logo, x = 0.87, y = 0.70, just = c('left', 'bottom'), width = unit(0.9, 'inches'))
 
 ```
-
-
