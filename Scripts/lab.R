@@ -79,7 +79,7 @@ lab_desempenho %>%
   ) %>% 
   fmt_number(columns = c(Pls_compradas:Id_entrada), dec_mark = ",",
              sep_mark = ".") %>%
-  tab_header(title = md("**Aquacrusta vs Tijuca**")) %>% 
+  tab_header(title = md("**Desempho por Laboratório**")) %>% 
   summary_rows(
     groups = NULL,
     columns = Pls_compradas,
