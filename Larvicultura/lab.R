@@ -34,7 +34,7 @@ lab_desempenho <- biom %>%
 lab_desempenho
 
 
-# Tabela: conjunto dos dois laboratórios ----------------------------------
+# Tabela: conjunto todos laboratórios ----------------------------------
 
 # Utilizando library(gt)
 # Look for color in : https://hue.tools/mix?mode=lch&steps=10&colors=b3cde0ff%3B011f4bff
@@ -139,7 +139,8 @@ biom %>%
 lab_table <- flextable(lab_desempenho) %>% 
   colformat_double(., j = c(3:11), digits = 2) %>% 
   bg(., i= ~ lab == "AQC", part = "body", bg = "#7CADD2") %>% 
-  bg(., i= ~ lab == "TIJ", part = "body", bg = "#f7ce00") %>% 
+  bg(., i= ~ lab == "TIJ", part = "body", bg = "#7CADD2") %>% 
+  bg(., i= ~ lab == "LBS", part = "body", bg = "#f7ce00") %>%
   bold(i = 1, bold = TRUE, part = "header")
 
 lab_table  
