@@ -138,10 +138,10 @@ biom %>%
 
 lab_table <- flextable(lab_desempenho) %>% 
   colformat_double(., j = c(3:11), digits = 2) %>% 
-  bg(., i= ~ lab == "AQC", part = "body", bg = "#7CADD2") %>% 
-  bg(., i= ~ lab == "TIJ", part = "body", bg = "#7CADD2") %>% 
-  bg(., i= ~ lab == "LBS", part = "body", bg = "#f7ce00") %>%
-  bold(i = 1, bold = TRUE, part = "header")
+  bg(., i = ~ lab == "AQC", part = "body", bg = "#7CADD2") %>% 
+  bg(., i = ~ lab == "TIJ", part = "body", bg = "#7CADD2") %>% 
+  bg(., i = ~ lab == "LBS", part = "body", bg = "#f7ce00") %>%
+  bold(i  = 1, bold = TRUE, part = "header")
 
 lab_table  
 
@@ -185,6 +185,7 @@ tij_desempenho %>%
                 full_width = F,
                 fixed_thead = T) %>% 
   footnote(general = "Data da despesca 16/11/2022")
+
 
 
 
@@ -344,18 +345,20 @@ tbl_summary(by = lab,
              all_continuous() ~ "{mean} ({sd})",
              c(pop) ~ "{sum}"),
             digits = all_continuous() ~ 2,
-            label = list(lab = "Lab", pop = "PLs Compradas", 
-                         baixa_mil = "Mortalida/Milheiro", tca =
-                           "Conversão Alimentar", biometria_1 = 
-                           "Primeira Biometria (g)",
+            label = list(lab = "Lab", 
+                         pop = "PLs Compradas", 
+                         baixa_mil = "Mortalida/Milheiro", 
+                         tca = "Conversão Alimentar", 
+                         biometria_1 = "Primeira Biometria (g)",
                          fallow = "Dias Parados",
-                         g_semana = "Crescimento Semanal (g)", id_entrada = 
-                           "Id. Entrada (PL)", g_final = "Peso Final (g)",
+                         g_semana = "Crescimento Semanal (g)", 
+                         id_entrada = "Id. Entrada (PL)", 
+                         g_final = "Peso Final (g)",
                          sobrevive = "Sobrevivência", ddc = "Dias de Cultivo"),
             missing = "no") %>%  # don't list missing data separately
   
   modify_header(label ~ "**Variável**") %>% # update the column header
-  modify_spanning_header(c("stat_1", "stat_2") ~ "**Laboratório**") %>%
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Laboratório**") %>%
   #modify_caption("**Desempenho por Laboratório**") %>%
   #dd_difference() #add column for difference between two group, 
                   #confidence interval, and p-value
@@ -369,7 +372,7 @@ tbl_summary(by = lab,
                   table_body.hlines.color = "#000080",
                   table.font.color = "#000080") %>% 
   gt::fmt_number(columns =  where(~ is.numeric(.x)), #não formata de acordo
-                 decimals = 4) %>% 
+                 decimals = 2) %>% 
                  #dec_mark = ",",
                  #sep_mark = ".") %>% 
   gt::tab_header(
