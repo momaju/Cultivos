@@ -791,5 +791,18 @@ biom %>%
   summarise(lab = n())
 
 
+# means for year 2023 -----------------------------------------------------
+
+
+
+Means <- biom %>%
+  group_by(viveiro) %>%
+  mutate(ano_despesca = year(data_desp)) %>% 
+  filter(ano_despesca == 2023 & viveiro %in% c(3,4)) %>% 
+  summarize(across(where(is.numeric), mean, na.rm =TRUE, .names = "mean_{col}"))
+Means
+View(Means)
+
+
 
 
