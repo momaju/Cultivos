@@ -11,7 +11,7 @@ execute:
 
 ```{r}
 
-#| label: Lybraries
+#| label: Libraries
 
 library(tidyverse)
 library(googlesheets4)
