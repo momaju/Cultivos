@@ -6,6 +6,9 @@ format:
     toc: true
     papersize: A4
 editor: visual
+execute: 
+  echo: false
+  warning: false
 ---
 
 ```{r}
@@ -18,6 +21,7 @@ library(ggthemes)
 library(lubridate)
 library(ggrepel)
 library(scales)
+library(tinytex)
 
 ```
 
