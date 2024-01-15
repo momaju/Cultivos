@@ -1,0 +1,44 @@
+---
+title: "Resultado 2023"
+author: Mozart Marinho-Jr
+format: 
+  pdf:
+    toc: true
+    papersize: A4
+editor: visual
+---
+
+```{r}
+
+#| libraries
+
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+library(lubridate)
+library(ggrepel)
+library(scales)
+
+```
+
+```{r}
+
+#| Reading-data
+
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+
+```
+
+```{r}
+
+#| Médias-2023
+
+Means_2023 <- biom %>%
+  group_by(viveiro) %>%
+  mutate(ano_despesca = year(data_desp)) %>% 
+  filter(ano_despesca == 2023) %>%  
+  summarize(across(where(is.numeric), mean, na.rm =TRUE, .names = "mean_{col}"))
+
+Means_2023
+
+```
