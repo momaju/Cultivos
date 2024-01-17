@@ -71,13 +71,29 @@ logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Image
 grid::grid.raster(logo, x = 0.92, y = 0.85, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
 
 
-# Selecionando variéves do viveiro ----------------------------------------
+# Selecionando variéves do viveiro 4 ----------------------------------------
 
 
 v4_selected <-  v4 %>% 
-  select(data_desp, ciclo, ddc, g_final,biom_real, densidade)
+  select(data_desp, ciclo, ddc, g_final,biom_real, densidade, lab)
 
 v4_ordered <- v4_selected[order(v4_selected$biom_real, decreasing = TRUE),]
 
 v4_ordered
 view(v4_ordered)
+
+
+
+# Which.max ---------------------------------------------------------------
+
+v4_selected[which.max(v4_selected$biom_real),]
+
+# Utilizando a função slice()
+
+v4_selected %>% slice_max(biom_real, n = 5)
+
+# Top_five (ordered)-----------------------------------------------------------
+# O mesmo resultado do código acima.
+# top_n() has been superseded in favour of slice_min()/slice_max()
+
+v4_ordered %>% top_n(5, biom_real)
