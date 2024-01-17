@@ -71,9 +71,13 @@ logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Image
 grid::grid.raster(logo, x = 0.92, y = 0.85, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
 
 
+# Selecionando variéves do viveiro ----------------------------------------
+
+
 v4_selected <-  v4 %>% 
-  select(data_desp, ciclo, biom_real)
-  
+  select(data_desp, ciclo, ddc, g_final,biom_real, densidade)
+
 v4_ordered <- v4_selected[order(v4_selected$biom_real, decreasing = TRUE),]
+
 v4_ordered
 view(v4_ordered)
