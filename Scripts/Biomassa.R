@@ -160,7 +160,10 @@ p + annotate("text", x = 1500.00,
 
 # Escrevendo de outra maneira
 
-p + geom_text(x = 1500.00, y = 4500.00, label = lm_eqn(fit4), parse = TRUE)
+p + geom_text(x = 1500.00, y = 4500.00, 
+              label = lm_eqn(fit4), 
+              parse = TRUE,
+              )
 
 
 
