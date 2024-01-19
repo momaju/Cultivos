@@ -11,7 +11,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 sobrevive_ano <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
-  filter(ano_desp != 2024) %>% 
+  #filter(ano_desp != 2024) %>% 
   group_by(ano_desp) %>%
   summarize(sobrevive = median(sobrevive))
 
@@ -57,7 +57,7 @@ grid::grid.raster(logo, x = 0.92, y = 0.8, just = c('left', 'bottom'), width = u
 
 sobrevive_viveiro <- biom %>%
   mutate(ano_desp = factor(year(data_desp)), viveiro = factor(viveiro)) %>%
-  filter(ano_desp != 2024) %>%
+  #filter(ano_desp != 2024) %>%
   group_by(viveiro)
   #summarize(sobrevive = median(sobrevive))
 
