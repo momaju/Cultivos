@@ -14,6 +14,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 biom_ano <- biom %>%
   mutate(ano_desp = year(data_desp)) %>% 
+  filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(ano_desp) %>%
   summarize(densidade_media = round(mean(densidade), 2))
 
@@ -55,9 +56,11 @@ biom_ano%>%
 
 # Inserindo o logo --------------------------------------------------------
 
-#logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png") # no windows
+# logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png") # no windows
+# logo <-  image_read("/mnt/chromeos/GoogleDrive/MyDrive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo_transp.png") # no ChromeOS 
 
 
+image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
+logo <- image_read(image_url)
 
-logo <-  image_read("/mnt/chromeos/GoogleDrive/MyDrive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo_transp.png") # no ChromeOS 
-grid::grid.raster(logo, x = 0.885, y = 0.84, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
+grid::grid.raster(logo, x = 0.9, y = 0.8, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
