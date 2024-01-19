@@ -100,3 +100,54 @@ logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Image
 grid::grid.raster(logo, x = 0.88, y = 0.85, just = c('left', 'bottom'), width = unit(0.9, 'inches'))
 
 ```
+
+## Sobrevivência Anual por Viveiro
+
+```{r}
+sobrevive_viveiro <- biom %>%
+  mutate(ano_desp = factor(year(data_desp)), viveiro = factor(viveiro)) %>%
+  filter(ano_desp != 2024) %>%
+  group_by(viveiro)
+  #summarize(sobrevive = median(sobrevive))
+
+```
+
+```{r}
+sobrevive_viveiro %>% 
+  ggplot(aes(viveiro, sobrevive)) +
+  geom_boxplot(fill = "#8080c0",
+               col = "#000080",
+               outlier.color = "#8080c0",
+               outlier.size = 4,
+               linetype = 1) +
+  stat_summary(fun = mean, geom = "point", shape = 8, size = 3, color = "#c0c080", fill = "#c0c080") + 
+  coord_flip() +
+  labs(title = "Sobrevivência Anual por Viveiro (%)",
+       subtitle = "2015 a 2023",
+       x = "Viveiro",
+       y = "Percentual",
+       caption = "Azul Marinho Aquicultura") +
+  theme_minimal() +
+  theme(plot.caption = element_text(size = 9, 
+                                    color = "#8080c0"),
+        axis.text.y = element_text(size = 15, 
+                                   color = "#000080"),
+        axis.text.x = element_text(size = 15, 
+                                   color = "#000080"),
+        axis.title.y = element_text(size = 15,
+                                    color = "#000080",
+                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
+        axis.title.x = element_text(size = 15, 
+                                    color = "#000080"),
+        plot.title = element_text(size = 20, 
+                                  color = "#000080"),
+        plot.subtitle = element_text(size = 15,
+                                     color = "#000080" ),
+        #axis.line.y = element_line(color = "#000080"),
+        #axis.line.x = element_line(color = "#000080"),
+        panel.grid.major = element_blank())
+logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
+grid::grid.raster(logo, x = 0.8, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+
+
+```
