@@ -50,7 +50,7 @@ sobrevive_ano %>%
 # logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
 image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
 logo <- image_read(image_url)
-grid::grid.raster(logo, x = 0.90, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+grid::grid.raster(logo, x = 0.90, y = 0.8, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
 
 
 
@@ -102,7 +102,7 @@ sobrevive_viveiro %>%
 image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
 logo <- image_read(image_url)
 #logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
-grid::grid.raster(logo, x = 0.9, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+grid::grid.raster(logo, x = 0.9, y = 0.8, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
 
 
 
