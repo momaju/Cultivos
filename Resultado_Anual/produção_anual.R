@@ -52,9 +52,7 @@ biom_ano %>%
 
 # Inserindo o logo --------------------------------------------------------
 
-#logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png") # no windows
+logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png") # no windows
 
-
-
-logo <-  image_read("/mnt/chromeos/GoogleDrive/MyDrive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo_transp.png") # no ChromeOS 
+#logo <-  image_read("/mnt/chromeos/GoogleDrive/MyDrive/RWork/Projects/Azul Marinho/Cultivos/Images/azul_logo_transp.png") # no ChromeOS 
 grid::grid.raster(logo, x = 0.88, y = 0.85, just = c('left', 'bottom'), width = unit(0.9, 'inches'))
