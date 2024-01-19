@@ -11,7 +11,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 sobrevive_ano <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
-  #filter(ano_desp != 2024) %>% 
+  filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(ano_desp) %>%
   summarize(sobrevive = median(sobrevive))
 
@@ -47,17 +47,19 @@ sobrevive_ano %>%
 
 # Inserindo o logo
 
-logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
-grid::grid.raster(logo, x = 0.92, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+# logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
+image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
+logo <- image_read(image_url)
+grid::grid.raster(logo, x = 0.90, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
 
 
 
 
-# Boxplot sobrevivëncia ---------------------------------------------------
+# Boxplot sobrevivếncia ---------------------------------------------------
 
 sobrevive_viveiro <- biom %>%
   mutate(ano_desp = factor(year(data_desp)), viveiro = factor(viveiro)) %>%
-  #filter(ano_desp != 2024) %>%
+  filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(viveiro)
   #summarize(sobrevive = median(sobrevive))
 
@@ -97,8 +99,11 @@ sobrevive_viveiro %>%
 
 # Inserindo o logo
 
-logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
+image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
+logo <- image_read(image_url)
+#logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
 grid::grid.raster(logo, x = 0.9, y = 0.8, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+
 
 
   
