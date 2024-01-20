@@ -40,20 +40,29 @@ d <- biom %>%
        caption = "Fonte: Azul Marinho Aquicultura",
        shape = "Viveiro") + # ajusta o texto da legenda
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "#8080c0"),
-        axis.text.y = element_text(size = 12, color = "#000080"),
-        axis.text.x = element_text(size = 12, color = "#000080"),
+  theme(plot.caption = element_text(size = 9, 
+                                    color = "#8080c0"),
+        axis.text.y = element_text(size = 12, 
+                                   color = "#000080"),
+        axis.text.x = element_text(size = 12, 
+                                   color = "#000080"),
         axis.title.y = element_text(size = 20,
                                     color = "#000080",
-                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
-        axis.title.x = element_text(size = 20, color = "#000080"),
-        plot.title = element_text(size = 25, color = "#000080"),
+                                    margin = margin(t = 0, 
+                                                    r = 20, 
+                                                    b = 0, 
+                                                    l = 0)),
+        axis.title.x = element_text(size = 20, 
+                                    color = "#000080"),
+        plot.title = element_text(size = 25, 
+                                  color = "#000080"),
         axis.line.y = element_line(color = "#000080"),
         axis.line.x = element_line(color = "#000080"),
         panel.grid.major = element_blank(),
         legend.position = "top",
         legend.key.size = unit(0.5, "cm"),
-        legend.title = element_text(size = 20, color = "#8080c0")) +
+        legend.title = element_text(size = 20, 
+                                    color = "#8080c0")) +
   annotate("text",
            x = 1000, y = 5000,
            label = paste("y = 103.32 + 1.07 x"),
@@ -67,7 +76,11 @@ d
 
 image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
 logo <- image_read(image_url)
-grid::grid.raster(logo, x = 0.9, y = 0.8, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
+grid::grid.raster(logo, 
+                  x = 0.9, 
+                  y = 0.8, 
+                  just = c('left', 'bottom'), 
+                  width = unit(1.3, 'inches'))
 
 
 
@@ -108,7 +121,9 @@ lm_eqn <- function(fit_biom) {
   as.character(as.expression(eq));
 }
 
-d + geom_text(x = 1500.00, y = 4500.00, label = lm_eqn(fit_biom), parse = TRUE)
+d + geom_text(x = 1500.00, 
+              y = 4500.00, 
+              label = lm_eqn(fit_biom), parse = TRUE)
 
 biom_mod <- lm(biom_real ~ biom_calc, data = biom)
 
@@ -130,9 +145,11 @@ p <- v4 %>%
        x = "Biomassa Calculada",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 8, color = "grey60")) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60")) +
   geom_text(
-    aes(label = ciclo), nudge_y = 100)
+    aes(label = ciclo), 
+    nudge_y = 100)
   
 p
 
@@ -156,7 +173,9 @@ lm_eqn <- function(fit4) {
 p + annotate("text", x = 1500.00,
              y = 4500.00,
              label = lm_eqn(fit4),
-             parse = TRUE, color = "Blue", size = 5)
+             parse = TRUE, 
+             color = "Blue", 
+             size = 5)
   
 
 # Escrevendo de outra maneira
@@ -180,16 +199,22 @@ biom %>%
   group_by(ano_desp) %>%
   summarize(densidade_media = round(mean(densidade), 2)) %>%
   ggplot(aes(x = ano_desp, y = densidade_media, fill = ano_desp)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = FALSE) +
+  geom_bar(stat = "identity", 
+           width = 0.5, 
+           show.legend = FALSE) +
   labs(title = "Densidade no Povoamento",
        y = "Densidade Média",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 7, color = "grey60")) +
-  geom_text(aes(label = format(densidade_media, big.mark = ".",
+  theme(plot.caption = element_text(size = 7, 
+                                    color = "grey60")) +
+  geom_text(aes(label = format(densidade_media, 
+                               big.mark = ".",
                                decimal.mark = ",")),
-            vjust = 1.6, color = "white", size = 4.0)
+            vjust = 1.6, 
+            color = "white", 
+            size = 4.0)
 
 # Gáfico de barras de produtividade média por ano:----
 
@@ -198,16 +223,22 @@ biom %>%
   group_by(ano_desp) %>%
   summarize(produtividade_media = round(mean(produtividade), 2)) %>%
   ggplot(aes(x = ano_desp, y = produtividade_media, fill = ano_desp)) +
-  geom_bar(stat = "identity", width = 0.5, show.legend = FALSE) +
+  geom_bar(stat = "identity", 
+           width = 0.5, 
+           show.legend = FALSE) +
    labs(title = "Produtivide Média (kg/ha/ano)",
        y = "kg/Ha",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 7, color = "grey60")) +
-  geom_text(aes(label = format(produtividade_media, big.mark = ".",
-                decimal.mark = ",")),
-                vjust = 1.6, color = "white", size = 4.0)
+  theme(plot.caption = element_text(size = 7, 
+                                    color = "grey60")) +
+  geom_text(aes(label = format(produtividade_media, 
+                               big.mark = ".", 
+                               decimal.mark = ",")),
+            vjust = 1.6, 
+            color = "white", 
+            size = 4.0)
 
   
 
@@ -233,7 +264,8 @@ m1 <- v1 %>%
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 8, color = "grey60"),
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60"),
         legend.position = "none") +
   coord_flip()
   
@@ -246,8 +278,10 @@ m1 + theme_economist()
 
 # utilizando tema personalozado:
 m1 + theme(
-           axis.title.x = element_text(color = "Orangered", size = 20),
-           axis.title.y = element_text(color = "Orangered", size = 20),
+           axis.title.x = element_text(color = "Orangered", 
+                                       size = 20),
+           axis.title.y = element_text(color = "Orangered", 
+                                       size = 20),
            axis.text.x = element_text(size = 12),
            axis.text.y = element_text(size = 12),
           legend.title = element_text(size = 15),
@@ -264,31 +298,39 @@ ggplot(aes(x = g_final, y = sobrevive,
            color = factor(viveiro), label = factor(ciclo))) +
              geom_text_repel(max.overlaps = 100) +
              #ficou meio feio. Ajustei com ggrepel
-  geom_point(shape = 1, size = 2) +
-  geom_smooth(method = lm, se = F, aes(group = 1)) +
+  geom_point(shape = 1, 
+             size = 2) +
+  geom_smooth(method = lm, 
+              se = F, 
+              aes(group = 1)) +
   scale_color_discrete(name = "Viveiro") +
   labs(title = "Peso Médio (g) vs. Sobrevivência (%)",
        subtitle = "Por Ciclo de Cultivo",
        caption = "Fonte:Azul Marinho Aquicultura",
        y = "Sobrevivência",
        x = "Peso Médio (g)") +
-theme(plot.caption = element_text(size = 8, color = "grey60"))
+theme(plot.caption = element_text(size = 8, 
+                                  color = "grey60"))
       
 
 biom %>%
   mutate(viveiro = factor(viveiro)) %>%
   ggplot(aes(x = densidade, y = produtividade,
-             color = viveiro, label = viveiro)) +
+             color = viveiro, 
+             label = viveiro)) +
   geom_text_repel(max.overlaps = 100) +
   geom_point(size = 2) +
-  geom_smooth(method = lm, se = F, aes(group = 1)) +
+  geom_smooth(method = lm, 
+              se = F, 
+              aes(group = 1)) +
   expand_limits(y = 0, x = 0) +
   labs(title = "Produtividade vs. Densidade ",
        subtitle = "Por Viveiro",
        caption = "Fonte: Azul Marinho Aquicultura",
        y = "Produtividade (kg/ha)",
        x = "Densidade (camarões/mq)") +
-  theme(plot.caption = element_text(size = 8, color = "grey60"))
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60"))
 
 
 # Regressões
@@ -303,8 +345,10 @@ summary(fit) # show results
 
 sp <- biom %>%
   ggplot(aes(x = densidade, y = g_semana)) +
-  geom_point(shape = 1, size = 2) +
-  geom_smooth(method = lm, se = F)
+  geom_point(shape = 1, 
+             size = 2) +
+  geom_smooth(method = lm, 
+              se = F)
 
 sp
 
@@ -328,7 +372,10 @@ equation <- function(lr) {
 
 # Escrevendo no gráfico
 sp + annotate("text", x = 20.00, y = 1.20,
-              label = equation(lm), parse = TRUE, color = "red", size = 7)
+              label = equation(lm), 
+              parse = TRUE, 
+              color = "red", 
+              size = 7)
 
 
 # Dias parados entre ciclos -----------------------------------------------
@@ -350,9 +397,12 @@ v4_fallow %>% ggplot(aes(fallow, fct_reorder(ciclo, fallow), fill = ciclo)) +
        caption = "Fonte: Azul Marinho Aquicultura",
        y = "Ciclo de Cultivo",
        x = "Dias Parados") +
-  theme(plot.caption = element_text(size = 8, color = "grey60")) +
-  geom_text(aes(label = fallow, ), hjust = -0.5, color = "#996035",
-               size = 4.0) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60")) +
+  geom_text(aes(label = fallow, ), 
+            hjust = -0.5, 
+            color = "#996035", 
+            size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
 
@@ -372,9 +422,12 @@ v4_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
        caption = "Fonte: Azul Marinho Aquicultura",
        y = "Dias Parados",
        x = "Ciclo de Cultivo") +
-  theme(plot.caption = element_text(size = 8, color = "grey60")) +
-  geom_text(aes(label = fallow, ), vjust = -0.5, color = "#996035",
-               size = 4.0) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60")) +
+  geom_text(aes(label = fallow, ), 
+            vjust = -0.5, 
+            color = "#996035", 
+            size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
 v3_fallow <- biom %>%
@@ -389,9 +442,12 @@ v3_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
        caption = "Fonte: Azul Marinho Aquicultura",
        y = "Dias Parados",
        x = "Ciclo de Cultivo") +
-  theme(plot.caption = element_text(size = 8, color = "grey60")) +
-  geom_text(aes(label = fallow, ), vjust = -0.5, color = "#996035",
-               size = 4.0) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60")) +
+  geom_text(aes(label = fallow, ), 
+            vjust = -0.5, 
+            color = "#996035", 
+            size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
 v2_fallow <- biom %>%
@@ -406,9 +462,12 @@ v2_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
        caption = "Fonte: Azul Marinho Aquicultura",
        y = "Dias Parados",
        x = "Ciclo de Cultivo") +
-  theme(plot.caption = element_text(size = 8, color = "grey60")) +
-  geom_text(aes(label = fallow, ), vjust = -0.5, color = "#996035",
-               size = 4.0) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60")) +
+  geom_text(aes(label = fallow, ), 
+            vjust = -0.5, 
+            color = "#996035", 
+            size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
 
@@ -424,9 +483,12 @@ v1_fallow %>% ggplot(aes(ciclo, fallow, fill = ciclo)) +
        caption = "Fonte: Azul Marinho Aquicultura",
        y = "Dias Parados",
        x = "Ciclo de Cultivo") +
-  theme(plot.caption = element_text(size = 8, color = "grey60")) +
-  geom_text(aes(label = fallow, ), vjust = -0.5, color = "#996035",
-               size = 4.0) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60")) +
+  geom_text(aes(label = fallow, ), 
+            vjust = -0.5, 
+            color = "#996035", 
+            size = 4.0) +
   scale_fill_viridis_d(option = "viridis")
 
 
@@ -447,9 +509,12 @@ biom %>%
        caption = "Fonte: Azul Marinho Aquicultura",
        y = "Dias Parados",
        x = "Ciclo de Cultivo") +
-  theme(plot.caption = element_text(size = 8, color = "grey60")) +
-  geom_text(aes(label = fallow, ), vjust = -0.5, color = "#996035",
-  size = 4.0) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60")) +
+  geom_text(aes(label = fallow, ), 
+            vjust = -0.5, 
+            color = "#996035", 
+            size = 4.0) +
   scale_fill_viridis_d(option = "viridis") +
   facet_wrap(~viveiro, scales = "free")
 
@@ -473,14 +538,17 @@ v <- biom %>%
 
 v <- ggplot(v1, aes(ddc, g_final)) +
   #geom_point(aes(shape = factor(viveiro)), size = 2.5) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point(aes(color = ciclo), size = 3) +
+  geom_smooth(method = lm, 
+              se = FALSE) +
+  geom_point(aes(color = ciclo), 
+             size = 3) +
   labs(title = "V1-Peso Médio Final (g)\nPor Dias de Cultivo",
        y = "Peso final (g)",
        x = "Dias de Cultivo",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 7, color = "grey60"))
+  theme(plot.caption = element_text(size = 7, 
+                                    color = "grey60"))
 
 v
 
@@ -497,8 +565,13 @@ lm_eqn <- function(fit_v1) {
 }
 
 v + geom_label(x = 60, y = 14, label = lm_eqn(fit_v1),
-               color = "#654CFF", size = 6, parse = TRUE) +
-  geom_text(aes(label = ciclo), vjust = -0.5, color = "#654CFF", size = 4.0) +
+               color = "#654CFF", 
+               size = 6, 
+               parse = TRUE) +
+  geom_text(aes(label = ciclo), 
+            vjust = -0.5, 
+            color = "#654CFF", 
+            size = 4.0) +
   theme(legend.position = "none")
 
 
@@ -513,16 +586,22 @@ v2 <- biom %>%
 
 v <- ggplot(v2, aes(ddc, g_final)) +
   #geom_point(aes(shape = factor(viveiro)), size = 2.5) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point(aes(color = ciclo), size = 3) +
+  geom_smooth(method = lm, 
+              se = FALSE) +
+  geom_point(aes(color = ciclo), 
+             size = 3) +
   labs(title = "V2-Peso Médio Final (g)\nPor Dias de Cultivo",
        y = "Peso final (g)",
        x = "Dias de Cultivo",
        caption = "Fonte: Azul Marinho Aquicultura") +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 7, color = "grey60"),
+  theme(plot.caption = element_text(size = 7, 
+                                    color = "grey60"),
         legend.position = "none") +
-  geom_text(aes(label = ciclo, vjust = -0.5, color = "#654CFF", size = 4.0)) # nolint
+  geom_text(aes(label = ciclo, 
+                vjust = -0.5, 
+                color = "#654CFF", 
+                size = 4.0)) # nolint
 
 
 v # nolint
@@ -539,8 +618,12 @@ lm_eqn <- function(fit_v2) {
   as.character(as.expression(eq));
 }
 
-v + geom_label(x = 60, y = 12, label = lm_eqn(fit_v2),
-               color = "#654CFF", size = 6, parse = TRUE)
+v + geom_label(x = 60, 
+               y = 12, 
+               label = lm_eqn(fit_v2),
+               color = "#654CFF",
+               size = 6, 
+               parse = TRUE)
   
 
 # Crescimento Semanal -----------------------------------------------------
@@ -590,20 +673,24 @@ despesca_ago_set %>%
             sobreviv = mean(sobrevive, na.rm = TRUE))
 
 despesca_mes <- biom %>%
-  mutate(mes_despesca = factor(month(data_desp, label = TRUE)))
+  mutate(mes_despesca = factor(month(data_desp, 
+                                     label = TRUE)))
 
 despesca_mes %>%
   ggplot(aes(mes_despesca, fill = mes_despesca)) +
   geom_bar() +
-  geom_text(aes(label = ..count..), stat = "count",
-            vjust = -0.5, colour = "#004586") +
+  geom_text(aes(label = ..count..), 
+            stat = "count",
+            vjust = -0.5, 
+            colour = "#004586") +
   scale_fill_viridis_d(option = "turbo") +
   labs(title = "Número de Despescas por Meses do Ano",
        y = "Despescas",
        x = "Meses",
        caption = "Azul Marinho Aquicultura") +
   theme(legend.position = "none",
-        plot.caption = element_text(size = 8, color = "grey60"))
+        plot.caption = element_text(size = 8, 
+                                    color = "grey60"))
 
 despesca_mes %>%
   count(mes_despesca, sort = TRUE)
@@ -622,7 +709,8 @@ biom %>%
   ggplot(aes(viveiro, n, fill = viveiro)) +
   geom_col() +
   theme(legend.position = "none") +
-  scale_y_continuous(labels = comma_format(big.mark = ".", decimal.mark = ","))
+  scale_y_continuous(labels = comma_format(big.mark = ".", 
+                                           decimal.mark = ","))
  
 
 
@@ -633,7 +721,8 @@ biom %>%
   summarize(densidade_media = mean(densidade)) %>%
   ggplot(aes(ano_despesca, densidade_media)) +
   geom_point() +
-  geom_line(aes(group = 1), color = "red") +
+  geom_line(aes(group = 1), 
+            color = "red") +
   labs(title = "Densidade Média ao Ano",
        y = "densidade média",
        x = "Anos",
@@ -699,8 +788,12 @@ sobrevive_ano %>%
        x = "Ano",
        y = "Percentual",
        caption = "Azul Marinho Aquicultura") +
-  geom_text(aes(label = sobrevive), vjust = 1.6, color = "blue", size = 4.0) +
-  theme(plot.caption = element_text(size = 8, color = "grey60"))
+  geom_text(aes(label = sobrevive), 
+            vjust = 1.6, 
+            color = "blue", 
+            size = 4.0) +
+  theme(plot.caption = element_text(size = 8, 
+                                    color = "grey60"))
 
 
 # tables ------------------------------------------------------------------
