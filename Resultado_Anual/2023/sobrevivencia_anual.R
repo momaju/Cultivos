@@ -20,21 +20,32 @@ sobrevive_ano %>%
   ggplot(aes(ano_desp, sobrevive)) +
   geom_point() +
   #geom_line() +
-  geom_line(group = 1, color = "#8080c0", linewidth = 1) +
+  geom_line(group = 1, 
+            color = "#8080c0", 
+            linewidth = 1) +
   expand_limits(y = 30) +
   labs(title = "Sobrevivência Anual (%)",
        subtitle = "2015 a 2023",
        x = "Ano",
        y = "Percentual",
        caption = "Azul Marinho Aquicultura") +
-  geom_text(aes(label = sobrevive), vjust = 1.6, color = "#8080c0", size = 5.0) +
+  geom_text(aes(label = sobrevive), 
+            vjust = 1.6, 
+            color = "#8080c0", 
+            size = 5.0) +
   theme_minimal() +
-  theme(plot.caption = element_text(size = 9, color = "#8080c0"),
-        axis.text.y = element_text(size = 12, color = "#000080"),
-        axis.text.x = element_text(size = 12, color = "#000080"),
+  theme(plot.caption = element_text(size = 9, 
+                                    color = "#8080c0"),
+        axis.text.y = element_text(size = 12, 
+                                   color = "#000080"),
+        axis.text.x = element_text(size = 12, 
+                                   color = "#000080"),
         axis.title.y = element_text(size = 15,
                                     color = "#000080",
-                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
+                                    margin = margin(t = 0, 
+                                                    r = 20, 
+                                                    b = 0, 
+                                                    l = 0)),
         axis.title.x = element_text(size = 15, 
                                     color = "#000080"),
         plot.title = element_text(size = 20, 
@@ -50,7 +61,11 @@ sobrevive_ano %>%
 # logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
 image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
 logo <- image_read(image_url)
-grid::grid.raster(logo, x = 0.90, y = 0.8, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
+grid::grid.raster(logo, 
+                  x = 0.90, 
+                  y = 0.8, 
+                  just = c('left', 'bottom'), 
+                  width = unit(1.3, 'inches'))
 
 
 
@@ -70,7 +85,12 @@ sobrevive_viveiro %>%
                outlier.color = "#8080c0",
                outlier.size = 4,
                linetype = 1) +
-  stat_summary(fun = mean, geom = "point", shape = 8, size = 3, color = "#c0c080", fill = "#c0c080") + 
+  stat_summary(fun = mean, 
+               geom = "point", 
+               shape = 8, 
+               size = 3, 
+               color = "#c0c080", 
+               fill = "#c0c080") + 
   coord_flip() +
   labs(title = "Sobrevivência Anual por Viveiro (%)",
        subtitle = "2015 a 2023",
@@ -86,7 +106,10 @@ sobrevive_viveiro %>%
                                    color = "#000080"),
         axis.title.y = element_text(size = 15,
                                     color = "#000080",
-                                    margin = margin(t = 0, r = 20, b = 0, l = 0)),
+                                    margin = margin(t = 0, 
+                                                    r = 20, 
+                                                    b = 0, 
+                                                    l = 0)),
         axis.title.x = element_text(size = 15, 
                                     color = "#000080"),
         plot.title = element_text(size = 20, 
@@ -102,7 +125,11 @@ sobrevive_viveiro %>%
 image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
 logo <- image_read(image_url)
 #logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
-grid::grid.raster(logo, x = 0.9, y = 0.8, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
+grid::grid.raster(logo,
+                  x = 0.9, 
+                  y = 0.8, 
+                  just = c('left', 'bottom'), 
+                  width = unit(1.3, 'inches'))
 
 
 
