@@ -65,8 +65,9 @@ d
 
 # Inserindo o logo
 
-logo <- image_read("G://My Drive//RWork//Projects//Azul Marinho//Cultivos//Images//azul_logo_transp.png")
-grid::grid.raster(logo, x = 0.92, y = 0.85, just = c('left', 'bottom'), width = unit(1.5, 'inches'))
+image_url <- "https://drive.google.com/uc?id=1SN4gu5VzJYlfacpgoVycXNI8JRuswynA"
+logo <- image_read(image_url)
+grid::grid.raster(logo, x = 0.9, y = 0.8, just = c('left', 'bottom'), width = unit(1.3, 'inches'))
 
 
 
