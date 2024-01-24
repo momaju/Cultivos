@@ -65,7 +65,8 @@ d <- ggplot(feed_costs_long) +
   
   ## hide the fill legend and make the color legend horizontal
   guides(fill = "none", 
-         color = guide_legend(direction = "horizontal")) +
+         color = guide_legend(direction = "horizontal",
+                              title = NULL)) +
   scale_y_continuous(labels = scales::comma_format(scale = 1, prefix = "R$"), 
                      limits = c(0, 35000)) +
   labs(title = "Custos Mensais com Ração", 
