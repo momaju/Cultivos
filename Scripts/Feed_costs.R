@@ -3,19 +3,19 @@
 library(tidyverse)   
 
 feed_costs <- tibble::tribble(
-  ~mes,      ~`2020`,   ~`2021`,
-  "jan",    18274.70,  13125.00,
-  "fev",    10788.44,   5280.00,
-  "mar",    12367.78,  21217.00,
-  "abr",    14920.50,  13842.00,
-  "maio",    7815.10,   7290.00,
-  "jun",    11770.65,  17430.00,
-  "jul",    14406.00,  18430.00,
-  "ago",    25733.29,  16878.00,
-  "set",    32361.95,  11200.00,
-  "out",    18423.00,  25200.00,
-  "nov",     6000.00,  23855.00,
-  "dez",    27041.41,  22375.00,
+  ~mes,      ~`2020`,   ~`2021`,  ~`2022`,  ~`2023`,
+  "jan",    18274.70,  13125.00,  4255.00, 12910.98, 
+  "fev",    10788.44,   5280.00, 19600.00, 17668.02,
+  "mar",    12367.78,  21217.00, 16755.00,  3200.00,
+  "abr",    14920.50,  13842.00, 26875.00, 00000.00,
+  "maio",    7815.10,   7290.00, 10150.00, 27592.60,
+  "jun",    11770.65,  17430.00, 13000.00, 00000.00,
+  "jul",    14406.00,  18430.00, 00000.00, 00000.00,
+  "ago",    25733.29,  16878.00, 233400.00, 39294.33,
+  "set",    32361.95,  11200.00, 14375.00, 16813.78,
+  "out",    18423.00,  25200.00, 36250.98, 00000.00,
+  "nov",     6000.00,  23855.00, 17280.98, 26117.06,
+  "dez",    27041.41,  22375.00, 15950.98,  3306.38, 
   )
 
 
@@ -58,8 +58,14 @@ p <- ggplot(feed_costs_long) +
             
   
    ## use similar colours to the original
-  scale_fill_manual(values = c(`2020` = "#D39200", `2021` = "darkcyan")) +
-  scale_color_manual(values = c(`2020` = "#D39200", `2021` = "darkcyan")) + 
+  scale_fill_manual(values = c(`2020` = "#D39200", 
+                               `2021` = "#008B8B", 
+                               `2022` = "#0041d3", `
+                               2023` = "#8b0000")) +
+  scale_color_manual(values = c(`2020` = "#D39200", 
+                                `2021` = "#008B8B", 
+                                `2022` = "#0041d3", 
+                                `2023` = "#8b0000")) + 
   
   
   ## hide the fill legend and make the color legend horizontal
@@ -113,8 +119,14 @@ geom_text(aes(mes,
   
   
   ## use similar colours to the original
-  scale_fill_manual(values = c(`2020` = "#D39200", `2021` = "darkcyan")) +
-  scale_color_manual(values = c(`2020` = "#D39200", `2021` = "darkcyan")) + 
+  scale_fill_manual(values = c(`2020` = "#D39200", 
+                               `2021` = "#008B8B", 
+                               `2022` = "#0041d3", `
+                               2023` = "#8b0000")) +
+  scale_color_manual(values = c(`2020` = "#D39200", 
+                                `2021` = "#008B8B", 
+                                `2022` = "#0041d3", 
+                                `2023` = "#8b0000")) +  
   
   
   ## hide the fill legend and make the color legend horizontal
@@ -122,7 +134,7 @@ geom_text(aes(mes,
   scale_y_continuous(labels = scales::comma_format(scale = 1, prefix = "R$"), 
                      limits = c(0, 35000)) +
   labs(title = "Custos Mensais com Ração", 
-       subtitle = "2020 vs 2021", 
+       subtitle = "2020 a 2023", 
        caption = "Fonte: Azul Marinho Aquicultura",
        x = "", y = "") +
   theme_minimal() + 
