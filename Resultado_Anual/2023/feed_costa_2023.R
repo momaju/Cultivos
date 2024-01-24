@@ -52,7 +52,6 @@ d <- ggplot(feed_costs_long) +
             color = "white") +
   
   
-  ## use similar colours to the original
   scale_fill_manual(values = c(`2020` = "#D39200", 
                                `2021` = "#008B8B", 
                                `2022` = "#0041d3", 
@@ -74,15 +73,6 @@ d <- ggplot(feed_costs_long) +
        caption = "Fonte: Azul Marinho Aquicultura",
        x = "", y = "") +
   theme_minimal() + 
-  #theme(axis.text = element_text(size = 10),
-  #      plot.title = element_text(size = 28, hjust= 0.5), 
-  #      plot.subtitle = element_text(size = 20, hjust = 0.5),
-  #      plot.caption = element_text(size = 7, color = "grey60"),
-  #      plot.background = element_rect(fill = "#f4f7fc", size = 0),
-  #      legend.title = element_blank(),
-  #      legend.text= element_text(size = 12),
-  #      panel.grid = element_blank(),
-  
   theme(plot.caption = element_text(size = 9, 
                                     color = "#8080c0"),
         axis.text.y = element_text(size = 15, 
@@ -106,15 +96,7 @@ d <- ggplot(feed_costs_long) +
         panel.grid.major = element_blank(),
         legend.position = "top",
         legend.text = element_text(size =  20)) 
-#  geom_text(aes(label = format(produtividade_media, 
-#                               big.mark = ".", 
-#                               decimal.mark = ",")),
-#  vjust = -0.5, 
-#  color = "#000080", 
-#  size = 4.0)  
 
-## move the color legend to an inset 
-#legend.position = c(0.9, 0.9)
 d
 
 
@@ -128,3 +110,7 @@ grid::grid.raster(logo,
                   y = 0.8, 
                   just = c('left', 'bottom'), 
                   width = unit(1.3, 'inches'))
+
+
+
+
