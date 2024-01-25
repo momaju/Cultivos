@@ -190,6 +190,7 @@ Produtividade_viveiro_ciclo %>%
 
 
 
+
 # Boxplot de produtividade por viveiro ------------------------------------
 
 
@@ -590,7 +591,7 @@ biom %>%
 # Em média, qual o melhor dia para despescar? 
 # 
 dia_de_despesca <- biom %>%
-  mutate(dow = lubridate ::wday(data.desp, label = TRUE)) %>%
+  mutate(dow = lubridate ::wday(data_desp, label = TRUE)) %>%
   select(dow, biom.real) %>%
   #filter(biom.real >0) %>% #no caso, este filtro não é necessário
   group_by(dow) %>%
