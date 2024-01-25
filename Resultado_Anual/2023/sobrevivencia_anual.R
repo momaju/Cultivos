@@ -83,16 +83,16 @@ sobrevive_viveiro %>%
   geom_boxplot(fill = "#8080c0",
                col = "#000080",
                outlier.color = "#8080c0",
-               outlier.size = 4,
+               outlier.size = 3,
                linetype = 1) +
   stat_summary(fun = mean, 
                geom = "point", 
-               shape = 8, 
+               shape = 21, 
                size = 3, 
                color = "#c0c080", 
                fill = "#c0c080") + 
   coord_flip() +
-  labs(title = "Sobrevivência Anual por Viveiro (%)",
+  labs(title = "Sobrevivência Anual por Viveiro",
        subtitle = "2015 a 2023",
        x = "Viveiro",
        y = "Percentual",
