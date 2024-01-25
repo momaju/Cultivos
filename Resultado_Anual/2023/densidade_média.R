@@ -18,7 +18,7 @@ biom_ano <- biom %>%
   group_by(ano_desp) %>%
   summarize(densidade_media = round(mean(densidade), 2))
 
-biom_ano%>%
+biom_ano %>%
   ggplot(aes(x = ano_desp, y = densidade_media)) +
   geom_bar(stat = "identity", 
            width = 0.5, 
