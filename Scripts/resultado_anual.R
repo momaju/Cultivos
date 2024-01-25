@@ -134,7 +134,7 @@ biom %>%
 # Despescas Mensais -------------------------------------------------------
 biom_mes <- biom %>% 
   mutate(ano = year(data_desp), 
-                mes = month(data_desp, label = TRUE, abb = TRUE)) %>% 
+                mes = month(data_desp, label = TRUE, abbr = TRUE)) %>% 
   select(ano, viveiro, mes, biom_real) %>% 
   group_by(mes) %>% 
   summarise(mes = unique(mes), mean_kg = round(mean(biom_real),2), total_kg = sum(biom_real)) 
@@ -149,7 +149,7 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
        x = "",
        caption = "Azul Marinho Aquicultura") +
   scale_y_continuous(
-    limit = (c(0, 4000)),
+    limits = (c(0, 4000)),
     breaks = (seq(0, 4000, 500)),
     labels = scales::label_number(big.mark = ".",
                                   decimal.mark = ","),
