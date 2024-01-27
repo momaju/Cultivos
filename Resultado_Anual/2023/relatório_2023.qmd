@@ -1,0 +1,46 @@
+---
+author: Mozart Marinho-Jr
+format: html
+editor: visual
+warning: false
+echo: false
+---
+
+```{r}
+library(tidyverse)
+library(googlesheets4)
+library(ggthemes)
+library(lubridate)
+library(ggrepel)
+library(scales)
+library(corrplot)
+library(magick)
+library(leaflet)
+```
+
+```{r}
+biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+```
+
+```{r}
+ano_desp <- biom %>% 
+  mutate(ano_desp = (year(data_desp))) %>% 
+  select(ano_desp)
+```
+
+Este realtório cobre os anos de `r min(ano_desp)` a `r max(ano_desp)-1`
+
+---
+title: "Relatório Anual - `r max(ano_desp) -1`"
+---
+
+## Localização
+
+A Azul Marinho localiza-se noi município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. Dista 176 km de Fortaleza.
+
+```{r}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng = -39.87063, lat = -2.9119, popup = "Azul Marinho Aquicultura")
+```
