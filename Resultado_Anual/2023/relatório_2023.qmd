@@ -4,6 +4,7 @@ format: html
 editor: visual
 warning: false
 echo: false
+toc: true
 ---
 
 ```{r}
@@ -36,7 +37,7 @@ title: "Relatório Anual - `r max(ano_desp) -1`"
 
 ## Localização
 
-A Azul Marinho localiza-se noi município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. Dista 176 km de Fortaleza.
+A Azul Marinho localiza-se noi município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. A principal via de acesso é pela CE 085 (Rodovia Estadual Litorânea Fortaleza – Itarema/ sol poente). Dista 176 km de Fortaleza.
 
 ```{r}
 library(leaflet)
@@ -44,3 +45,49 @@ leaflet() %>%
   addTiles() %>%  # Add default OpenStreetMap map tiles
   addMarkers(lng = -39.87063, lat = -2.9119, popup = "Azul Marinho Aquicultura")
 ```
+
+## Descrição do Empreendimento
+
+A área da propriedade é de 58,00 ha, definindo-se a área do projeto que será de 10,48 ha, delimitando-se ainda as áreas de reserva legal, expansão  e APP.
+
+O empreendimento situa-se na localidade denominada ilha das estivas, Zona Rural, município de Itarema, Estado do Ceará, cujas coordenadas da área em UTM são: X=403436.0000  Y=9677361.0000, X=403093.0000  Y=9677530.0000, X=402974.8194  Y=9678631.4252, X=403727.5478  Y=9678119.3476.
+
+Dista aproximadamente 950 m da préamar e possui uma área de viveiros de 10,48 há, Além do canal de abastecimento, drenagem/bacia de  sedimentação, despeça, diques e  a reserva legal.
+
+A área de cultivo de camarão possui 4 (quatro) viveiros,
+
+-    viveiro 1 =1,00 ha,
+
+-   viveiro 2=3,23 ha,
+
+-   viveiro 3=3,49 ha e
+
+-   viveiro 4= 2,76 ha,
+
+Possui canal de abastecimento com formato de trapézio, medindo na base 8,00 m no topo 12,00 m, além do canal de drenagem/ bacia de sedimentação, também em forma de trapézio, medindo 8,00 m na base e 12,00 no topo.
+
+O sistema de produção adotado é o cultivo extensivo de camarões nos viveiros de engorda. A utilização deste tipo de sistema visa o melhor aproveitamento dos camarões cultivados no tocante a alimentação e redução de mortalidade existentes durante o processo tecnológico.
+
+A engorda será desenvolvida em aproximadamente 120 dias, sendo realizada mediante arraçoamento natural e artificial com a utilização de aeradores, tendo em vista a dimensão dos viveiros e, consequentemente, a necessidade de oxigenação. As despeças serão realizadas através das comportas para o canal de drenagem/ bacia de sedimentação tendo como destino final o mar. Contudo a água passará pelo tratamento primário e posteriormente, monitorada  sua qualidade para que os efluentes sejam jogados no mar dentro dos padrões exigidos pela legislação ambiental vigente.
+
+-   A água disponibilizada para o projeto é proveniente do mar/maré através de uma gamboa natural até a casa de bomba, considerada satisfatória para o pleno desenvolvimento do camarão marinho litopenaeus vennamei , espécie destinada à criação;
+
+```{=html}
+<!-- -->
+```
+-   O sistema geral de abastecimento é realizado através de bombeamento utilizando-se 2 (duas) bombas centrífugas (30 CV) com vazão total de 80.000.00 L/h cada, sendo que uma bomba é utilizada praticamente como reserva para qualquer eventualidade que venha ocorrer;
+
+```{=html}
+<!-- -->
+```
+-   A área está inserida próximo ao mar, além de apresentar topografia ideal para afluência de água durante todo o ano independente do fluxo de maré, possibilitando bombeamento por até 06 horas por dia ( 08 horas por maré). Portanto, dispõe de um volume de água considerável, bem a cima da máxima quantidade necessária para o ótimo desempenho do projeto em funcionamento; 
+
+```{=html}
+<!-- -->
+```
+-   A área do empreendimento dispõe de infra-estrutura básica como distribuição de energia elétrica, estrada carroçável, galpão de ração, casa de apoio e escritório, ambos em um só prédio medindo 7,00X15,00m perfazendo uma área de 105m²;
+
+```{=html}
+<!-- -->
+```
+-   A mão-de-obra não especializada do projeto será provém da comunidade, contribuindo para geração de mais de 05  (cinco) empregos direto. A mão-de-obra está sendo utilizada nos processos de limpeza e manutenção dos viveiros, bem como na alimentação e arraçoamento dos camarões;
