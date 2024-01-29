@@ -1,6 +1,12 @@
 ---
 author: Mozart Marinho-Jr
-format: html
+format: 
+  html:
+   grid:
+      margin-width: 250px
+   fig-width: 13
+   fig-height: 8
+   page-layout: full
 editor: visual
 warning: false
 echo: false
