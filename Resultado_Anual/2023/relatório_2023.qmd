@@ -62,7 +62,7 @@ Dista aproximadamente 950 m da préamar e possui uma área de viveiros de 10,48 
 
 A área de cultivo de camarão possui 4 (quatro) viveiros,
 
--    viveiro 1 =1,00 ha,
+-   viveiro 1 =1,00 ha,
 -   viveiro 2=3,23 ha,
 -   viveiro 3=3,49 ha e
 -   viveiro 4= 2,76 ha,
@@ -75,27 +75,29 @@ A engorda será desenvolvida em aproximadamente 120 dias, sendo realizada median
 
 -   A água disponibilizada para o projeto é proveniente do mar/maré através de uma gamboa natural até a casa de bomba, considerada satisfatória para o pleno desenvolvimento do camarão marinho litopenaeus vennamei , espécie destinada à criação;
 
-```{=html}
 <!-- -->
-```
+
 -   O sistema geral de abastecimento é realizado através de bombeamento utilizando-se 2 (duas) bombas centrífugas (30 CV) com vazão total de 80.000.00 L/h cada, sendo que uma bomba é utilizada praticamente como reserva para qualquer eventualidade que venha ocorrer;
 
-```{=html}
 <!-- -->
-```
+
 -   A área está inserida próximo ao mar, além de apresentar topografia ideal para afluência de água durante todo o ano independente do fluxo de maré, possibilitando bombeamento por até 06 horas por dia ( 08 horas por maré). Portanto, dispõe de um volume de água considerável, bem a cima da máxima quantidade necessária para o ótimo desempenho do projeto em funcionamento; 
 
-```{=html}
 <!-- -->
-```
+
 -   A área do empreendimento dispõe de infra-estrutura básica como distribuição de energia elétrica, estrada carroçável, galpão de ração, casa de apoio e escritório, ambos em um só prédio medindo 7,00X15,00m perfazendo uma área de 105m²;
 
-```{=html}
 <!-- -->
-```
+
 -   A mão-de-obra não especializada do projeto será provém da comunidade, contribuindo para geração de mais de 05  (cinco) empregos direto. A mão-de-obra está sendo utilizada nos processos de limpeza e manutenção dos viveiros, bem como na alimentação e arraçoamento dos camarões.
 
 ## Sobrevivência
+
+Em média, a sobrevivência anual é de 89,3%, considerados todos os cultivos desde de 2015. O ano de 2023 apresentou um resultado bem inferior, sendo inclusive menor do que nos anos em que fomos acometidos pela mancha branca (WSSV). Tenho duas hipóteses para o ocorrido:
+
+-   Realizamos 6 cultivos com Pls oriundas de um novo fornecedor localizado em Beberibe-CE, LaboScience, cujo responsável técnico é o Sr. Julio Macias de competência já reconhecida pelo trabalho realizado em outras larviculturas locais. A sobrevivência final destas Pls foi de apenas **57,77%**, o que puxou sobremaneira nossa média anual para baixo.
+
+-   Minha segunda hipótese é que o solo dos viveiros já pede um novo tratamento, já fazem pelos menos 3 anos desde o último. Considero esta hipótese não muito robusta, pois os cultivos subsequentes, com outro fornecedor de Pls, já mostraram resultados mais compatíveis com o pedrfil da fazenda.
 
 ```{r}
 library(tidyverse)
