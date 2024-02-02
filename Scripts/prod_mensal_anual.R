@@ -38,8 +38,8 @@ biom_2023 %>% ggplot(aes(x = mes_desp, y = biom_real)) +
        x = "",
        caption = "Azul Marinho Aquicultura") +
   scale_y_continuous(
-    limits = (c(0, 5000)),
-    breaks = (seq(0, 5000, 500)),
+    limits = (c(0, 6500)),
+    breaks = (seq(0, 6500, 500)),
     labels = scales::label_number(big.mark = ".",
                                   decimal.mark = ","),
     expand = expansion(0)) + #faz as barras encostarem no eixo
@@ -114,7 +114,6 @@ grid::grid.raster(logo,
                   width = unit(1.3, 'inches'))
 
 
-
 # # Tentativa de colocar todos os meses no eixo-x -------------------------
 # 
 
@@ -123,18 +122,26 @@ biom_2023 <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>% 
   filter(ano_desp == "2023") %>%
   mutate(mes_desp = factor(month(data_desp,
-                                 label = TRUE, 
+                                 label = TRUE,
                                  abbr = TRUE))) %>% 
   group_by(mes_desp) %>%
   summarize(biom_real = round(sum(biom_real), 2))
 
-biom_2023_todo <- biom_2023 %>% add_row(mes_desp = "fev", biom_real = 0, .before = 2)
-biom_2023_todo <- biom_2023_todo %>% add_row(mes_desp = "jul", biom_real = 0, .before = 7)
+biom_2023_todo <- biom_2023 %>% 
+  add_row(mes_desp = "Fev", 
+          biom_real = 0, 
+          .before = 2)
+biom_2023_todo <- biom_2023_todo %>% 
+  add_row(mes_desp = "Jul", 
+          biom_real = 0, 
+          .before = 7)
 
 biom_2023_todo
 
+# Set the levels of the factor variable, since you already have it 
+# ordered as you want, you can simply use forcats::fct_inorder()
 
-biom_2023_todo %>% ggplot(aes(x = mes_desp, y = biom_real)) +
+biom_2023_todo %>% ggplot(aes(x = fct_inorder(mes_desp), y = biom_real)) +
   geom_bar(stat = "identity", 
            width = 0.5, 
            show.legend = FALSE,
@@ -145,13 +152,11 @@ biom_2023_todo %>% ggplot(aes(x = mes_desp, y = biom_real)) +
        x = "",
        caption = "Azul Marinho Aquicultura") +
   scale_y_continuous(
-    limits = (c(0, 5000)),
-    breaks = (seq(0, 5000, 500)),
+    limits = (c(0, 6500)),
+    breaks = (seq(0, 6500, 500)),
     labels = scales::label_number(big.mark = ".",
                                   decimal.mark = ","),
     expand = expansion(0)) + #faz as barras encostarem no eixo
-  scale_x_discrete(labels = biom_2023_todo$mes_desp, 
-                   breaks = biom_2023_todo$mes_desp) +
   
   
   # Linha média mensal ------------------------------------------------------
@@ -163,15 +168,16 @@ geom_hline(yintercept = mean(biom_2023_todo$biom_real),
            alpha = 0.2) +  
   
   annotate("curve", 
-           x = 3,
-           y = 4700, 
-           xend = 2, 
-           yend = 3796,
-           curvature = 0.5, 
+           x = 3.5,
+           y = 5000, 
+           xend = 1.7, 
+           yend = 3200,
+           curvature = 0.3, 
            arrow = arrow(length = unit(2, "mm"))) +
   
   annotate(geom = "text", 
-           x = 3, y = 4720, 
+           x = 3.5, 
+           y = 5050, 
            label = "média mensal", 
            hjust = "left",
            color = "red") +
@@ -208,8 +214,6 @@ theme_minimal() +
             vjust = -0.5, 
             color = "#000080", 
             size = 4.0)
-
-
 
 
 # Inserindo o Logo --------------------------------------------------------
