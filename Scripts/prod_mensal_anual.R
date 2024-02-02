@@ -12,6 +12,7 @@ library(lubridate)
 library(ggrepel)
 library(scales)
 library(magick)
+library(glue)
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
@@ -64,7 +65,8 @@ annotate("curve",
          arrow = arrow(length = unit(2, "mm"))) +
   
   annotate(geom = "text", 
-           x = 3, y = 4720, 
+           x = 3, 
+           y = 4720, 
            label = "média mensal", 
            hjust = "left",
            color = "red") +
@@ -115,25 +117,28 @@ grid::grid.raster(logo,
 
 
 # # Tentativa de colocar todos os meses no eixo-x -------------------------
-# 
+ 
 
 
-biom_2023 <- biom %>%
+biom_2023_todo <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>% 
   filter(ano_desp == "2023") %>%
-  mutate(mes_desp = factor(month(data_desp,
+  mutate(mes_desp = factor(month(data_desp, # factor to sort months
                                  label = TRUE,
                                  abbr = TRUE))) %>% 
   group_by(mes_desp) %>%
   summarize(biom_real = round(sum(biom_real), 2))
 
-biom_2023_todo <- biom_2023 %>% 
-  add_row(mes_desp = "Fev", 
-          biom_real = 0, 
-          .before = 2)
-biom_2023_todo <- biom_2023_todo %>% 
-  add_row(mes_desp = "Jul", 
-          biom_real = 0, 
+# Como não houve despesca em todos os meses do ano, foi necessário acrescentar os
+# meses de fev e jul manualmente. A variável biom_real não foi incluida para que NA
+# fosse inserido automaticamente.
+
+biom_2023_todo <-  biom_2023_todo %>% 
+  add_row(mes_desp = "fev", 
+          #biom_real = 0, # gives NA instead of zero
+          .before = 2) %>% 
+  add_row(mes_desp = "jul", 
+          #biom_real = 0, # gives NA instead of zero
           .before = 7)
 
 biom_2023_todo
@@ -161,24 +166,24 @@ biom_2023_todo %>% ggplot(aes(x = fct_inorder(mes_desp), y = biom_real)) +
   
   # Linha média mensal ------------------------------------------------------
 
-geom_hline(yintercept = mean(biom_2023_todo$biom_real), 
-           color = "#1a0080", 
+geom_hline(yintercept = mean(biom_2023_todo$biom_real, na.rm = TRUE), 
+           color = "#1a0080",  #1a0080 
            linetype = "solid",
            linewidth = 0.8,
-           alpha = 0.2) +  
+           alpha = 0.5) +  
   
   annotate("curve", 
-           x = 3.5,
-           y = 5000, 
-           xend = 1.7, 
-           yend = 3200,
+           x = 4.0,
+           y = 4800, 
+           xend = 3.5, 
+           yend = 3796,
            curvature = 0.3, 
            arrow = arrow(length = unit(2, "mm"))) +
   
   annotate(geom = "text", 
-           x = 3.5, 
-           y = 5050, 
-           label = "média mensal", 
+           x = 3.40, 
+           y = 4900, 
+           label = paste0("média mensal = ", format(round(mean(biom_2023_todo$biom_real,na.rm = TRUE),0), big.mark = ".")),
            hjust = "left",
            color = "red") +
   
