@@ -99,9 +99,16 @@ biom %>%
 
 ano_2023 <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>% 
-  filter(ano_desp == "2023") %>% 
-  summarize((total_kg = sum(biom_real, na.rm = TRUE)))
+  filter(ano_desp != 2024) %>% 
+  mutate(mes_desp = factor(month(data_desp,
+                                 label = TRUE, 
+                                 abbr = TRUE))) %>% 
+  group_by(ano_desp) %>%
+  summarize(biom_real = round(mean(biom_real, na.rm = TRUE), 2))
+            
 ano_2023
+
+View(ano_2023)
 
 
 
