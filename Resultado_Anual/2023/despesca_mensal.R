@@ -91,3 +91,4 @@ grid::grid.raster(logo,
                   y = 0.8, 
                   just = c('left', 'bottom'), 
                   width = unit(1.3, 'inches'))
+
