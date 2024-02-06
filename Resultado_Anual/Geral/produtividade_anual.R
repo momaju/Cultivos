@@ -24,7 +24,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 biom_produtividade <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
-  filter(ano_desp != 2024) %>% # exclui o ano de 2024
+  #filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(ano_desp) %>%
   summarize(produtividade_media = round(mean(produtividade), 2))
 
@@ -43,7 +43,7 @@ biom_produtividade %>%
                                   decimal.mark = ","),
                       expand = expansion(0)) +
   expand_limits(y = 1500) +
-  scale_x_discrete(breaks = biom_ano$ano_desp) +
+  scale_x_discrete(breaks = biom_produtividade$ano_desp) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, 
                                     color = "#8080c0"),
