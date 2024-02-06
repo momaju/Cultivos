@@ -20,7 +20,7 @@ biom_ano %>%
            show.legend = FALSE,
            fill = "#2e98fe") +
   labs(title = "Produção Anual",
-       subtitle = "Azul Marinho Aquicultura",
+       #subtitle = "Azul Marinho Aquicultura",
        y = "Kg Produzidos",
        x = "Ano",
        caption = "Azul Marinho Aquicultura") +
@@ -68,7 +68,7 @@ biom %>%
   ggplot(aes(x = ano_desp, y = biom_real, fill = ano_desp)) +
   geom_bar(stat = "identity", width = 0.5, show.legend = FALSE) +
   labs(title = "Produção Anual",
-       subtitle = "Azul Marinho Aquicultura",
+       #subtitle = "2015 a 2024",
        y = "Kg Produzidos",
        x = "Ano",
        caption = "Fonte: Azul Marinho Aquicultura") +
