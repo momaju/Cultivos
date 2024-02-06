@@ -43,7 +43,7 @@ biom_produtividade %>%
                                   decimal.mark = ","),
                       expand = expansion(0)) +
   expand_limits(y = 1500) +
-  scale_x_discrete(breaks = biom_ano$ano_desp) +
+  scale_x_discrete(breaks = biom_produtividade$ano_desp) +
   theme_minimal() +
   theme(plot.caption = element_text(size = 9, 
                                     color = "#8080c0"),
