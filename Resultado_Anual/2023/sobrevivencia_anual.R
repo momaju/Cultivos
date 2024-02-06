@@ -11,7 +11,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 sobrevive_ano <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
-  filter(ano_desp != 2024) %>% # exclui o ano de 2024
+  #filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(ano_desp) %>%
   summarize(sobrevive = median(sobrevive))
 
@@ -25,7 +25,7 @@ sobrevive_ano %>%
             linewidth = 1) +
   expand_limits(y = 30) +
   labs(title = "Sobrevivência Anual (%)",
-       subtitle = "2015 a 2023",
+       subtitle = "2015 a 2024",
        x = "Ano",
        y = "Percentual",
        caption = "Azul Marinho Aquicultura") +
@@ -74,7 +74,7 @@ grid::grid.raster(logo,
 
 sobrevive_viveiro <- biom %>%
   mutate(ano_desp = factor(year(data_desp)), viveiro = factor(viveiro)) %>%
-  filter(ano_desp != 2024) %>% # exclui o ano de 2024
+  #filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(viveiro)
   #summarize(sobrevive = median(sobrevive))
 
@@ -93,7 +93,7 @@ sobrevive_viveiro %>%
                fill = "#c0c080") + 
   coord_flip() +
   labs(title = "Sobrevivência Anual por Viveiro",
-       subtitle = "2015 a 2023",
+       subtitle = "2015 a 2024",
        x = "Viveiro",
        y = "Percentual",
        caption = "Azul Marinho Aquicultura") +
