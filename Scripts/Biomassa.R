@@ -772,6 +772,7 @@ v1 %>% summarise(median_b1 = median(biometria_1),
                  median_db1 = median(dbiometria_1))
 
 
+
 # Sobrev. por ano ---------------------------------------------------------
 
 sobrevive_ano <- biom %>%
