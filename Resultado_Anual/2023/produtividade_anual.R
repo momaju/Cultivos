@@ -24,7 +24,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 biom_produtividade <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
-  filter(ano_desp != 2024) %>% # exclui o ano de 2024
+  #filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(ano_desp) %>%
   summarize(produtividade_media = round(mean(produtividade), 2))
 
