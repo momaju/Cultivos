@@ -14,7 +14,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 biom_ano <- biom %>%
   mutate(ano_desp = year(data_desp)) %>% 
-  filter(ano_desp != 2024) %>% # exclui o ano de 2024
+  #filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(ano_desp) %>%
   summarize(densidade_media = round(mean(densidade), 2))
 
