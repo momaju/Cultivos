@@ -6,6 +6,10 @@
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
+library(lubridate)
+library(ggrepel)
+library(scales)
+library(magick)
 
 
 # Reading the data --------------------------------------------------------
@@ -13,23 +17,24 @@ library(ggthemes)
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 biom_mes <- biom %>% 
-  mutate(ano_desp = factor(year(data_desp)), 
+  mutate(ano_desp = (year(data_desp)), 
          mes = month(data_desp, 
                      label = TRUE, 
                      abbr = TRUE)) %>%
-  filter(ano_desp != 2024) %>%
+  #filter(ano_desp != 2024) %>%
   select(ano_desp, viveiro, mes, biom_real) %>% 
   group_by(mes) %>% 
   summarise(mes = unique(mes), 
             mean_kg = round(mean(biom_real),2), 
-            total_kg = sum(biom_real))
+            total_kg = sum(biom_real),
+            max_ano = max(ano_desp))
 
 biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
   geom_bar(stat = "identity", width = 0.8, 
            show.legend = FALSE,
            fill = "#2e98fe") +
   labs(title = "Produção Média Mensal",
-       subtitle = "De 2015 a 2023",
+       subtitle = paste0("2015 a ", biom_mes$max_ano),
        y = "Kg Produzidos",
        x = "",
        caption = "Azul Marinho Aquicultura") +
@@ -39,7 +44,6 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
     labels = scales::label_number(big.mark = ".",
                                   decimal.mark = ","),
     expand = expansion(0)) + #faz as barras encostarem no eixo
-  #expand_limits(y = 4000) +
   geom_hline(yintercept = mean(biom_mes$mean_kg), 
              color = "#1a0080", 
              linetype = "solid",
@@ -68,17 +72,21 @@ biom_mes %>% ggplot(aes(x = mes, y = mean_kg,)) +
         #axis.line.x = element_line(color = "#000080"),
         panel.grid.major = element_blank(),
         plot.margin = margin(25,25,25,30)) +
-  annotate("curve", x = 3, y = 3500, xend = 2, yend = 2651,
-           curvature = 0.3, arrow = arrow(length = unit(2, "mm"))) +
+  annotate("curve", 
+           x = 3, 
+           y = 3500, 
+           xend = 2, 
+           yend = 2651,
+           curvature = 0.3, 
+           arrow = arrow(length = unit(2, "mm"))) +
   annotate(geom = "text", 
            x = 3.1, y = 3500, 
-           label = "média mensal", 
+           label = paste0("média mensal = ", 
+                          format(round(mean(biom_mes$mean_kg, 
+                                            na.rm = TRUE),0), 
+                          big.mark = ".")), 
            hjust = "left",
-           color = "red") +
-  geom_text(aes(label = format(mean_kg, 
-                               big.mark = ".", 
-                               decimal.mark = ",")),
-            vjust = -0.5, color = "#000080", size = 4.0)
+           color = "red")
 
 
 # Inserindo o logo
