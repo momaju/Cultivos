@@ -17,7 +17,7 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 primeira_biometria <- biom %>%
   mutate(ano_desp = factor(year(data_desp)), viveiro = factor(viveiro)) %>%
-  filter(ano_desp != 2024) %>% # exclui o ano de 2024
+  #filter(ano_desp != 2024) %>% # exclui o ano de 2024
   group_by(viveiro)
 
 primeira_biometria %>% 
