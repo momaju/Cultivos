@@ -72,9 +72,10 @@ geom_hline(yintercept = mean(biom_2023_todo$biom_real, na.rm = TRUE),
   annotate(geom = "text", 
            x = 3.40, 
            y = 4900, 
-           label = paste0("média mensal = ", format(round(mean(biom_2023_todo$biom_real, 
-                                                               na.rm = TRUE),0), 
-                                                    big.mark = ".")),
+           label = paste0("média mensal = ", 
+                          format(round(mean(biom_2023_todo$biom_real, 
+                                            na.rm = TRUE),0), 
+                          big.mark = ".")),
            hjust = "left",
            color = "red") +
   
