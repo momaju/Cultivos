@@ -14,6 +14,10 @@ toc: true
 ---
 
 ```{r}
+
+#| label: load packages
+#| include: false
+
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
@@ -26,6 +30,9 @@ library(leaflet)
 ```
 
 ```{r}
+
+#| lendo os dados 
+
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 ```
 
@@ -41,9 +48,10 @@ Este realtório cobre os anos de `r min(ano_desp)` a `r max(ano_desp)-1`
 title: "Relatório Anual - `r max(ano_desp) -1`"
 ---
 
-## Localização
+## [Localização]{style="color:#2e98fe;"}
 
-A Azul Marinho localiza-se noi município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. A principal via de acesso é pela CE 085 (Rodovia Estadual Litorânea Fortaleza – Itarema/ sol poente). Dista 176 km de Fortaleza.
+
+A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. A principal via de acesso é pela CE 085 (Rodovia Estadual Litorânea Fortaleza – Itarema/ sol poente). Dista 176 km de Fortaleza.
 
 ```{r}
 library(leaflet)
@@ -52,7 +60,7 @@ leaflet() %>%
   addMarkers(lng = -39.87063, lat = -2.9119, popup = "Azul Marinho Aquicultura")
 ```
 
-## Descrição do Empreendimento
+## [Descrição do Empreendimento]{style="color:#2e98fe;"}
 
 A área da propriedade é de 58,00 ha, definindo-se a área do projeto que será de 10,48 ha, delimitando-se ainda as áreas de reserva legal, expansão  e APP.
 
@@ -91,7 +99,7 @@ A engorda será desenvolvida em aproximadamente 120 dias, sendo realizada median
 
 -   A mão-de-obra não especializada do projeto será provém da comunidade, contribuindo para geração de mais de 05  (cinco) empregos direto. A mão-de-obra está sendo utilizada nos processos de limpeza e manutenção dos viveiros, bem como na alimentação e arraçoamento dos camarões.
 
-## Produção Anual
+## [Produção Anual]{style="color:#2e98fe;"}
 
 ```{r}
 # Libraries and Data ------------------------------------------------------
@@ -231,7 +239,7 @@ biom_ano <- biom %>%
 
 Em 2023, a produção total foi de `r format(sum(biom_2023_todo$biom_real, na.rm = TRUE),big.mark = ".")` kg. Não ocorreram despescas nos meses de fevereiro e julho. Em média, foram despescados `r format(round(mean(biom_2023_todo$biom_real,na.rm = TRUE),0), big.mark = ".")` kg. Bem abaixo da média anual de produção é de `r format(round(mean(biom_ano$biom_real, na.rm = TRUE),0), big.mark = "." )` kg.
 
-## Sobrevivência
+## [Sobrevivência]{style="color:#2e98fe;"}
 
 Em média, a sobrevivência anual é de 89,3%, considerados todos os cultivos desde de 2015. O ano de 2023 apresentou um resultado bem inferior, sendo inclusive menor do que nos anos em que fomos acometidos pela mancha branca (WSSV). Tenho duas hipóteses para o ocorrido:
 
