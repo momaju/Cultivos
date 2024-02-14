@@ -48,10 +48,6 @@ Este realtório cobre os anos de `r min(ano_desp)` a `r max(ano_desp)-1`
 title: "Relatório Anual - `r max(ano_desp) -1`"
 ---
 
-``` r
-{{< pagebreak >}}
-```
-
 ## [Localização]{style="color:#2e98fe;"}
 
 A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. A principal via de acesso é pela CE 085 (Rodovia Estadual Litorânea Fortaleza – Itarema/ sol poente). Dista 176 km de Fortaleza.
