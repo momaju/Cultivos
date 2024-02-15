@@ -52,7 +52,7 @@ geom_hline(yintercept = mean(energy_costs$valor, na.rm = TRUE),
            x = 4.0,
            y = 3800, 
            xend = 3.5, 
-           yend = 3233,
+           yend = 3450,
            curvature = 0.3, 
            arrow = arrow(length = unit(2, "mm"))) +
   
