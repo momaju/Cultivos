@@ -4,28 +4,24 @@ library(tidyverse)
 library(magick)
 
 feed_costs <- tibble::tribble(
-  ~mes,      ~`2020`,   ~`2021`,  ~`2022`,  ~`2023`,
-  "jan",    18274.70,  13125.00,  4255.00, 12910.98, 
-  "fev",    10788.44,   5280.00, 19600.00, 17668.02,
-  "mar",    12367.78,  21217.00, 16755.00,  3200.00,
-  "abr",    14920.50,  13842.00, 26875.00,       NA,
-  "mai",     7815.10,   7290.00, 10150.00, 27592.60,
-  "jun",    11770.65,  17430.00, 13000.00,       NA,
-  "jul",    14406.00,  18430.00,       NA,       NA,
-  "ago",    25733.29,  16878.00, 23340.00, 39294.33,
-  "set",    32361.95,  11200.00, 14375.00, 16813.78,
-  "out",    18423.00,  25200.00, 36250.98,       NA,
-  "nov",     6000.00,  23855.00, 17280.98, 26117.06,
-  "dez",    27041.41,  22375.00, 15950.98,  3306.38, 
+  ~mes,       ~valor,
+  "jan",    12910.98, 
+  "fev",    17668.02,
+  "mar",     3200.00,
+  "abr",          NA,
+  "mai",     7592.60,
+  "jun",          NA,
+  "jul",          NA,
+  "ago",    39294.33,
+  "set",    16813.78,
+  "out",          NA,
+  "nov",    26117.06,
+  "dez",     3306.38, 
 )
 
-feed_costs_long <- tidyr::pivot_longer(feed_costs, 
-                                         cols = -"mes", 
-                                         names_to = "ano", 
-                                         values_to = "valor")
 
-feed_costs_long %>%
-  filter(ano == "2023") %>%
+
+feed_costs %>%
   mutate(mes = factor(mes)) %>% 
   ggplot(aes(x = fct_inorder(mes), y = valor)) +
   geom_bar(stat = "identity", 
@@ -46,7 +42,7 @@ feed_costs_long %>%
   
   # Linha média mensal ------------------------------------------------------
 
-geom_hline(yintercept = mean(feed_costs_long$valor, na.rm = TRUE), 
+geom_hline(yintercept = mean(feed_costs$valor, na.rm = TRUE), 
            color = "#1a0080",  #1a0080 
            linetype = "solid",
            linewidth = 0.8,
@@ -64,7 +60,7 @@ geom_hline(yintercept = mean(feed_costs_long$valor, na.rm = TRUE),
            x = 4.0, 
            y = 20000, 
            label = paste0("média mensal = \n R$",
-                          format(round(mean(feed_costs_long$valor, 
+                          format(round(mean(feed_costs$valor, 
                                             na.rm = TRUE),2), 
                                  big.mark = ".")),
            hjust = "center",
