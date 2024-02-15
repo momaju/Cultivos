@@ -4,28 +4,24 @@ library(tidyverse)
 library(magick)
 
 energy_costs <- tibble::tribble(
-  ~mes,      ~`2020`,   ~`2021`,  ~`2022`,  ~`2023`,
-  "jan",     2834.20,   2190.19,  3165.91,  2963.05, 
-  "fev",          NA,   2679.27,       NA,       NA,
-  "mar",     3158.37,        NA,  4805.83,  4575.29,
-  "abr",     2060.97,   5604.27,  3134.57,       NA,
-  "mai",     2082.82,   2414.85,  3036.50,  6326.02,
-  "jun",          NA,        NA,       NA,  2961.39,
-  "jul",     3101.30,   7227.92,  6216.45,  2546.11,
-  "ago",     2203.39,        NA,  2775.57,  2872.81,
-  "set",     0000.00,   5243.65,  3023.43,  3322.30,
-  "out",     2203.39,   3319.91,  2486.78,  2946.30,
-  "nov",     4960.46,   1473.22,  2952.89,  2732.84,
-  "dez",     1271.46,   3322.52,  2686.11,  3205.62, 
+  ~mes,       ~valor,
+  "jan",     2963.05, 
+  "fev",          NA,
+  "mar",     4575.29,
+  "abr",          NA,
+  "mai",     6326.02,
+  "jun",     2961.39,
+  "jul",     2546.11,
+  "ago",     2872.81,
+  "set",     3322.30,
+  "out",     2946.30,
+  "nov",     2732.84,
+  "dez",     3205.62, 
 )
 
 
-energy_costs_long <- tidyr::pivot_longer(energy_costs, 
-                                         cols = -"mes", 
-                                         names_to = "ano", 
-                                         values_to = "valor")
-energy_costs_long %>%
-  filter(ano == "2023") %>%
+
+energy_costs %>%
   mutate(mes = factor(mes)) %>% 
   ggplot(aes(x = fct_inorder(mes), y = valor)) +
   geom_bar(stat = "identity", 
@@ -46,7 +42,7 @@ energy_costs_long %>%
   
   # Linha média mensal ------------------------------------------------------
 
-geom_hline(yintercept = mean(energy_costs_long$valor, na.rm = TRUE), 
+geom_hline(yintercept = mean(energy_costs$valor, na.rm = TRUE), 
            color = "#1a0080",  #1a0080 
            linetype = "solid",
            linewidth = 0.8,
@@ -64,7 +60,7 @@ geom_hline(yintercept = mean(energy_costs_long$valor, na.rm = TRUE),
            x = 4.0, 
            y = 4000, 
            label = paste0("média mensal = \n R$",
-                          format(round(mean(energy_costs_long$valor, 
+                          format(round(mean(energy_costs$valor, 
                                             na.rm = TRUE),2), 
                                  big.mark = ".")),
            hjust = "center",
