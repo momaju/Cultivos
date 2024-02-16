@@ -183,9 +183,7 @@ tij_desempenho %>%
   kable_classic_2(html_font = "Cambria") %>% 
   kable_styling(bootstrap_options = "condensed",
                 full_width = F,
-                fixed_thead = T) %>% 
-  footnote(general = "Data da despesca 16/11/2022")
-
+                fixed_thead = T) 
 
 
 
