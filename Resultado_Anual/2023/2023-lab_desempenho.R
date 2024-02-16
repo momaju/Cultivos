@@ -12,6 +12,7 @@ library(kableExtra)
 library(gt)
 library(flextable)
 library(gtsummary)
+library(rio)
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
@@ -29,13 +30,11 @@ biom_lab_2023 <- biom %>%
          g_final,
          sobrevive, 
          ddc) %>% 
- 
-  
   tbl_summary(by = lab,
-              statistic = list(
-                all_continuous() ~ "{mean} ({sd})",
-                c(pop) ~ "{sum}"),
-              digits = all_continuous() ~ 2,
+              statistic = list(pop ~ "{sum}",
+                               c(all_continuous(), -pop) ~ "{mean} ({sd})"),
+              type = list(c(pop, fallow, id_entrada) ~ 'continuous'),
+              missing = "no", # don't list missing data separately
               label = list(lab = "Lab", 
                            pop = "PLs Compradas", 
                            baixa_mil = "Mortalida/Milheiro", 
@@ -45,16 +44,17 @@ biom_lab_2023 <- biom %>%
                            g_semana = "Crescimento Semanal (g)", 
                            id_entrada = "Id. Entrada (PL)", 
                            g_final = "Peso Final (g)",
-                           sobrevive = "Sobrevivência", ddc = "Dias de Cultivo"),
-              missing = "no") %>%  # don't list missing data separately
-  
+                           sobrevive = "Sobrevivência", 
+                           ddc = "Dias de Cultivo")) %>%
   modify_header(label ~ "**Variável**") %>% # update the column header
   modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Laboratório**") %>%
   #modify_caption("**Desempenho por Laboratório**") %>%
   #dd_difference() #add column for difference between two group, 
   #confidence interval, and p-value
   #add_p(pvalue_fun = ~ style_pvalue(.x, digits = 3)) %>% 
-  add_p() %>% # test for a difference between groups
+  add_p(pvalue_fun = ~ style_pvalue(.x, digits = 3)) %>% # test for a difference between groups
+  add_overall() %>% 
+  #add_n() %>% 
   #add_significance_stars() %>% #Add significance stars
   bold_p() %>%  #bold significant p-values
   as_gt() %>% #the summary table must first be converted into a gt object
@@ -63,10 +63,13 @@ biom_lab_2023 <- biom %>%
                   table_body.hlines.color = "#000080",
                   table.font.color = "#000080") %>% 
   gt::fmt_number(columns =  where(~ is.numeric(.x)), #não formata de acordo
-                 decimals = 2) %>% 
-  #dec_mark = ",",
-  #sep_mark = ".") %>% 
+                locale = "pt",
+                # use_seps = TRUE,
+                 decimals = 3,
+                 dec_mark = ",",
+                 sep_mark = ".") %>% 
   gt::tab_header(
-    title = md("Desempenho por Laboratório"),
-    subtitle = "2023"
-  )
+    title = md("Desempenho por Larvicultura"),
+    subtitle = "2023")
+
+biom_lab_2023         
