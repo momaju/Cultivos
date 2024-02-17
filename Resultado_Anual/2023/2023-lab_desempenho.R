@@ -94,30 +94,3 @@ biom_lab_2023
 
 
 
-number_style <- function(x)(style_number(x, 
-                                         scale = 1,
-                                         big.mark = ".",
-                                         decimal.mark = ","))
-number_style(10002)
-#> [1] "10K"
-
-data <-
-  data.frame(variable1 = rep(1:4, each = 10000)) %>%
-  mutate(
-    variable1 =
-      dplyr::case_when(
-        variable1 %in% 1 ~ "Dog",
-        variable1 %in% 2 ~ "Cat",
-        variable1 %in% 3 ~ "Lion",
-        variable1 %in% 4 ~ "Tiger"
-      )
-  )
-
-tbl <-
-  data %>% 
-  tbl_summary(
-    digits = all_categorical() ~ list(number_style)
-  )
-tbl
-
-
