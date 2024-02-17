@@ -12,9 +12,20 @@ library(kableExtra)
 library(gt)
 library(flextable)
 library(gtsummary)
-library(rio)
+
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+
+## A função abaixo serve para formatar os valores da tabela para o formato
+# brasileiro onde o separador de milhares é o ponto e o de decimais é a
+# vírgula. Vai ser utilizada na opção digits = do função tbl_summary.
+
+number_style <- function(x)(style_number(x,
+                                         digits = 2,
+                                         scale = 1,
+                                         big.mark = ".",
+                                         decimal.mark = ","))
+
 
 biom_lab_2023 <- biom %>% 
   mutate(ano_desp = factor(year(data_desp))) %>% 
@@ -35,6 +46,7 @@ biom_lab_2023 <- biom %>%
                                c(all_continuous(), -pop) ~ "{mean} ({sd})"),
               type = list(c(pop, fallow, id_entrada) ~ 'continuous'),
               missing = "no", # don't list missing data separately
+              digits = all_continuous() ~ list(number_style),
               label = list(lab = "Lab", 
                            pop = "PLs Compradas", 
                            baixa_mil = "Mortalida/Milheiro", 
@@ -46,13 +58,16 @@ biom_lab_2023 <- biom %>%
                            g_final = "Peso Final (g)",
                            sobrevive = "Sobrevivência", 
                            ddc = "Dias de Cultivo")) %>%
+  
   modify_header(label ~ "**Variável**") %>% # update the column header
   modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Laboratório**") %>%
   #modify_caption("**Desempenho por Laboratório**") %>%
   #dd_difference() #add column for difference between two group, 
   #confidence interval, and p-value
-  #add_p(pvalue_fun = ~ style_pvalue(.x, digits = 3)) %>% 
-  add_p(pvalue_fun = ~ style_pvalue(.x, digits = 3)) %>% # test for a difference between groups
+  #add_p() %>% 
+  add_p(pvalue_fun = ~ style_pvalue(.x, 
+                                    digits = 3,
+                                    decimal.mark = ",")) %>% # test for a difference between groups
   add_overall() %>% 
   #add_n() %>% 
   #add_significance_stars() %>% #Add significance stars
@@ -62,14 +77,47 @@ biom_lab_2023 <- biom %>%
   gt::tab_options(column_labels.background.color = "#8080c0",
                   table_body.hlines.color = "#000080",
                   table.font.color = "#000080") %>% 
-  gt::fmt_number(columns =  where(~ is.numeric(.x)), #não formata de acordo
-                locale = "pt",
+  #gt::fmt_number(columns =  where(~ is.numeric(.x)), #não formata de acordo
+
+  
+    #              locale = "pt",
                 # use_seps = TRUE,
-                 decimals = 3,
-                 dec_mark = ",",
-                 sep_mark = ".") %>% 
+  #               decimals = 3,
+  #               dec_mark = ",",
+  #              sep_mark = ".") %>% 
   gt::tab_header(
-    title = md("Desempenho por Larvicultura"),
-    subtitle = "2023")
+    title = md("**Desempenho por Larvicultura**"),
+    subtitle = md("**2023**"))
 
 biom_lab_2023         
+
+
+
+
+number_style <- function(x)(style_number(x, 
+                                         scale = 1,
+                                         big.mark = ".",
+                                         decimal.mark = ","))
+number_style(10002)
+#> [1] "10K"
+
+data <-
+  data.frame(variable1 = rep(1:4, each = 10000)) %>%
+  mutate(
+    variable1 =
+      dplyr::case_when(
+        variable1 %in% 1 ~ "Dog",
+        variable1 %in% 2 ~ "Cat",
+        variable1 %in% 3 ~ "Lion",
+        variable1 %in% 4 ~ "Tiger"
+      )
+  )
+
+tbl <-
+  data %>% 
+  tbl_summary(
+    digits = all_categorical() ~ list(number_style)
+  )
+tbl
+
+
