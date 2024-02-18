@@ -325,6 +325,16 @@ aqc_desempenho_all %>%
 
 # gtsummary ---------------------------------------------------------------
 
+## A função abaixo serve para formatar os valores da tabela para o formato
+# brasileiro onde o separador de milhares é o ponto e o de decimais é a
+# vírgula. Vai ser utilizada na opção digits = do função tbl_summary.
+
+number_style <- function(x)(style_number(x,
+                                         digits = 2,
+                                         scale = 1,
+                                         big.mark = ".",
+                                         decimal.mark = ","))
+
 biom %>% 
 select(lab, 
        pop, 
@@ -342,7 +352,7 @@ tbl_summary(by = lab,
             statistic = list(
              all_continuous() ~ "{mean} ({sd})",
              c(pop) ~ "{sum}"),
-            digits = all_continuous() ~ 2,
+            digits = all_continuous() ~ list(number_style),
             label = list(lab = "Lab", 
                          pop = "PLs Compradas", 
                          baixa_mil = "Mortalida/Milheiro", 
@@ -353,10 +363,10 @@ tbl_summary(by = lab,
                          id_entrada = "Id. Entrada (PL)", 
                          g_final = "Peso Final (g)",
                          sobrevive = "Sobrevivência", ddc = "Dias de Cultivo"),
-            missing = "no") %>%  # don't list missing data separately
+            missing = "no") %>%    # don't list missing data separately)
   
   modify_header(label ~ "**Variável**") %>% # update the column header
-  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Laboratório**") %>%
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Laboratório**,  N = {n}     ({style_percent(p)}%)") %>%
   #modify_caption("**Desempenho por Laboratório**") %>%
   #dd_difference() #add column for difference between two group, 
                   #confidence interval, and p-value
