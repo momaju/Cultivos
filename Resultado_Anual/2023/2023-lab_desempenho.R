@@ -60,18 +60,18 @@ biom_lab_2023 <- biom %>%
                            ddc = "Dias de Cultivo")) %>%
   
   modify_header(label ~ "**Variável**") %>% # update the column header
-  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Laboratório**") %>%
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Lab**, N = {n} ({style_percent(p)}%)") %>%
   #modify_caption("**Desempenho por Laboratório**") %>%
   #dd_difference() #add column for difference between two group, 
   #confidence interval, and p-value
   #add_p() %>% 
-  add_p(pvalue_fun = ~ style_pvalue(.x, 
-                                    digits = 3,
-                                    decimal.mark = ",")) %>% # test for a difference between groups
+  #add_p(pvalue_fun = ~ style_pvalue(.x, 
+  #                                  digits = 3,
+  #                                  decimal.mark = ",")) %>% # test for a difference between groups
   add_overall() %>% 
   #add_n() %>% 
   #add_significance_stars() %>% #Add significance stars
-  bold_p() %>%  #bold significant p-values
+  #bold_p() %>%  #bold significant p-values
   as_gt() %>% #the summary table must first be converted into a gt object
   gt::tab_source_note(gt::md("*Azul Marinho Aquicultura*")) %>% 
   gt::tab_options(column_labels.background.color = "#8080c0",
