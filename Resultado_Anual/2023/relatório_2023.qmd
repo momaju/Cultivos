@@ -733,7 +733,24 @@ grid::grid.raster(logo,
 
 ## [Desempenho por Larvicultura]{style="color:#2e98fe;"}
 
+Nossas pós-larvas (Pls), foram adquiridas de três larviculturas, também chamadaos de laboratórios:
+
+-   Aquacrusta Marinha (AQC)
+
+-   LaborScence (LBS)
+
+-   Larvifort (TIJ)
+
+Algumas já mudaram de razão social ao longo dos anos, daí a discrepância entre os nomes e abreviaturas dos laboratóriuos. Nosso mais tradicional fornecedor é AQC, porém este ano introduzimos produtos do LBS, a Larvifort já nos fornece ha algum tempo.
+
+A tabela abaixo, mostra de forma resumida o desempenho de cada um dos laboratórios. De maneira geral o desempenho do LBS foi muito aquém do esperado, principalmente no quesito sobrevivência. Atribuo a isto o nosso fraco resultado de produção durante este ano. Trata-se de um laboratório novo e acredito ainda estarem realizando ajustes na produção, uma vez que seu responsável técnico possui bastante experiência.
+
+Há relatos de outras fazendas, com bons resultados das Pls fornecidas pelo LBS, e inclusive resultados apresentados pelo próprio laboratório. Estas devem ser analisadas com cautela, pois não tivemos acesso aos números originais. A TIJ deixou de fornecer próximo ao final do ano. Os rumores, são de que estavam ofertando um produto de baixa qualidade.
+
 ```{r}
+
+# # gtsummary ---------------------------------------------------------------
+ 
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
@@ -792,18 +809,18 @@ biom_lab_2023 <- biom %>%
                            ddc = "Dias de Cultivo")) %>%
   
   modify_header(label ~ "**Variável**") %>% # update the column header
-  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Laboratório**") %>%
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "N = {n} ({style_percent(p)}%)") %>%
   #modify_caption("**Desempenho por Laboratório**") %>%
   #dd_difference() #add column for difference between two group, 
   #confidence interval, and p-value
   #add_p() %>% 
-  add_p(pvalue_fun = ~ style_pvalue(.x, 
-                                    digits = 3,
-                                    decimal.mark = ",")) %>% # test for a difference between groups
+  #add_p(pvalue_fun = ~ style_pvalue(.x, 
+  #                                  digits = 3,
+  #                                  decimal.mark = ",")) %>% # test for a difference between groups
   add_overall() %>% 
   #add_n() %>% 
   #add_significance_stars() %>% #Add significance stars
-  bold_p() %>%  #bold significant p-values
+  #bold_p() %>%  #bold significant p-values
   as_gt() %>% #the summary table must first be converted into a gt object
   gt::tab_source_note(gt::md("*Azul Marinho Aquicultura*")) %>% 
   gt::tab_options(column_labels.background.color = "#8080c0",
@@ -821,5 +838,6 @@ biom_lab_2023 <- biom %>%
     title = md("**Desempenho por Larvicultura**"),
     subtitle = md("**2023**"))
 
-biom_lab_2023
+biom_lab_2023         
+
 ```
