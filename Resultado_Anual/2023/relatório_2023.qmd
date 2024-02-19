@@ -1,5 +1,5 @@
 ---
-author: Mozart Marinho-Jr
+author: "Mozart Marinho-Jr"
 format: 
   html:
    grid:
@@ -31,22 +31,25 @@ library(leaflet)
 
 ```{r}
 
-#| lendo os dados 
+#| label: load-data
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 ```
 
 ```{r}
+
+#| label:  set-year
+
 ano_desp <- biom %>% 
   mutate(ano_desp = (year(data_desp))) %>% 
+  filter(ano_desp == 2023) %>% 
   select(ano_desp)
 ```
 
-Este realtório cobre os anos de `r min(ano_desp)` a `r max(ano_desp)-1`
+Este realtório cobre somente o ano de `r max(ano_desp)`
 
 ---
-title:  Relatório Anual - `r max(ano_desp) -1`
-
+title:  "Relatório Anual - `r max(ano_desp)`"
 ---
 
 ## [Localização]{style="color:#2e98fe;"}
@@ -54,6 +57,7 @@ title:  Relatório Anual - `r max(ano_desp) -1`
 A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. A principal via de acesso é pela CE 085 (Rodovia Estadual Litorânea Fortaleza – Itarema/ sol poente). Dista 176 km de Fortaleza.
 
 ```{r}
+
 #| column: body
 
 library(leaflet)
