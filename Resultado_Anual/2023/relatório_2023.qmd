@@ -7,6 +7,10 @@ format:
    fig-width: 13
    fig-height: 8
    page-layout: full
+   theme:
+    light: flatly
+    dark: darkly
+lang: pt
 editor: visual
 warning: false
 echo: false
@@ -50,6 +54,9 @@ Este realtório cobre somente o ano de `r max(ano_desp)`
 
 ---
 title:  "Relatório Anual - `r max(ano_desp)`"
+title-block-style: "default"
+title-block-banner:  "#000080"
+#title-block-banner-color: "#2e98fe" # cor da fonte do título
 ---
 
 ## [Localização]{style="color:#2e98fe;"}
