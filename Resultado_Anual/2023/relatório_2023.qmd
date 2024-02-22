@@ -56,6 +56,7 @@ Este realtório cobre somente o ano de `r max(ano_desp)`
 title:  "Relatório Anual - `r max(ano_desp)`"
 title-block-style: "default"
 title-block-banner:  "#000080"
+css: style.css
 #title-block-banner-color: "#2e98fe" # cor da fonte do título
 ---
 
