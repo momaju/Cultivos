@@ -1,9 +1,9 @@
 ---
 author: "Mozart Marinho-Jr"
+document-css: true
 format: 
   html:
    self_contained: yes
-   #css: styles.css
    grid:
       margin-width: 250px
    fig-width: 13
@@ -56,8 +56,9 @@ Este realtório cobre somente o ano de `r max(ano_desp)`
 
 ---
 title:  "Relatório Anual - `r max(ano_desp)`"
+css: styles.css
 title-block-style: "default"
-title-block-banner:  "#000080"
+title-block-banner:  "red"
 #title-block-banner-color: "#2e98fe" # cor da fonte do título
 ---
 
