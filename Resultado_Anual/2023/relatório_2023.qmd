@@ -1,6 +1,5 @@
 ---
 author: "Mozart Marinho-Jr"
-document-css: true
 format: 
   html:
    self_contained: yes
@@ -12,6 +11,7 @@ format:
    theme:
     light: flatly
     dark: darkly
+css: styles.css
 lang: pt
 editor: visual
 warning: false
@@ -56,9 +56,9 @@ Este realtório cobre somente o ano de `r max(ano_desp)`
 
 ---
 title:  "Relatório Anual - `r max(ano_desp)`"
-css: styles.css
+#css: styles.css
 title-block-style: "default"
-title-block-banner:  "red"
+title-block-banner: "#000080"
 #title-block-banner-color: "#2e98fe" # cor da fonte do título
 ---
 
@@ -646,7 +646,7 @@ grid::grid.raster(logo,
 
 ```
 
-### [Eletriciade]{style="color:#2e98fe;"}
+### [Eletricidade]{style="color:#2e98fe;"}
 
 ```{r}
 # Custos Mensais com Energia Elétrica em 2023
