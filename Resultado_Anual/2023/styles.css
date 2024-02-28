@@ -1,9 +1,8 @@
 /*.quarto-title-banner {
-  background-image: url("https://drive.google.com/file/d/1SN4gu5VzJYlfacpgoVycXNI8JRuswynA/view?usp=drive_link");
-  background-size: 300px;
-  background-position:  center;
+  background-image: url("azul_logo_transp.png");
+  background-size: 200px;
+  background-position:  top right;
   background-repeat: no-repeat;
-  background-origin: content-box;
 }*/
 
 
@@ -12,7 +11,25 @@
    color: #2e98fe;
 }
 
-h2 {
-  color:#2e98fe;
+h2, h3 {
+  color: #2e98fe;
+  text-transform: capitalize;
 }
+
+ul {
+  list-style-type: disc;
+}
+
+li::marker {
+  color: #2e98fe;
+}
+
+h1 {
+  background-image: url("azul_logo_transp.png");
+  background-repeat: no-repeat;
+  background-size:  50px 50px;
+  background-position:  right;
+  /*background-origin: content-box;*/
+}
+
 
