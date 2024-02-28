@@ -62,7 +62,7 @@ title-block-banner: "#000080"
 #title-block-banner-color: "#2e98fe" # cor da fonte do título
 ---
 
-## [Localização]{style="color:#2e98fe;"}
+## Localização
 
 A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. A principal via de acesso é pela CE 085 (Rodovia Estadual Litorânea Fortaleza – Itarema/ sol poente). Dista 176 km de Fortaleza.
 
@@ -115,7 +115,7 @@ A engorda será desenvolvida em aproximadamente 120 dias, sendo realizada median
 
 -   A mão-de-obra não especializada do projeto será provém da comunidade, contribuindo para geração de mais de 05  (cinco) empregos direto. A mão-de-obra está sendo utilizada nos processos de limpeza e manutenção dos viveiros, bem como na alimentação e arraçoamento dos camarões.
 
-## [Produção Anual]{style="color:#2e98fe;"}
+## Produção Anual
 
 ```{r}
 #|label: ano-2023 
@@ -258,7 +258,7 @@ biom_ano <- biom %>%
 
 Em 2023, a produção total foi de `r format(sum(biom_2023_todo$biom_real, na.rm = TRUE),big.mark = ".")` kg. Não ocorreram despescas nos meses de fevereiro e julho. Em média, foram despescados `r format(round(mean(biom_2023_todo$biom_real,na.rm = TRUE),0), big.mark = ".")` kg. Bem abaixo da média anual de produção é de `r format(round(mean(biom_ano$biom_real, na.rm = TRUE),0), big.mark = "." )` kg.
 
-## [Sobrevivência]{style="color:#2e98fe;"}
+## Sobrevivência
 
 Em média, a sobrevivência anual é de 89,3%, considerados todos os cultivos desde de 2015. O ano de 2023 apresentou um resultado bem inferior, sendo inclusive menor do que nos anos em que fomos acometidos pela mancha branca (WSSV). Tenho duas hipóteses para o ocorrido:
 
@@ -413,9 +413,9 @@ grid::grid.raster(logo,
 
 ```
 
-## [Custos dos Principais Insumos]{style="color:#2e98fe;"}
+## Custos dos Principais Insumos
 
-### [Ração]{style="color:#2e98fe;"}
+### Ração
 
 ```{r}
 # Custos Mensais com Ração em 2023
@@ -529,7 +529,7 @@ grid::grid.raster(logo,
 
 ```
 
-### [Pós Larvas]{style="color:#2e98fe;"}
+### Pós Larvas
 
 ```{r}
 # Custos mensais com Pls em 2023 ------------------------------------------
@@ -646,7 +646,7 @@ grid::grid.raster(logo,
 
 ```
 
-### [Eletricidade]{style="color:#2e98fe;"}
+### Eletricidade
 
 ```{r}
 # Custos Mensais com Energia Elétrica em 2023
@@ -760,7 +760,7 @@ grid::grid.raster(logo,
 
 ```
 
-## [Desempenho por Larvicultura]{style="color:#2e98fe;"}
+## Desempenho por Larvicultura
 
 Nossas pós-larvas (Pls), foram adquiridas de três larviculturas, também chamadaos de laboratórios:
 
