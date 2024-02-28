@@ -1,14 +1,18 @@
-.quarto-title-banner {
+/*.quarto-title-banner {
   background-image: url("https://drive.google.com/file/d/1SN4gu5VzJYlfacpgoVycXNI8JRuswynA/view?usp=drive_link");
   background-size: 300px;
   background-position:  center;
   background-repeat: no-repeat;
   background-origin: content-box;
-}
+}*/
 
 
 .quarto-title-block {
    text-align:  left;
    color: #2e98fe;
+}
+
+h2 {
+  color:#2e98fe;
 }
 
