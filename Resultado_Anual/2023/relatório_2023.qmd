@@ -91,11 +91,7 @@ A área de cultivo de camarão possui 4 (quatro) viveiros,
 
 Possui canal de abastecimento com formato de trapézio, medindo na base 8,00 m no topo 12,00 m, além do canal de drenagem/ bacia de sedimentação, também em forma de trapézio, medindo 8,00 m na base e 12,00 no topo.
 
-O sistema de produção adotado é o cultivo extensivo de camarões nos viveiros de engorda. A utilização deste tipo de sistema visa o melhor aproveitamento dos camarões cultivados no tocante a alimentação e redução de mortalidade existentes durante o processo tecnológico.
-
-A engorda será desenvolvida em aproximadamente 120 dias, sendo realizada mediante arraçoamento natural e artificial com a utilização de aeradores, tendo em vista a dimensão dos viveiros e, consequentemente, a necessidade de oxigenação. As despeças serão realizadas através das comportas para o canal de drenagem/ bacia de sedimentação tendo como destino final o mar. Contudo a água passará pelo tratamento primário e posteriormente, monitorada  sua qualidade para que os efluentes sejam jogados no mar dentro dos padrões exigidos pela legislação ambiental vigente.
-
--   A água disponibilizada para o projeto é proveniente do mar/maré através de uma gamboa natural até a casa de bomba, considerada satisfatória para o pleno desenvolvimento do camarão marinho litopenaeus vennamei , espécie destinada à criação;
+-   A água para o abastecimento é proveniente do mar/maré através de uma gamboa natural até a casa de bombas. É considerada satisfatória para o pleno desenvolvimento do camarão marinho *litopenaeus vennamei* .
 
 <!-- -->
 
@@ -103,15 +99,13 @@ A engorda será desenvolvida em aproximadamente 120 dias, sendo realizada median
 
 <!-- -->
 
--   A área está inserida próximo ao mar, além de apresentar topografia ideal para afluência de água durante todo o ano independente do fluxo de maré, possibilitando bombeamento por até 06 horas por dia ( 08 horas por maré). Portanto, dispõe de um volume de água considerável, bem a cima da máxima quantidade necessária para o ótimo desempenho do projeto em funcionamento; 
+-   A área está inserida próximo ao mar, além de apresentar topografia ideal para afluência de água durante todo o ano independente do fluxo de maré, possibilitando bombeamento por até 06 horas por dia. Portanto, dispõe de um volume de água considerável, bem acima da máxima quantidade necessáriaara.
 
 <!-- -->
 
--   A área do empreendimento dispõe de infra-estrutura básica como distribuição de energia elétrica, estrada carroçável, galpão de ração, casa de apoio e escritório, ambos em um só prédio medindo 7,00X15,00m perfazendo uma área de 105m²;
+-   A área do empreendimento dispõe de infra-estrutura básica como distribuição de energia elétrica, estrada carroçável, galpão de ração, casa de apoio e escritório.
 
 <!-- -->
-
--   A mão-de-obra não especializada do projeto será provém da comunidade, contribuindo para geração de mais de 05  (cinco) empregos direto. A mão-de-obra está sendo utilizada nos processos de limpeza e manutenção dos viveiros, bem como na alimentação e arraçoamento dos camarões.
 
 ## Produção Anual
 
@@ -271,7 +265,7 @@ Em média, a sobrevivência anual é de 89,3%, considerados todos os cultivos de
 
 -   Realizamos 6 cultivos com Pls oriundas de um novo fornecedor localizado em Beberibe-CE, LaboScience, cujo responsável técnico é o Sr. Julio Macias de competência já reconhecida pelo trabalho realizado em outras larviculturas locais. A sobrevivência final destas Pls foi de apenas **57,77%**, o que puxou sobremaneira nossa média anual para baixo.
 
--   Minha segunda hipótese é que o solo dos viveiros já pede um novo tratamento, já fazem pelos menos 3 anos desde o último. Considero esta hipótese não muito robusta, pois os cultivos subsequentes, com outro fornecedor de Pls, já mostraram resultados mais compatíveis com o pedrfil da fazenda.
+-   Minha segunda hipótese é que o solo dos viveiros já pede um novo tratamento, já faz pelos menos 3 anos desde o último. Considero esta hipótese não muito robusta, pois os cultivos subsequentes, com outro fornecedor de Pls, já mostraram resultados mais compatíveis com o pedrfil da fazenda.
 
 ```{r}
 library(tidyverse)
