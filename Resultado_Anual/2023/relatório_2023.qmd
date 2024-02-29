@@ -52,8 +52,6 @@ ano_desp <- biom %>%
   select(ano_desp)
 ```
 
-Este realtório cobre somente o ano de `r max(ano_desp)`
-
 ---
 title:  "Relatório Anual - `r max(ano_desp)`"
 #css: styles.css
@@ -254,9 +252,18 @@ biom_ano <- biom %>%
   filter(ano_desp != '2024') %>% 
   group_by(ano_desp) %>%
   summarize(biom_real = round(sum(biom_real), 2))
+
+biom_mes <- biom %>% 
+  mutate(ano = year(data_desp), 
+         mes = month(data_desp, label = TRUE, abbr = TRUE)) %>% 
+  select(ano, viveiro, mes, biom_real) %>% 
+  group_by(mes) %>% 
+  summarise(mes = unique(mes), 
+            mean_kg = round(mean(biom_real),2), 
+            total_kg = sum(biom_real)) 
 ```
 
-Em 2023, a produção total foi de `r format(sum(biom_2023_todo$biom_real, na.rm = TRUE),big.mark = ".")` kg. Não ocorreram despescas nos meses de fevereiro e julho. Em média, foram despescados `r format(round(mean(biom_2023_todo$biom_real,na.rm = TRUE),0), big.mark = ".")` kg. Bem abaixo da média anual de produção é de `r format(round(mean(biom_ano$biom_real, na.rm = TRUE),0), big.mark = "." )` kg.
+Em 2023, a produção total foi de `r format(sum(biom_2023_todo$biom_real, na.rm = TRUE),big.mark = ".")` kg. Não ocorreram despescas nos meses de fevereiro e julho. Em média, foram despescados `r format(round(mean(biom_2023_todo$biom_real,na.rm = TRUE),0), big.mark = ".")` kg mensalmente. Um pouco acima da média mensal anual de produção que é de `r format(round(mean(biom_mes$mean_kg, na.rm = TRUE),0), big.mark = "." )` kg.
 
 ## Sobrevivência
 
