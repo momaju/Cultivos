@@ -5,6 +5,7 @@ format:
    self_contained: yes
    grid:
       margin-width: 250px
+   fig-cap-location: bottom
    fig-width: 13
    fig-height: 8
    page-layout: full
@@ -21,7 +22,7 @@ toc: true
 
 ```{r}
 
-#| label: load packages
+#| label: load-packages
 #| include: false
 
 library(tidyverse)
@@ -66,7 +67,7 @@ A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Cea
 
 ```{r}
 
-#| label: fig-localizacão
+#| label: fig-local
 #| fig-cap: "Mapa de Localização"
 #| column: body
 
@@ -109,11 +110,11 @@ Possui canal de abastecimento com formato de trapézio, medindo na base 8,00 m n
 
 <!-- -->
 
-## Produção Anual
+## Produção Mensal
 
 ```{r}
-#|label: ano-2023 
-#|fig-cap: "Produção 2023"
+#|label:  fig-barplot-mensal 
+#|fig-cap:  "Produção Mensal"
 
 # Libraries and Data ------------------------------------------------------
 
@@ -356,6 +357,9 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 # Boxplot sobrevivếncia ---------------------------------------------------
 
+#|label: fig-boxplot
+#|fig-cap: "Sobrevivência por Viveiro"
+
 sobrevive_viveiro_2023 <- biom %>%
   mutate(ano_desp = (year(data_desp)), 
          viveiro = factor(viveiro)) %>%
@@ -426,6 +430,9 @@ grid::grid.raster(logo,
 
 ```{r}
 # Custos Mensais com Ração em 2023
+
+#|label: fig-feedcosts 
+#|fig-cap: "Custos com Ração"
 
 library(tidyverse) 
 library(magick)
@@ -540,6 +547,9 @@ grid::grid.raster(logo,
 
 ```{r}
 # Custos mensais com Pls em 2023 ------------------------------------------
+
+#|label: fig-plcosts 
+#|fig-cap: "Custos com Pls"
 
 library(tidyverse) 
 library(magick)
@@ -657,6 +667,9 @@ grid::grid.raster(logo,
 
 ```{r}
 # Custos Mensais com Energia Elétrica em 2023
+
+#|label: fig-energycosts 
+#|fig-cap: "Custos com Eletricidade"
 
 library(tidyverse) 
 library(magick)
