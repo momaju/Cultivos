@@ -110,8 +110,8 @@ Possui canal de abastecimento com formato de trapézio, medindo na base 8,00 m n
 ## Produção Anual
 
 ```{r}
-#| label: fig-ano-2023 
-#| fig-cap: "Produção Mensal 2023"
+#|label: ano-2023 
+#|fig-cap: "Produção 2023"
 
 # Libraries and Data ------------------------------------------------------
 
