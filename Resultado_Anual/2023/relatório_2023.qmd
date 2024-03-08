@@ -34,6 +34,7 @@ library(scales)
 library(corrplot)
 library(magick)
 library(leaflet)
+library(knitr)
 ```
 
 ```{r}
@@ -67,7 +68,7 @@ A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Cea
 
 ```{r}
 
-#| label: fig-local
+#| label: fig-local  
 #| fig-cap: "Mapa de Localização"
 #| column: body
 
