@@ -66,6 +66,8 @@ A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Cea
 
 ```{r}
 
+#| label: fig-localizacão
+#| fig-cap: "Mapa de Localização"
 #| column: body
 
 library(leaflet)
@@ -268,6 +270,10 @@ Em média, a sobrevivência anual é de 89,3%, considerados todos os cultivos de
 -   Minha segunda hipótese é que o solo dos viveiros já pede um novo tratamento, já faz pelos menos 3 anos desde o último. Considero esta hipótese não muito robusta, pois os cultivos subsequentes, com outro fornecedor de Pls, já mostraram resultados mais compatíveis com o pedrfil da fazenda.
 
 ```{r}
+
+#| label: fig-sobrevive 
+#| fig-cap: "Sobrevivência Anual"
+
 library(tidyverse)
 library(googlesheets4)
 library(ggthemes)
