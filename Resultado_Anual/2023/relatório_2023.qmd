@@ -5,7 +5,6 @@ format:
    self_contained: yes
    grid:
       margin-width: 250px
-   fig-cap-location: bottom
    fig-width: 13
    fig-height: 8
    page-layout: full
@@ -68,8 +67,7 @@ A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Cea
 
 ```{r}
 
-#| label: fig-local  
-#| fig-cap: "Mapa de Localização"
+#| label: local  
 #| column: body
 
 library(leaflet)
@@ -114,20 +112,9 @@ Possui canal de abastecimento com formato de trapézio, medindo na base 8,00 m n
 ## Produção Mensal
 
 ```{r}
-#|label:  fig-barplot-mensal 
-#|fig-cap:  "Produção Mensal"
+#| label:  fig-barplot-mensal 
+#| fig-cap:  "Produção Mensal"
 
-# Libraries and Data ------------------------------------------------------
-
-library(tidyverse)
-library(googlesheets4)
-library(ggthemes)
-library(lubridate)
-library(ggrepel)
-library(scales)
-library(magick)
-
-biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 
 biom_2023_todo <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>% 
@@ -272,18 +259,8 @@ Em média, a sobrevivência anual é de 89,3%, considerados todos os cultivos de
 -   Minha segunda hipótese é que o solo dos viveiros já pede um novo tratamento, já faz pelos menos 3 anos desde o último. Considero esta hipótese não muito robusta, pois os cultivos subsequentes, com outro fornecedor de Pls, já mostraram resultados mais compatíveis com o pedrfil da fazenda.
 
 ```{r}
-
-#| label: fig-sobrevive 
-#| fig-cap: "Sobrevivência Anual"
-
-library(tidyverse)
-library(googlesheets4)
-library(ggthemes)
-library(lubridate)
-library(scales)
-library(magick)
-
-biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
+#| label:  fig-sobrevive 
+#| fig-cap:  "Sobrevivência Anual"
 
 sobrevive_ano <- biom %>%
   mutate(ano_desp = factor(year(data_desp))) %>%
@@ -346,20 +323,8 @@ grid::grid.raster(logo,
 ```
 
 ```{r}
-library(tidyverse)
-library(googlesheets4)
-library(ggthemes)
-library(lubridate)
-library(scales)
-library(magick)
-
-biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
-
-
-# Boxplot sobrevivếncia ---------------------------------------------------
-
-#|label: fig-boxplot
-#|fig-cap: "Sobrevivência por Viveiro"
+#| label:  fig-boxplot
+#| fig-cap:  "Sobrevivência por Viveiro"
 
 sobrevive_viveiro_2023 <- biom %>%
   mutate(ano_desp = (year(data_desp)), 
@@ -430,10 +395,8 @@ grid::grid.raster(logo,
 ### Ração
 
 ```{r}
-# Custos Mensais com Ração em 2023
-
-#|label: fig-feedcosts 
-#|fig-cap: "Custos com Ração"
+#| label:  fig-feedcosts 
+#| fig-cap:  "Custos com Ração"
 
 library(tidyverse) 
 library(magick)
@@ -547,10 +510,8 @@ grid::grid.raster(logo,
 ### Pós Larvas
 
 ```{r}
-# Custos mensais com Pls em 2023 ------------------------------------------
-
-#|label: fig-plcosts 
-#|fig-cap: "Custos com Pls"
+#| label:  fig-plcosts 
+#| fig-cap:  "Custos com Pls"
 
 library(tidyverse) 
 library(magick)
@@ -667,10 +628,8 @@ grid::grid.raster(logo,
 ### Eletricidade
 
 ```{r}
-# Custos Mensais com Energia Elétrica em 2023
-
-#|label: fig-energycosts 
-#|fig-cap: "Custos com Eletricidade"
+#| label:  fig-energycosts 
+#| fig-cap:  "Custos com Eletricidade"
 
 library(tidyverse) 
 library(magick)
