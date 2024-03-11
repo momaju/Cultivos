@@ -66,9 +66,9 @@ title-block-banner: "#000080"
 A Azul Marinho localiza-se no município de Itarema, a noroeste do Estado do Ceará, na microregião do litoral de Camaocim e Acaráu, na localidade conhecida como Morro da Sinhá. A principal via de acesso é pela CE 085 (Rodovia Estadual Litorânea Fortaleza – Itarema/ sol poente). Dista 176 km de Fortaleza.
 
 ```{r}
-
-#| label: local  
-#| column: body
+#| label:  fig-local
+#| fig-cap: "Localização do Empreendimento"  
+#| column:  body
 
 library(leaflet)
 leaflet() %>%
@@ -130,10 +130,10 @@ biom_2023_todo <- biom %>%
 # fosse inserido automaticamente.
 
 biom_2023_todo <-  biom_2023_todo %>% 
-  add_row(mes_desp = "fev", 
+  add_row(mes_desp = "Fev", 
           #biom_real = 0, # gives NA instead of zero
           .before = 2) %>% 
-  add_row(mes_desp = "jul", 
+  add_row(mes_desp = "Jul", 
           #biom_real = 0, # gives NA instead of zero
           .before = 7)
 
@@ -403,18 +403,18 @@ library(magick)
 
 feed_costs <- tibble::tribble(
   ~mes,       ~valor,
-  "jan",    12910.98, 
-  "fev",    17668.02,
-  "mar",     3200.00,
-  "abr",          NA,
-  "mai",     7592.60,
-  "jun",          NA,
-  "jul",          NA,
-  "ago",    39294.33,
-  "set",    16813.78,
-  "out",          NA,
-  "nov",    26117.06,
-  "dez",     3306.38, 
+  "Jan",    12910.98, 
+  "Fev",    17668.02,
+  "Mar",     3200.00,
+  "Abr",          NA,
+  "Mai",     7592.60,
+  "Jun",          NA,
+  "Jul",          NA,
+  "Ago",    39294.33,
+  "Set",    16813.78,
+  "Out",          NA,
+  "Nov",    26117.06,
+  "Dez",     3306.38, 
 )
 
 
@@ -518,18 +518,18 @@ library(magick)
 
 pls_costs <- tibble::tribble(
   ~mes,       ~valor,
-  "jan",    13000.00,   
-  "fev",     2198.20, 
-  "mar",     7133.00,  
-  "abr",     5589.00,  
-  "mai",          NA, 
-  "jun",    11480.00,  
-  "jul",          NA,  
-  "ago",     9020.00,  
-  "set",          NA,  
-  "out",     6480.00,  
-  "nov",     4725.00,  
-  "dez",     4425.00,   
+  "Jan",    13000.00,   
+  "Fev",     2198.20, 
+  "Mar",     7133.00,  
+  "Abr",     5589.00,  
+  "Mai",          NA, 
+  "Jun",    11480.00,  
+  "Jul",          NA,  
+  "Ago",     9020.00,  
+  "Set",          NA,  
+  "Out",     6480.00,  
+  "Nov",     4725.00,  
+  "Dez",     4425.00,   
 )
 
 
@@ -636,18 +636,18 @@ library(magick)
 
 energy_costs <- tibble::tribble(
   ~mes,       ~valor,
-  "jan",     2963.05, 
-  "fev",          NA,
-  "mar",     4575.29,
-  "abr",          NA,
-  "mai",     6326.02,
-  "jun",     2961.39,
-  "jul",     2546.11,
-  "ago",     2872.81,
-  "set",     3322.30,
-  "out",     2946.30,
-  "nov",     2732.84,
-  "dez",     3205.62, 
+  "Jan",     2963.05, 
+  "Fev",          NA,
+  "Mar",     4575.29,
+  "Abr",          NA,
+  "Nai",     6326.02,
+  "Jun",     2961.39,
+  "Jul",     2546.11,
+  "Ago",     2872.81,
+  "Set",     3322.30,
+  "Out",     2946.30,
+  "Nov",     2732.84,
+  "Dez",     3205.62, 
 )
 
 
