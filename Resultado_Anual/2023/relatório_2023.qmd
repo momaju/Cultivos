@@ -2,6 +2,7 @@
 author: "Mozart Marinho-Jr"
 format: 
   html:
+   code-fold: true
    self_contained: yes
    grid:
       margin-width: 250px
@@ -15,12 +16,11 @@ css: styles.css
 lang: pt
 editor: visual
 warning: false
-echo: false
+#echo: false
 toc: true
 ---
 
 ```{r}
-
 #| label: load-packages
 #| include: false
 
@@ -34,17 +34,20 @@ library(corrplot)
 library(magick)
 library(leaflet)
 library(knitr)
+library(kableExtra)
+library(gt)
+library(flextable)
+library(gtsummary)
+
 ```
 
 ```{r}
-
 #| label: load-data
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 ```
 
 ```{r}
-
 #| label:  set-year
 
 ano_desp <- biom %>% 
@@ -757,19 +760,9 @@ A tabela abaixo, mostra de forma resumida o desempenho de cada um dos laboratór
 Há relatos de outras fazendas, com bons resultados das Pls fornecidas pelo LBS, e inclusive resultados apresentados pelo próprio laboratório. Estas devem ser analisadas com cautela, pois não tivemos acesso aos números originais. A TIJ deixou de fornecer próximo ao final do ano. Os rumores, são de que estavam ofertando um produto de baixa qualidade.
 
 ```{r}
+#| labeL:  tbl-larvicultura
+#| tbl-cap:  "Desempenho da Várias Larviculturas Duarante o Ano de 2023"
 
-# # gtsummary ---------------------------------------------------------------
- 
-library(tidyverse)
-library(googlesheets4)
-library(ggthemes)
-library(lubridate)
-library(ggrepel)
-library(scales)
-library(kableExtra)
-library(gt)
-library(flextable)
-library(gtsummary)
 
 
 biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
