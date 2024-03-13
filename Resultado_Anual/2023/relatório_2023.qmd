@@ -18,6 +18,7 @@ editor: visual
 warning: false
 #echo: false
 toc: true
+number-sections: true
 ---
 
 ```{r}
