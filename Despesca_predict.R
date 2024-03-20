@@ -1,4 +1,4 @@
-# Previs"ao de Despesca
+# Previsão de Despesca
 # 
 library(tidyverse)
 library(googlesheets4)
@@ -18,9 +18,9 @@ biom <- read_sheet("1KkLM7bz-Az-etHUeENou-BjX4mDUfJCccwcCIo0k0CU", 2)
 biom %>%
   lm(biom_real ~ biom_calc + pop + ddc +
        densidade + baixa_mil, data = .) %>%
-  predict(data.frame(biom_calc = c(3330,1850),
-                     pop = c(470000,350000),
-                     ddc = c(45,41),
-                     densidade = c(12.05,11.99),
-                     baixa_mil = c(0.03,0.02))) %>%
+  predict(data.frame(biom_calc = c(2700,0),
+                     pop = c(470000,0),
+                     ddc = c(52,0),
+                     densidade = c(12.05,0),
+                     baixa_mil = c(0.045,0))) %>%
   round(2)
